@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body_class %}
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'home/css/main_page.css' %}">
+
+{% endblock extra_css %}
+
+{% block content %}
+    <main>
+        <section class="section-hero image-wrapper">
+            <img class="section-hero__img" src="{% static 'home/images/main_hero.webp' %}" alt="hero image, presentation of windows">
+            <svg class="section-hero__svg"><use xlink:href="#rightTriangle"></use></svg>
+        </section>
+        <section class="section-lead">
+            <div class="section-lead__inner-divider">
+                <p class="section-lead__motto motto text-black">
+                    stolarka stalowa i aluminiowa argo
+                </p>
+                <h1 class="section-lead__title title text-black">
+                    Innowacyjne rozwiązania, które definiują przestrzeń
+                </h1>
+                <p class="section-lead__text text text-black">
+                    Tworzymy stolarkę stalową i aluminiową, łącząc wytrzymałość materiałów z ponadczasową estetyką. Nasze realizacje wyróżniają się smukłymi liniami, precyzyjnymi detalami i perfekcją wykonania, dopasowaną do nawet najbardziej wymagającej przestrzeni.                </p>
+                <a class="section-lead__button button--variant_a" href="#">
+                    <span>poznaj nasze wartosci</span>
+                </a>
+            </div>
+
+
+        </section>
+        <section class="section-carpentry">
+            <div class="section-carpentry__inner-divider left">
+                <div class="section-carpentry__img-container image-wrapper">
+                    <img class="section-carpentry__img" src="{% static 'home/images/main_carpentry_left.webp' %}" alt="visualisation of metal carpentry"/>
+                </div>
+                <p class="section-carpentry__subtitle subtitle text-black">
+                    Stolarka Stalowa
+                </p>
+                <h1 class="section-carpentry__text text text-black">
+                    Oferujemy nowoczesne okna i drzwi stalowe, które łączą wytrzymałość z elegancją i minimalistycznym designem. Smukłe profile i duże przeszklenia pozwalają tworzyć konstrukcje o wyjątkowej estetyce, idealnie dopasowane do loftów, rezydencji i nowoczesnych przestrzeni.
+                </h1>
+                <a class="section-carpentry__button button--variant_b" href="#">
+                    <span>odkryj stolarke stalową</span>
+                </a>
+            </div>
+            <div class="section-carpentry__inner-divider right">
+                <div class="section-carpentry__img-container image-wrapper">
+                    <img class="section-carpentry__img" src="{% static 'home/images/main_carpentry_right.webp' %}" alt="visualisation of aluminium carpentry"/>
+                </div>
+                <p class="section-carpentry__subtitle subtitle text-black">
+                    Stolarka Aluminiowa
+                </p>
+                <h1 class="section-carpentry__text text text-black">
+                    Nasze okna i drzwi aluminiowe łączą funkcjonalność z wysoką izolacyjnością termiczną i estetyką dopracowaną w najdrobniejszych detalach. Dostępne w różnych systemach, umożliwiają realizację projektów od klasycznych po nowoczesne, zarówno w domach, jak i w obiektach komercyjnych.
+                </h1>
+                <a class="section-carpentry__button button--variant_b" href="#">
+                    <span>odkryj stolarke aluminiową</span>
+                </a>
+            </div>
+        </section>
+        <section class="section-steel">
+            <div class="section-steel__inner-divider">
+                <div class="section-steel__img-container image-wrapper">
+                    <img class="section-steel__img" src="{% static 'home/images/main_steel.webp' %}" alt=""/>
+                    <svg class="section-steel__img__svg"><use xlink:href="#rightTriangle"></use></svg>
+                </div>
+            </div>
+            <div class="section-steel__inner-divider">
+                <div class="section-steel__inner-divider__container">
+                    <svg class="section-steel__svg"><use xlink:href="#argoArrow"></use></svg>
+                    <p class="section-steel__motto motto text-black">
+                        Stolarka Stalowa
+                    </p>
+                    <h1 class="section-steel__title title text-black">
+                        Okna i drzwi stalowe<br>
+                        – nowoczesny design i trwałość
+                    </h1>
+                    <p class="section-steel__text text text-black">
+                        Nasze stalowe okna i drzwi łączą minimalistyczny design z wysoką trwałością. Smukłe profile i duże przeszklenia pozwalają na tworzenie nowoczesnych, estetycznych przestrzeni, idealnych do loftów, rezydencji <br>i wnętrz komercyjnych.
+                    </p>
+                    <a class="section-steel__button button--variant_a" href="#">
+                        <span>poznaj stalową precyzję</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section class="section-aluminium">
+            <div class="section-aluminium__inner-divider right image-wrapper">
+                <img class="section-aluminium__img" src="{% static 'home/images/main_aluminium.webp' %}" alt=""/>
+                <svg class="section-aluminium__img__svg"><use xlink:href="#rightTriangle"></use></svg>
+            </div>
+            <div class="section-aluminium__inner-divider left">
+                <p class="section-aluminium__motto motto">
+                    Stolarka Aluminiowa
+                </p>
+                <h1 class="section-aluminium__title title">
+                    Okna i drzwi aluminiowe<br>
+                    – lekkość i wszechstronność
+                </h1>
+                <p class="section-aluminium__text text">
+                    Produkty aluminiowe łączą nowoczesną estetykę z doskonałą izolacyjnością termiczną. Oferujemy różne systemy i konfiguracje, które pozwalają dopasować okna i drzwi do indywidualnych potrzeb domu lub obiektu komercyjnego.
+                </p>
+                <a class="section-aluminium__button button--variant_a" href="#">
+                    <span>sprawdź aluminiowe możliwości</span>
+                </a>
+            </div>
+        </section>
+        <section class="section-configurator">
+            <div class="section-configurator__inner-divider left">
+                <svg class="section-configurator__svg"><use xlink:href="#argoArrow"></use></svg>
+            </div>
+            <div class="section-configurator__inner-divider right">
+                <p class="section-configurator__motto motto">
+                    Rozwiazania, które definiują przestrzeń
+                </p>
+                <h1 class="section-configurator__title title">
+                    Skonfiguruj drzwi i okna stalowe ARGO krok po kroku: wybierz styl, wymiary, rodzaj szkła i dodatkowe funkcje.
+                </h1>
+                <a class="section-configurator__button button--variant_a" href="#">
+                    <span>skonfiguruj swój produkt</span>
+                </a>
+            </div>
+        </section>
+        <section class="section-image-divider image-wrapper">
+            <img class="section-image-divider__img" src="{% static 'home/images/main_divider.webp' %}" alt=""/>
+        </section>
+    </main>
+{% endblock content %}

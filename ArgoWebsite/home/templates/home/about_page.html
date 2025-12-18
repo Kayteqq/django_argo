@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body_class %}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'home/css/about_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+    <main>
+        <section class="section-hero">
+            <div class="section-hero__inner-divider right image-wrapper">
+                <img class="section-hero__img" src="{% static 'home/images/main_aluminium.webp' %}" alt=""/>
+                <svg class="section-hero__img__svg"><use xlink:href="#rightTriangle"></use></svg>
+            </div>
+            <div class="section-hero__inner-divider left">
+                <p class="section-hero__motto motto">
+                    Stolarka Aluminiowa
+                </p>
+                <h1 class="section-hero__title title">
+                    Okna i drzwi aluminiowe<br>
+                    – lekkość i wszechstronność
+                </h1>
+                <p class="section-hero__text text">
+                    Produkty aluminiowe łączą nowoczesną estetykę z doskonałą izolacyjnością termiczną. Oferujemy różne systemy i konfiguracje, które pozwalają dopasować okna i drzwi do indywidualnych potrzeb domu lub obiektu komercyjnego.
+                </p>
+            </div>
+        </section>
+        <section class="section-quality">
+            <div class="section-quality__inner-divider left image-wrapper">
+                <img class="section-quality__img" src="{% static 'home/images/main_aluminium.webp' %}" alt=""/>
+            </div>
+            <div class="section-quality__inner-divider right">
+                <p class="section-quality__motto motto">
+                    Stolarka Aluminiowa
+                </p>
+                <h1 class="section-quality__title title">
+                    Okna i drzwi aluminiowe<br>
+                    – lekkość i wszechstronność
+                </h1>
+                <p class="section-quality__text text">
+                    Produkty aluminiowe łączą nowoczesną estetykę z doskonałą izolacyjnością termiczną. Oferujemy różne systemy i konfiguracje, które pozwalają dopasować okna i drzwi do indywidualnych potrzeb domu lub obiektu komercyjnego.
+                </p>
+            </div>
+
+        </section>
+        <section class="section-concept">
+            <div class="section-concept__inner-divider left image-wrapper">
+                <img class="section-concept__img" src="{% static 'home/images/main_aluminium.webp' %}" alt=""/>
+            </div>
+            <div class="section-concept__inner-divider right">
+                <p class="section-concept__motto motto">
+                    Stolarka Aluminiowa
+                </p>
+                <h1 class="section-concept__title title">
+                    Okna i drzwi aluminiowe<br>
+                    – lekkość i wszechstronność
+                </h1>
+                <a class="section-concept__button button--variant_a" href="#">
+                    <span>poznaj nasze wartosci</span>
+                </a>
+            </div>
+        </section>
+        <section class="section-team">
+            <div class="section-concept__inner-divider top image-wrapper">
+                <img class="section-concept__img" src="{% static 'home/images/main_aluminium.webp' %}" alt=""/>
+            </div>
+            <div class="section-concept__inner-divider bottom">
+
+            </div>
+        </section>
+        <section class="section-certificates">
+
+        </section>
+        <section class="section-references">
+
+        </section>
+    </main>
+
+{% endblock content %}

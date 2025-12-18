@@ -1,0 +1,197 @@
+{% load static wagtailcore_tags wagtailuserbar %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>
+            {% block title %}
+            {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+            {% endblock %}
+            {% block title_suffix %}
+            {% wagtail_site as current_site %}
+            {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+            {% endblock %}
+        </title>
+        {% if page.search_description %}
+        <meta name="description" content="{{ page.search_description }}" />
+        {% endif %}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {# Force all links in the live preview panel to be opened in a new tab #}
+         {% if request.in_preview_panel %}
+        <base target="_blank">
+        {% endif %}
+
+        {# Global stylesheets #}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/Base.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/GlobalStructure.css' %}">
+
+        {% block extra_css %}
+        {# Override this in templates to add extra stylesheets #}
+        {% endblock %}
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    </head>
+
+    <body class="{% block body_class %}{% endblock %}">
+        {% include 'sprite.svg' %}
+        {% wagtailuserbar %}
+
+        <nav class="navbar" x-data="navbar()" x-init="init()" role="navigation" aria-label="main navigation">
+            <svg class="navbar__logo">
+                <use xlink:href="#argoLogo"></use>
+            </svg>
+            <ul :class="`navbar__links ${mobileMenuDisabled ? 'disabled': ''} ${mobileMenuOpen ? 'visible' : 'hidden'}`">
+                {% for block in navbar_links %}
+                    {% if block.block_type == 'page_link' %}
+                        <li class="navbar__links__item">
+                            <a href="{{ block.value.page.url }}">
+                                {{ block.value.text }}
+                            </a>
+                        </li>
+                    {% elif block.block_type == 'multiple_link' %}
+                        <li
+                                class="navbar__links__item"
+                                x-data="{active: false}"
+                                @mouseenter="active=true"
+                                @mouseleave="active=false"
+                                @focus="active=true"
+                                @blur="active=false"
+                        >
+                            {% for subblock in block.value %}
+                                {% if forloop.first %}
+                                    <a href="{{ subblock.value.page.url }}">
+                                        {{ subblock.value.text }}
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                            <ul :class="`navbar__links__expandable ${active ? 'visible' : ''}`">
+                                {% for subblock in block.value %}
+                                    {% if not forloop.first %}
+                                        <li class="navbar__links__expandable__item">
+                                            <a href="{{ subblock.value.page.url }}">
+                                                {{ subblock.value.text }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+            <span class="navbar__language-name">
+                {{ request.LANGUAGE_CODE }}
+            </span>
+
+            <div class="navbar__language-button">
+                <svg :class="langMenuOpen ? 'flipped' : ''">
+                    <use xlink:href="#languageButton"></use>
+                </svg>
+            </div>
+
+            <div :class="`navbar__language-box ${langMenuOpen ?'':'hidden'}`">
+                {% with translations=page.get_translations %}
+                    {% for translation in translations %}
+                        {% if translation.locale.language_code != request.LANGUAGE_CODE %}
+                            <template x-if="langMenuOpen">
+                                <a href="{{ translation.url }}" class="navbar__language-box__name">
+                                    {{ translation.locale.language_code }}
+                                </a>
+                            </template>
+                            <template x-if="!langMenuOpen">
+                                <p class="navbar__language-box__name">
+                                    {{ translation.locale.language_code }}
+                                </p>
+                            </template>
+                        {% endif %}
+                    {% endfor %}
+                {% endwith %}
+            </div>
+
+            <div
+                    class="navbar__language-hitbox"
+                    tabindex="0"
+                    @click="langMenuOpen = !langMenuOpen;"
+                    @keydown.enter="langMenuOpen = !langMenuOpen;"
+                    @keydown.space.prevent="langMenuOpen = !langMenuOpen;"
+                    role="button"
+            >
+
+            </div>
+
+            <svg class="navbar__search-button">
+                <use xlink:href="#search"></use>
+            </svg>
+
+            <div
+                    class="navbar__burger"
+                    x-html="burgerScheme"
+                    @click="burgerToggle().then().catch((err) => console.log(err))"
+            >
+            </div>
+
+        </nav>
+
+        {% block content %}{% endblock %}
+
+
+        <footer class="footer">
+            <div class="footer__divider left">
+                <svg class="footer__logo">
+                    <use xlink:href="#argoMark"></use>
+                </svg>
+
+                <p class="footer__address">
+                    ARGO sp. z o.o.<br>
+                    ul. Tokarska 21<br>
+                    20-210 Lublin<br>
+                    <br>
+                    NIP: 712-299-35-43<br>
+                    REGON: 060108877
+                </p>
+
+                <p class="footer__mark">
+                    © ARGO 2025
+                </p>
+            </div>
+            <div class="footer__divider right">
+                <div class="footer__column column-1">
+                    {% for block in footer_first_column_links %}
+                        {% if block.block_type == 'bold_page_link' %}
+                            <a href="{{ block.value.page.url }}" class="footer__text bolded"> {{ block.value.text }} </a>
+                        {% elif block.block_type == 'regular_page_link' %}
+                            <a href="{{ block.value.page.url }}" class="footer__text regular"> {{ block.value.text }} </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="footer__column column-2">
+                    {% for block in footer_second_column_links %}
+                        {% if block.block_type == 'bold_page_link' %}
+                            <a href="{{ block.value.page.url }}" class="footer__text bolded"> {{ block.value.text }} </a>
+                        {% elif block.block_type == 'regular_page_link' %}
+                            <a href="{{ block.value.page.url }}" class="footer__text regular"> {{ block.value.text }} </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="footer__column column-3">
+                    <a href="{{ settings.home.SocialMediaSettings.url_facebook }}" class="footer__text with-svg regular"><svg class="svg-inline"><use xlink:href="#iconFacebook"></use></svg>Facebook</a>
+                    <a href="{{ settings.home.SocialMediaSettings.url_instagram }}" class="footer__text with-svg regular"><svg class="svg-inline"><use xlink:href="#iconInstagram"></use></svg>Instagram</a>
+                    <a href="{{ settings.home.SocialMediaSettings.url_x }}" class="footer__text with-svg regular"><svg class="svg-inline"><use xlink:href="#iconTwitter"></use></svg>Twitter</a>
+                    <a href="{{ settings.home.SocialMediaSettings.url_linkedin }}" class="footer__text with-svg regular"><svg class="svg-inline"><use xlink:href="#iconLinkedin"></use></svg>LinkedIn</a>
+                </div>
+            </div>
+        </footer>
+        {# Global javascript #}
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+
+        <script type="text/javascript" src="{% static 'js/ArgoWebsite.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/Navbar.js' %}"></script>
+
+        {% block extra_js %}
+        {# Override this in templates to add extra javascript #}
+        {% endblock %}
+    </body>
+</html>
