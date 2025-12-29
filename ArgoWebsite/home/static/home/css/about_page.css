@@ -177,15 +177,15 @@ section {
     .section-certificates__segment__certificate {
         background: var(--argo-jasna-stal);
         position: relative;
-        height: 35.25rem;
+        aspect-ratio: 21 / 28;
     }
 
     .section-certificates__segment__img-wrapper {
         position: absolute;
-        top: 4.5rem;
-        left: 3.875rem;
-        right: 3.875rem;
-        bottom: 4.5rem;
+        top: 9.6vw;
+        left: 8.3vw;
+        right: 8.3vw;
+        bottom: 9.6vw;
     }
     .section-certificates__segment__img {
         width: 100%;
@@ -440,12 +440,12 @@ section {
     .section-certificates__segment__certificate {
         background: var(--argo-jasna-stal);
         position: relative;
-        height: 46.875rem;
+        aspect-ratio: 60 / 75;
     }
 
     .section-certificates__segment__img-wrapper {
         position: absolute;
-        inset: 5.625rem;
+        inset: 4.6875vw;
     }
     .section-certificates__segment__img {
         width: 100%;
