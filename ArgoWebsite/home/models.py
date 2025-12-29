@@ -142,37 +142,22 @@ class AboutPage(Page):
     subpage_types = []
 
 
-class ProductSteelWindowsPage(Page):
+class CarpentrySteelPage(Page):
     max_count = 1
-    template = 'home/product_steel_page.html'
+    template = 'home/carpentry_steel_page.html'
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
 
 
-class ProductAluminiumWindowsPage(Page):
+class CarpentryAluminiumPage(Page):
     max_count = 1
-    template = 'home/product_aluminium_page.html'
+    template = 'home/carpentry_aluminium_page.html'
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
 
 
-class ProductSteelGlamourPage(Page):
-    max_count = 1
-    template = 'home/product_steel_glamour_page.html'
-    parent_page_types = ['RootRedirectPage']
-    subpage_types = []
-
-
-class ProductSteelVintagePage(Page):
-    max_count = 1
-    template = 'home/product_steel_vintage_page.html'
-    parent_page_types = ['RootRedirectPage']
-    subpage_types = []
-
-
-class ProductSteelIndustrialPage(Page):
-    max_count = 1
-    template = 'home/product_steel_industrial_page.html'
+class CollectionPage(Page):
+    template = 'home/collection_page.html'
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
 
@@ -210,3 +195,5 @@ class PrivacyPoliticsPage(Page):
     template = 'home/privacy_politics_page.html'
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
+
+
