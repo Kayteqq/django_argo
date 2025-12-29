@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body_class %}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'home/css/about_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<main>
+    <section class="section-hero">
+        <div class="section-hero__inner-divider left image-wrapper">
+
+        </div>
+        <div class="section-hero__inner-divider right">
+            <p class="section-hero__motto motto">
+                Argo Steel Line
+            </p>
+            <h1 class="section-hero__title title">
+                Industrial
+            </h1>
+            <p class="section-hero__text text">
+                Linia INDUSTRIAL to połączenie surowej estetyki i precyzyjnego wykończenia. Smukłe profile, wyraziste podziały i charakter stali nadają oknom ponadczasowy, industrialny styl. To rozwiązanie dla wnętrz, które stawiają na światło, wyrazistość i design z silnym charakterem.
+            </p>
+            <a class="section-hero__button button--variant_a" href="#">
+                <span>skonfiguruj swój produkt</span>
+            </a>
+        </div>
+    </section>
+    <section class="section-display-1">
+        <div class="section-display-1__inner-divider right image-wrapper">
+            <img class="section-display-1__img" src="{% static 'home/images/about_display-1.webp' %}" alt=""/>
+        </div>
+        <div class="section-display-1__inner-divider left">
+            <p class="section-display-1__motto motto">
+                Co nas wyróżnia
+            </p>
+            <h1 class="section-display-1__title title">
+                Jakość, design i funkcjonalność
+                w każdym detalu
+            </h1>
+            <p class="section-display-1__text text">
+                W ARGO dysponujemy własnym biurem konstrukcyjnym i doświadczonym zespołem produkcyjnym. Posiadamy zaawansowane maszyny CNC oraz specjalistyczne narzędzia kalibracyjne, które pozwalają realizować projekty z najwyższą precyzją i dbałością o każdy detal.
+                <br><br>
+                Nasze możliwości obejmują tworzenie indywidualnych rozwiązań stolarki stalowej i aluminiowej, personalizację produktów, zastosowanie innowacyjnych technologii oraz realizację nawet najbardziej wymagających projektów pod kątem formy, funkcji i estetyki.
+            </p>
+        </div>
+    </section>
+    <section class="section-display-2">
+        <div class="section-display-2__inner-divider left image-wrapper">
+            <img class="section-display-2__img" src="{% static 'home/images/about_display-1.webp' %}" alt=""/>
+        </div>
+        <div class="section-display-2__inner-divider right">
+            <p class="section-display-2__motto motto">
+                Co nas wyróżnia
+            </p>
+            <h1 class="section-display-2__title title">
+                Jakość, design i funkcjonalność
+                w każdym detalu
+            </h1>
+            <p class="section-display-2__text text">
+                W ARGO dysponujemy własnym biurem konstrukcyjnym i doświadczonym zespołem produkcyjnym. Posiadamy zaawansowane maszyny CNC oraz specjalistyczne narzędzia kalibracyjne, które pozwalają realizować projekty z najwyższą precyzją i dbałością o każdy detal.
+                <br><br>
+                Nasze możliwości obejmują tworzenie indywidualnych rozwiązań stolarki stalowej i aluminiowej, personalizację produktów, zastosowanie innowacyjnych technologii oraz realizację nawet najbardziej wymagających projektów pod kątem formy, funkcji i estetyki.
+            </p>
+        </div>
+    </section>
+    <section class="section-details">
+
+    </section>
+    <section class="section-configurator">
+
+    </section>
+</main>
+
+{% endblock content %}
