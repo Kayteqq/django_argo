@@ -2,7 +2,7 @@ html {
     font-size: 8px;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    background-color: gray;
+    background-color: var(--argo-biel);
 
 }
 

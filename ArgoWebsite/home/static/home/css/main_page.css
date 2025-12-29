@@ -480,7 +480,7 @@ section {
         background: var(--argo-błękit);
         display: flex;
         flex-direction: row-reverse;
-
+        height: 55rem;
     }
 
     .section-aluminium__inner-divider.left {
