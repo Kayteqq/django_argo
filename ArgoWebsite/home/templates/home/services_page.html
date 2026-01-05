@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body_class %}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'home/css/services_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<main>
+    <section class="section-hero">
+        <div class="section-hero__inner-divider left image-wrapper">
+            <img class="section-hero__img" src="{% static 'home/images/services_hero.webp' %}" alt="hero image, presentation of windows">
+        </div>
+        <div class="section-hero__inner-divider right">
+            <svg class="section-hero__svg-container">
+                <use xlink:href="#argoArrow"></use>
+            </svg>
+            <h1 class="section-hero__title title">
+                Usługi
+            </h1>
+            <p class="section-hero__text text">
+                Dysponując nowoczesnym zapleczem projektowym i parkiem maszynowym, a także współpracując z doświadczonymi podwykonawcami, oferujemy kompleksowe usługi obróbki metali. Wykonujemy cięcie blach i profili z aluminium, stali konstrukcyjnej, nierdzewnej oraz metali nieżelaznych, a także precyzyjne obróbki blacharskie i wycinanie elementów laserem.
+            </p>
+        </div>
+    </section>
+    <section class="section-display">
+        <div class="section-display__inner-divider right image-wrapper">
+            <img class="section-display__img" src="{% static 'home/images/services_display.webp' %}" alt=""/>
+        </div>
+        <div class="section-display__inner-divider left">
+            <p class="section-display__text text">
+                Specjalizujemy się w spawaniu stali konstrukcyjnej, stali nierdzewnej, aluminium oraz mosiądzu i brązu. Uzupełnieniem oferty są usługi wykończeniowe, takie jak cynkowanie galwaniczne i ogniowe oraz malowanie proszkowe, które pozwalają uzyskać trwałe i estetyczne powierzchnie dostosowane do wymagań każdego projektu.            </p>
+            <a class="section-display__button button--variant_a" href="#">
+                <span>skontaktuj sie z niami</span>
+            </a>
+        </div>
+    </section>
+    <section class="section-smart-home">
+        <div class="section-smart-home__inner-divider left">
+            <svg class="section-smart-home__svg"><use xlink:href="#argoArrow"></use></svg>
+        </div>
+        <div class="section-smart-home__inner-divider right">
+            <p class="section-smart-home__motto motto">
+                INTELIGENTNE ROZWIĄZANIA DLA TWOJEGO DOMU
+            </p>
+            <div class="section-smart-home__grid">
+                <h1 class="section-smart-home__title title">
+                    Systemy Smart Home w produktach ARGO
+                </h1>
+                <p class="section-smart-home__text text">
+                    ARGO oferuje możliwość wyposażenia okien i drzwi w elementy wspierające systemy Smart Home, zwiększające bezpieczeństwo i komfort użytkowania. Dzięki nowoczesnym rozwiązaniom, możesz w prosty sposób integrować produkty z inteligentnym sterowaniem domu, dostosowując funkcje do swoich potrzeb.
+                </p>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock content %}
