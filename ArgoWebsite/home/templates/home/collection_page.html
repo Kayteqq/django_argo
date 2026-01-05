@@ -4,16 +4,19 @@
 {% block body_class %}{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'home/css/about_page.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/collection_page.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
 <main>
     <section class="section-hero">
-        <div class="section-hero__inner-divider left image-wrapper">
-
+        <div class="section-hero__inner-divider left">
+            <img class="section-hero__img" src="{% static 'home/images/collection_hero.webp' %}" alt="hero image, presentation of windows">
         </div>
         <div class="section-hero__inner-divider right">
+            <svg class="section-hero__svg-container">
+                <use xlink:href="#argoArrow"></use>
+            </svg>
             <p class="section-hero__motto motto">
                 Argo Steel Line
             </p>
@@ -30,47 +33,144 @@
     </section>
     <section class="section-display-1">
         <div class="section-display-1__inner-divider right image-wrapper">
-            <img class="section-display-1__img" src="{% static 'home/images/about_display-1.webp' %}" alt=""/>
+            <img class="section-display-1__img" src="{% static 'home/images/collection_display_1.webp' %}" alt=""/>
         </div>
         <div class="section-display-1__inner-divider left">
             <p class="section-display-1__motto motto">
-                Co nas wyróżnia
+                Wyrazisty design
             </p>
             <h1 class="section-display-1__title title">
-                Jakość, design i funkcjonalność
-                w każdym detalu
+                Stalowe okna inspirowane architekturą loftów
             </h1>
             <p class="section-display-1__text text">
-                W ARGO dysponujemy własnym biurem konstrukcyjnym i doświadczonym zespołem produkcyjnym. Posiadamy zaawansowane maszyny CNC oraz specjalistyczne narzędzia kalibracyjne, które pozwalają realizować projekty z najwyższą precyzją i dbałością o każdy detal.
-                <br><br>
-                Nasze możliwości obejmują tworzenie indywidualnych rozwiązań stolarki stalowej i aluminiowej, personalizację produktów, zastosowanie innowacyjnych technologii oraz realizację nawet najbardziej wymagających projektów pod kątem formy, funkcji i estetyki.
+                INDUSTRIAL to kolekcja dla tych, którzy cenią autentyczność i ponadczasowy styl. Smukłe podziały, szklenie na dużą skalę i solidna konstrukcja tworzą efekt charakterystyczny dla architektury postindustrialnej, sprawdzający się zarówno w nowoczesnych, jak i klasycznych wnętrzach.
             </p>
         </div>
     </section>
     <section class="section-display-2">
         <div class="section-display-2__inner-divider left image-wrapper">
-            <img class="section-display-2__img" src="{% static 'home/images/about_display-1.webp' %}" alt=""/>
+            <img class="section-display-2__img" src="{% static 'home/images/collection_display_2.webp' %}" alt=""/>
         </div>
         <div class="section-display-2__inner-divider right">
             <p class="section-display-2__motto motto">
-                Co nas wyróżnia
+                Charakter Wpisany w Detal
             </p>
             <h1 class="section-display-2__title title">
-                Jakość, design i funkcjonalność
-                w każdym detalu
+                Wyraziste stalowe okna do przestrzeni pełnych światła
             </h1>
             <p class="section-display-2__text text">
-                W ARGO dysponujemy własnym biurem konstrukcyjnym i doświadczonym zespołem produkcyjnym. Posiadamy zaawansowane maszyny CNC oraz specjalistyczne narzędzia kalibracyjne, które pozwalają realizować projekty z najwyższą precyzją i dbałością o każdy detal.
-                <br><br>
-                Nasze możliwości obejmują tworzenie indywidualnych rozwiązań stolarki stalowej i aluminiowej, personalizację produktów, zastosowanie innowacyjnych technologii oraz realizację nawet najbardziej wymagających projektów pod kątem formy, funkcji i estetyki.
+                Smukłe profile, proporcje inspirowane klasycznymi podziałami i surowy charakter stali nadają tej linii unikalny wygląd. INDUSTRIAL sprawdza się w przestrzeniach mieszkalnych, komercyjnych i rewitalizowanych, łącząc funkcjonalność z estetyką nawiązującą do architektury loftowej.
             </p>
         </div>
     </section>
     <section class="section-details">
+        <div class="section-details__inner-divider left">
+            <img class="section-details__img" src="{% static 'home/images/collection_details.webp' %}" alt=""/>
+        </div>
+        <div class="section-details__inner-divider right">
+            <p class="section-details__motto motto">
+                WYTRZYMAŁOŚĆ I DESIGN
+            </p>
+            <h1 class="section-details__title title">
+                Linia INDUSTRIAL – funkcjonalność w stalowej formie
+            </h1>
+            <div class="section-details__grid">
+                <div class="section-details__grid__item svg-container">
+                    <svg class="section-details__grid__svg">
+                        <use xlink:href="#argoArrow"></use>
+                    </svg>
+                </div>
+                <div class="section-details__grid__item">
+                    <h2 class="section-details__grid__keyword keyword">
+                        Wymiary
+                    </h2>
+                </div>
+                <div class="section-details__grid__item">
+                    <p class="section-details__grid__list-text list-text">
+                        Drwzi wysokie nawet na 5 metrów. <br>Profile o grubości od 10 mm do 100 mm
+                    </p>
+                </div>
+                <div class="section-details__grid__item svg-container">
+                    <svg class="section-details__grid__svg">
+                        <use xlink:href="#argoArrow"></use>
+                    </svg>
+                </div>
+                <div class="section-details__grid__item">
+                    <h2 class="section-details__grid__keyword keyword">
+                        Kształt Konstrukcji
+                    </h2>
+                </div>
+                <div class="section-details__grid__item">
+                    <p class="section-details__grid__list-text list-text">
+                        Regularne i nieregularne kształty całej zabudowy
+                    </p>
+                </div>
+                <div class="section-details__grid__item svg-container">
+                    <svg class="section-details__grid__svg">
+                        <use xlink:href="#argoArrow"></use>
+                    </svg>
+                </div>
+                <div class="section-details__grid__item">
+                    <h2 class="section-details__grid__keyword keyword">
+                        Ilość skrzydeł
+                    </h2>
+                </div>
+                <div class="section-details__grid__item">
+                    <p class="section-details__grid__list-text list-text">
+                        Pojedyncze, podwójne, wieloelementowe
+                    </p>
+                </div>
 
+                <div class="section-details__grid__item svg-container">
+                    <svg class="section-details__grid__svg">
+                        <use xlink:href="#argoArrow"></use>
+                    </svg>
+                </div>
+                <div class="section-details__grid__item">
+                    <h2 class="section-details__grid__keyword keyword">
+                        Ilość i układ szprosów
+                    </h2>
+                </div>
+                <div class="section-details__grid__item">
+                    <p class="section-details__grid__list-text list-text">
+                        Dowolna ilość szprosów oraz układ.
+                    </p>
+                </div>
+
+                <div class="section-details__grid__item svg-container">
+                    <svg class="section-details__grid__svg">
+                        <use xlink:href="#argoArrow"></use>
+                    </svg>
+                </div>
+                <div class="section-details__grid__item">
+                    <h2 class="section-details__grid__keyword keyword">
+                        Ilość i układ segmentów
+                    </h2>
+                </div>
+                <div class="section-details__grid__item">
+                    <p class="section-details__grid__list-text list-text">
+                        Dowolny układ skrzydeł drzwiowych i naświetleń.
+                    </p>
+                </div>
+
+            </div>
+        </div>
     </section>
     <section class="section-configurator">
-
+        <div class="section-configurator__inner-divider left">
+            <svg class="section-configurator__svg"><use xlink:href="#argoArrow"></use></svg>
+        </div>
+        <div class="section-configurator__inner-divider right">
+            <p class="section-configurator__motto motto">
+                Rozwiazania, które definiują przestrzeń
+            </p>
+            <h1 class="section-configurator__title title">
+                Skonfiguruj drzwi i okna stalowe ARGO krok po kroku: wybierz styl, wymiary, rodzaj szkła i dodatkowe funkcje.
+            </h1>
+            <a class="section-configurator__button button--variant_a" href="#">
+                <span>skonfiguruj swój produkt</span>
+            </a>
+        </div>
     </section>
 </main>
 

@@ -254,11 +254,11 @@ section {
 
     .section-configurator__inner-divider.left {
         position: relative;
-        height: 13.5rem;
+        height: 28.8vw;
     }
 
     .section-configurator__svg {
-        max-height: 13.5rem;
+        max-height: 28.8vw;
         position: absolute;
         aspect-ratio: 1;
         left: 0;
@@ -270,7 +270,7 @@ section {
     }
 
     .section-configurator__inner-divider.right {
-        margin-top: 1.125rem;
+        margin-top: 2.4vw;
         display: flex;
         flex-direction: column;
     }
