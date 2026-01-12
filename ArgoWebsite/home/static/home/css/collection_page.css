@@ -46,6 +46,7 @@ section {
 
     .section-hero__img {
         height: 80%;
+        width: auto;
     }
 
     .section-hero__inner-divider.right {
@@ -222,6 +223,7 @@ section {
     }
     .section-hero__img {
         height: 86.8%;
+        width: auto;
     }
 
     .section-hero__inner-divider.right {

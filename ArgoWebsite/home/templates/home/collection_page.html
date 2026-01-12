@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load wagtailimages_tags %}
 
 {% block body_class %}{% endblock %}
 
@@ -11,68 +12,68 @@
 <main>
     <section class="section-hero">
         <div class="section-hero__inner-divider left">
-            <img class="section-hero__img" src="{% static 'home/images/collection_hero.webp' %}" alt="hero image, presentation of windows">
+            {% image page.image_hero original class='section-hero__img' %}
         </div>
         <div class="section-hero__inner-divider right">
             <svg class="section-hero__svg-container">
                 <use xlink:href="#argoArrow"></use>
             </svg>
             <p class="section-hero__motto motto">
-                Argo Steel Line
+                {{ page.motto_hero }}
             </p>
             <h1 class="section-hero__title title">
-                Industrial
+                {{ page.title_hero }}
             </h1>
             <p class="section-hero__text text">
-                Linia INDUSTRIAL to połączenie surowej estetyki i precyzyjnego wykończenia. Smukłe profile, wyraziste podziały i charakter stali nadają oknom ponadczasowy, industrialny styl. To rozwiązanie dla wnętrz, które stawiają na światło, wyrazistość i design z silnym charakterem.
+                {{ page.text_hero }}
             </p>
-            <a class="section-hero__button button--variant_a" href="#">
-                <span>skonfiguruj swój produkt</span>
+            <a class="section-hero__button button--variant_a" href="{{ page.redirect_hero.url }}">
+                <span>{{ page.button_hero }}</span>
             </a>
         </div>
     </section>
     <section class="section-display-1">
         <div class="section-display-1__inner-divider right image-wrapper">
-            <img class="section-display-1__img" src="{% static 'home/images/collection_display_1.webp' %}" alt=""/>
+            {% image page.image_display_1 original class='section-display-1__img' %}
         </div>
         <div class="section-display-1__inner-divider left">
             <p class="section-display-1__motto motto">
-                Wyrazisty design
+                {{ page.motto_display_1 }}
             </p>
             <h1 class="section-display-1__title title">
-                Stalowe okna inspirowane architekturą loftów
+                {{ page.title_display_1 }}
             </h1>
             <p class="section-display-1__text text">
-                INDUSTRIAL to kolekcja dla tych, którzy cenią autentyczność i ponadczasowy styl. Smukłe podziały, szklenie na dużą skalę i solidna konstrukcja tworzą efekt charakterystyczny dla architektury postindustrialnej, sprawdzający się zarówno w nowoczesnych, jak i klasycznych wnętrzach.
+                {{ page.text_display_1 }}
             </p>
         </div>
     </section>
     <section class="section-display-2">
         <div class="section-display-2__inner-divider left image-wrapper">
-            <img class="section-display-2__img" src="{% static 'home/images/collection_display_2.webp' %}" alt=""/>
+            {% image page.image_display_2 original class='section-display-2__img' %}
         </div>
         <div class="section-display-2__inner-divider right">
             <p class="section-display-2__motto motto">
-                Charakter Wpisany w Detal
+                {{ page.motto_display_2 }}
             </p>
             <h1 class="section-display-2__title title">
-                Wyraziste stalowe okna do przestrzeni pełnych światła
+                {{ page.title_display_2 }}
             </h1>
             <p class="section-display-2__text text">
-                Smukłe profile, proporcje inspirowane klasycznymi podziałami i surowy charakter stali nadają tej linii unikalny wygląd. INDUSTRIAL sprawdza się w przestrzeniach mieszkalnych, komercyjnych i rewitalizowanych, łącząc funkcjonalność z estetyką nawiązującą do architektury loftowej.
+                {{ page.text_display_2 }}
             </p>
         </div>
     </section>
     <section class="section-details">
         <div class="section-details__inner-divider left">
-            <img class="section-details__img" src="{% static 'home/images/collection_details.webp' %}" alt=""/>
+            {% image page.image_details original class='section-details__img' %}
         </div>
         <div class="section-details__inner-divider right">
             <p class="section-details__motto motto">
-                WYTRZYMAŁOŚĆ I DESIGN
+                {{ page.motto_details }}
             </p>
             <h1 class="section-details__title title">
-                Linia INDUSTRIAL – funkcjonalność w stalowej formie
+                {{ page.title_details }}
             </h1>
             <div class="section-details__grid">
                 <div class="section-details__grid__item svg-container">
@@ -82,12 +83,12 @@
                 </div>
                 <div class="section-details__grid__item">
                     <h2 class="section-details__grid__keyword keyword">
-                        Wymiary
+                        {{ page.title_1_details }}
                     </h2>
                 </div>
                 <div class="section-details__grid__item">
                     <p class="section-details__grid__list-text list-text">
-                        Drwzi wysokie nawet na 5 metrów. <br>Profile o grubości od 10 mm do 100 mm
+                        {{ page.desc_1_details }}
                     </p>
                 </div>
                 <div class="section-details__grid__item svg-container">
@@ -97,12 +98,12 @@
                 </div>
                 <div class="section-details__grid__item">
                     <h2 class="section-details__grid__keyword keyword">
-                        Kształt Konstrukcji
+                        {{ page.title_2_details }}
                     </h2>
                 </div>
                 <div class="section-details__grid__item">
                     <p class="section-details__grid__list-text list-text">
-                        Regularne i nieregularne kształty całej zabudowy
+                        {{ page.desc_2_details }}
                     </p>
                 </div>
                 <div class="section-details__grid__item svg-container">
@@ -112,28 +113,12 @@
                 </div>
                 <div class="section-details__grid__item">
                     <h2 class="section-details__grid__keyword keyword">
-                        Ilość skrzydeł
+                        {{ page.title_3_details }}
                     </h2>
                 </div>
                 <div class="section-details__grid__item">
                     <p class="section-details__grid__list-text list-text">
-                        Pojedyncze, podwójne, wieloelementowe
-                    </p>
-                </div>
-
-                <div class="section-details__grid__item svg-container">
-                    <svg class="section-details__grid__svg">
-                        <use xlink:href="#argoArrow"></use>
-                    </svg>
-                </div>
-                <div class="section-details__grid__item">
-                    <h2 class="section-details__grid__keyword keyword">
-                        Ilość i układ szprosów
-                    </h2>
-                </div>
-                <div class="section-details__grid__item">
-                    <p class="section-details__grid__list-text list-text">
-                        Dowolna ilość szprosów oraz układ.
+                        {{ page.desc_3_details }}
                     </p>
                 </div>
 
@@ -144,12 +129,28 @@
                 </div>
                 <div class="section-details__grid__item">
                     <h2 class="section-details__grid__keyword keyword">
-                        Ilość i układ segmentów
+                        {{ page.title_4_details }}
                     </h2>
                 </div>
                 <div class="section-details__grid__item">
                     <p class="section-details__grid__list-text list-text">
-                        Dowolny układ skrzydeł drzwiowych i naświetleń.
+                        {{ page.desc_4_details }}
+                    </p>
+                </div>
+
+                <div class="section-details__grid__item svg-container">
+                    <svg class="section-details__grid__svg">
+                        <use xlink:href="#argoArrow"></use>
+                    </svg>
+                </div>
+                <div class="section-details__grid__item">
+                    <h2 class="section-details__grid__keyword keyword">
+                        {{ page.title_5_details }}
+                    </h2>
+                </div>
+                <div class="section-details__grid__item">
+                    <p class="section-details__grid__list-text list-text">
+                        {{ page.desc_5_details }}
                     </p>
                 </div>
 
@@ -162,13 +163,13 @@
         </div>
         <div class="section-configurator__inner-divider right">
             <p class="section-configurator__motto motto">
-                Rozwiazania, które definiują przestrzeń
+                {{ page.motto_configurator }}
             </p>
             <h1 class="section-configurator__title title">
-                Skonfiguruj drzwi i okna stalowe ARGO krok po kroku: wybierz styl, wymiary, rodzaj szkła i dodatkowe funkcje.
+                {{ page.title_configurator }}
             </h1>
-            <a class="section-configurator__button button--variant_a" href="#">
-                <span>skonfiguruj swój produkt</span>
+            <a class="section-configurator__button button--variant_a" href="{{ page.redirect_configurator.url }}">
+                <span>{{ page.button_configurator }}</span>
             </a>
         </div>
     </section>
