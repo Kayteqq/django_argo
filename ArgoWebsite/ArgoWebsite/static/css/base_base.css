@@ -50,6 +50,20 @@ html {
     }
 }
 
+main {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    max-width: 100vw;
+    overflow: hidden;
+}
+
+section {
+    flex: 0 0 auto;
+}
+
 
 html::-webkit-scrollbar {
     display: none;
@@ -116,6 +130,17 @@ a:hover {
     font-style: normal;
 }
 
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+}
 
 svg.flipped {
     transform: rotate(180deg);

@@ -50,7 +50,7 @@
             <path d="M321.1,341.5v.8h-3.4v-4.3h3.3v.8h-2.3v.9h2v.8h-2v1h2.4Z"/>
         </g>
     </symbol>
-    <symbol id="argoArrow" viewBox="3 3 387 384" fill="var(--color-fill)" stroke="var(--color-stroke)" stroke-width="var(--stroke-width)">
+    <symbol id="argoArrow" viewBox="-2 -2 400 400" fill="var(--color-fill)" stroke="var(--color-stroke)" stroke-width="var(--stroke-width)">
         <g>
             <rect width="63.667" height="288.719" transform="translate(3.893 48.714) rotate(-45)" stroke-miterlimit="10"/>
             <path d="M378.59,344.024l-31.96,31.715H6.081V312.312l308.59,0,0-306.228H378.59Z" transform="translate(10.657 10.529)" stroke-miterlimit="10"/>

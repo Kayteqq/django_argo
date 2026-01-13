@@ -1,0 +1,580 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body_class %}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'home/css/configurator_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<main>
+    <section class="section-hero">
+        <p class="section-hero__motto motto">
+            Stwórz model dopasowany do siebie
+        </p>
+        <h1 class="section-hero__title title">
+            Konfigurator produktu
+        </h1>
+        <p class="section-hero__text text">
+            Konfigurator umożliwia samodzielne dobranie parametrów okien i drzwi stalowych - od wymiarów i podziałów, po kolor, szklenie i detale wykończenia. Po zakończeniu konfiguracji możesz otrzymać wstępną wycenę oraz przekazać projekt do bezpośredniego kontaktu z naszym zespołem. To szybki sposób, by przejść od pomysłu do realizacji.
+        </p>
+        <button class="section-hero__button button--variant_a">
+            <span>START</span>
+        </button>
+
+    </section>
+    <section
+            class="section-configurator"
+            x-data="globalData()"
+    >
+        <div class="step" id="step-1">
+            <div class="section-configurator__headline">
+                <button class="section-configurator__headline__button" @click="switchStep(0)">
+                    <span class="sr-only">Step 1</span>
+                </button>
+                <svg :class="`section-configurator__headline__svg ${activeSteps[0] ? 'active' : 'inactive'}`">
+                    <use xlink:href="#argoArrow"></use>
+                </svg>
+                <div class="section-configurator__headline__content">
+                    <h1 class="section-configurator__headline__content__motto motto">KROK 1</h1>
+                    <h2 class="section-configurator__headline__content__subtitle subtitle">Wybór kolekcji</h2>
+                </div>
+            </div>
+            <template x-if="activeSteps[0]">
+                <div class="section-configuration__content">
+                    <p class="description text">Wybór jednej z trzech oferowanych linii stylistycznych.</p>
+
+                    <div
+                            class="selection selection--gap-wide"
+                            :style="`
+                                grid-template-columns: repeat(3, 1fr);
+                            `"
+                    >
+                        <div :class="`selection__element ${selectedStyleLine === 'industrial' ? 'selection__element--selected' : ''}`" @mousedown="chooseStyleLine('industrial')">
+                            <div class="selection__frame">
+                                <img class="selection__frame__vis" src="{% static 'home/images/carpentry_steel_collections_industrial.webp' %}" alt="wizualizacja linii stylistycznej"/>
+                            </div>
+                            <div class="selection__description">
+                                <h2 class="selection__description__subtitle subtitle">Linia Industrial</h2>
+                                <p class="selection__description__text text">
+                                    Lorem ipsum dolor sit amet, consectetuer
+                                    adipiscing elit, sed diam nonummy nibh
+                                    euismod tincidunt ut laoreet dolore magna
+                                    aliquam erat volutpat. Ut wisi enim ad
+                                    minim veniam, quis
+                                </p>
+                            </div>
+                            <button class="selection__button variant_a" @click="chooseStyleLine('industrial')">
+                                <span>Wybieram</span>
+                            </button>
+                        </div>
+                        <div :class="`selection__element ${selectedStyleLine === 'vintage' ? 'selection__element--selected' : ''}`" @mousedown="chooseStyleLine('vintage')">
+                            <div class="selection__frame">
+                                <img class="selection__frame__vis" src="{% static 'home/images/carpentry_steel_collections_vintage.webp' %}" alt="wizualizacja linii stylistycznej"/>
+                            </div>
+                            <div class="selection__description">
+                                <h2 class="selection__description__subtitle subtitle">Linia Vintage</h2>
+                                <p class="selection__description__text text">
+                                    Lorem ipsum dolor sit amet, consectetuer
+                                    adipiscing elit, sed diam nonummy nibh
+                                    euismod tincidunt ut laoreet dolore magna
+                                    aliquam erat volutpat. Ut wisi enim ad
+                                    minim veniam, quis
+                                </p>
+                            </div>
+                            <button class="selection__button variant_a" @click="chooseStyleLine('vintage')">
+                                <span>Wybieram</span>
+                            </button>
+                        </div>
+                        <div :class="`selection__element ${selectedStyleLine === 'glamour' ? 'selection__element--selected' : ''}`" @mousedown="chooseStyleLine('glamour')">
+                            <div class="selection__frame">
+                                <img class="selection__frame__vis" src="{% static 'home/images/carpentry_steel_collections_glamour.webp' %}" alt="wizualizacja linii stylistycznej"/>
+                            </div>
+                            <div class="selection__description">
+                                <h2 class="selection__description__subtitle subtitle">Linia Glamour</h2>
+                                <p class="selection__description__text text">
+                                    Lorem ipsum dolor sit amet, consectetuer
+                                    adipiscing elit, sed diam nonummy nibh
+                                    euismod tincidunt ut laoreet dolore magna
+                                    aliquam erat volutpat. Ut wisi enim
+                                    minim veniam, quis
+                                </p>
+                            </div>
+                            <button class="selection__button variant_a" @click="chooseStyleLine('glamour')">
+                                <span>Wybieram</span>
+                            </button>
+                        </div>
+
+                    </div>
+                    <button class="selection__button variant_b" :disabled="!isStyleLineSelected" @click="confirmStep(0)">
+                        <span>Akceptuję i przechodzę dalej</span>
+                    </button>
+                </div>
+            </template>
+        </div>
+        <div class="step" id="step-2">
+            <div class="section-configurator__headline">
+                <button class="section-configurator__headline__button" @click="switchStep(1)">
+                    <span class="sr-only">Step 2</span>
+                </button>
+                <svg :class="`section-configurator__headline__svg ${activeSteps[1] ? 'active' : 'inactive'}`">
+                    <use xlink:href="#argoArrow"></use>
+                </svg>
+                <div class="section-configurator__headline__content">
+                    <h1 class="section-configurator__headline__content__motto motto">KROK 2</h1>
+                    <h2 class="section-configurator__headline__content__subtitle subtitle">Przeznaczenie produktów</h2>
+                </div>
+            </div>
+            <template x-if="activeSteps[1]">
+                <div class="section-configuration__content">
+                    <p class="description text">
+                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
+                        volutpat.
+                    </p>
+                    <div
+                            class="selection selection--gap-small"
+                            :style="`
+                                    grid-template-columns: repeat(2, 1fr);
+                                `"
+                    >
+                        <div :class="`selection__element ${selectedProductUsecase === 'profile-cold' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductUsecase('profile-cold')">
+                            <div class="selection__frame">
+                                <img class="selection__description__subtitle" src="" alt="wizualizacja profilu"/>
+                            </div>
+                            <div class="selection__description">
+                                <h3 class="selection__description__subtitle subtitle">Profil Zimny</h3>
+                                <h4 class="selection__description__text text">Zastosowanie wewnętrzne</h4>
+                            </div>
+                            <button class="selection__button variant_a" @click="chooseProductUsecase('profile-cold')">
+                                <span>Wybieram</span>
+                            </button>
+                        </div>
+                        <div :class="`selection__element ${selectedProductUsecase === 'profile-hot' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductUsecase('profile-hot')">
+                            <div class="selection__frame">
+                                <img class="selection__description__subtitle" src="" alt="wizualizacja profilu"/>
+                            </div>
+                            <div class="selection__description">
+                                <h3 class="selection__description__subtitle subtitle">Profil Ciepły</h3>
+                                <h4 class="selection__description__text text">Zastosowanie zewnętrzne</h4>
+                            </div>
+                            <button class="selection__button variant_a" @click="chooseProductUsecase('profile-hot')">
+                                <span>Wybieram</span>
+                            </button>
+                        </div>
+                    </div>
+                    <button class="selection__button variant_b" :disabled="!isProductUsecaseSelected" @click="confirmStep(1)">
+                        <span>Potwierdź Wybór</span>
+                    </button>
+                </div>
+            </template>
+        </div>
+        <div class="step" id="step-3">
+            <div class="section-configurator__headline">
+                <button class="section-configurator__headline__button" @click="switchStep(2)">
+                    <span class="sr-only">Step 3</span>
+                </button>
+                <svg :class="`section-configurator__headline__svg ${activeSteps[2] ? 'active' : 'inactive'}`">
+                    <use xlink:href="#argoArrow"></use>
+                </svg>
+                <div class="section-configurator__headline__content">
+                    <h1 class="section-configurator__headline__content__motto motto">KROK 3</h1>
+                    <h2 class="section-configurator__headline__content__subtitle subtitle">Wybór produktów</h2>
+                </div>
+            </div>
+            <template x-if="activeSteps[2]">
+                <div class="section-configuration__content">
+                    <p class="description text">
+                        Możliwość wyboru preferowanej konfiguracji produktu.
+                    </p>
+                    <div
+                            class="selection selection--gap-small"
+                            :style="`
+                                    grid-template-columns: repeat(5, 1fr);
+                                `"
+                    >
+                        <div :class="`selection__element ${selectedProductType === 'sliding' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('sliding')">
+                            <div class="selection__frame">
+                                <img class="selection__description__vis" src="" alt="wizualizacja produktu"/>
+                            </div>
+                            <div class="selection__description">
+                                <h3 class="selection__description__subtitle subtitle">Drzwi Przesuwne</h3>
+                            </div>
+                            <button class="selection__button variant_a" @click="chooseProductType('sliding')">
+                                <span>Wybieram</span>
+                            </button>
+                        </div>
+                        <div :class="`selection__element ${selectedProductType === 'hinged' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('hinged')">
+                            <div class="selection__frame">
+                                <img class="selection__description__vis" src="" alt="wizualizacja produktu"/>
+                            </div>
+                            <div class="selection__description">
+                                <h3 class="selection__description__subtitle subtitle">Drzwi i Okna Rozwierane</h3>
+                            </div>
+                            <button class="selection__button variant_a" @click="chooseProductType('hinged')">
+                                <span>Wybieram</span>
+                            </button>
+                        </div>
+                        <div :class="`selection__element ${selectedProductType === 'pivot' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('pivot')">
+                            <div class="selection__frame">
+                                <img class="selection__description__vis" src="" alt="wizualizacja produktu"/>
+                            </div>
+                            <div class="selection__description">
+                                <h3 class="selection__description__subtitle subtitle">Drzwi Wahadłowe</h3>
+                            </div>
+                            <button class="selection__button variant_a" @click="chooseProductType('pivot')">
+                                <span>Wybieram</span>
+                            </button>
+                        </div>
+                        <div :class="`selection__element ${selectedProductType === 'folding' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('folding')">
+                            <div class="selection__frame">
+                                <img class="selection__description__vis" src="" alt="wizualizacja produktu"/>
+                            </div>
+                            <div class="selection__description">
+                                <h3 class="selection__description__subtitle subtitle">Drzwi Harmonijkowe</h3>
+                            </div>
+                            <button class="selection__button variant_a" @click="chooseProductType('folding')">
+                                <span>Wybieram</span>
+                            </button>
+                        </div>
+                        <div :class="`selection__element ${selectedProductType === 'fixed' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('fixed')">
+                            <div class="selection__frame">
+                                <img class="selection__description__vis" src="" alt="wizualizacja produktu"/>
+                            </div>
+                            <div class="selection__description">
+                                <h3 class="selection__description__subtitle subtitle">Ścianki Stałe</h3>
+                            </div>
+                            <button class="selection__button variant_a" @click="chooseProductType('fixed')">
+                                <span>Wybieram</span>
+                            </button>
+                        </div>
+                    </div>
+                    <button class="selection__button variant_b" :disabled="!isProductTypeSelected" @click="confirmStep(2)">
+                        <span>Potwierdź Wybór</span>
+                    </button>
+                </div>
+            </template>
+        </div>
+        <div class="step" id="step-4">
+            <div class="section-configurator__headline">
+                <button class="section-configurator__headline__button" @click="switchStep(3)">
+                    <span class="sr-only">Step 4</span>
+                </button>
+                <svg :class="`section-configurator__headline__svg ${activeSteps[3] ? 'active' : 'inactive'}`">
+                    <use xlink:href="#argoArrow"></use>
+                </svg>
+                <div class="section-configurator__headline__content">
+                    <h1 class="section-configurator__headline__content__motto motto">KROK 4</h1>
+                    <h2 class="section-configurator__headline__content__subtitle subtitle">Dopasuj układ</h2>
+                </div>
+            </div>
+            <template x-if="activeSteps[3]">
+                <div class="section-configuration__content">
+                    <div class="shape-configurator">
+                        <div class="shape-configurator__visual">
+                            <div x-html="svgDisplayFile">
+
+                            </div>
+                        </div>
+                        <div class="shape-configurator__input">
+                            <div class="shape-configurator__input__section">
+                                <template x-if="shapeLimitations.allowLeft === false && shapeLimitations.allowRight === false">
+                                    <div class="shape-configurator__input__block">
+                                        <input
+                                                id="product-width"
+                                                type="range"
+                                                min="2"
+                                                max="10"
+                                                x-model="input.totalWidth"
+                                                @input="updateShape()"
+                                        />
+                                        <label for="product-width"><span x-text="productWidth"></span> Szerokość</label>
+                                    </div>
+                                </template>
+                                <div class="shape-configurator__input__block">
+                                    <input
+                                            id="product-height"
+                                            type="range"
+                                            min="4"
+                                            max="5"
+                                            x-model="input.totalHeight"
+                                            @input="updateShape()"
+                                    />
+                                    <label for="product-height"><span x-text="productHeight"></span> Wysokość</label>
+                                </div>
+
+                                <template x-if="shapeLimitations.allowLeft === true || shapeLimitations.allowRight === true">
+                                    <div class="shape-configurator__input__block">
+                                        <input
+                                                id="door-width"
+                                                type="range"
+                                                min="2"
+                                                max="4"
+                                                x-model="input.doorWidth"
+                                                @input="updateShape()"
+                                        />
+                                        <label for="door-width"><span x-text="productWidth"></span> Szerokość Drzwi</label>
+                                    </div>
+                                </template>
+                                <template x-if="shapeLimitations.allowRight === true">
+                                    <div class="shape-configurator__input__block">
+                                        <input
+                                                id="right-width"
+                                                type="range"
+                                                min="1"
+                                                max="4"
+                                                x-model="input.rightWidth"
+                                                @input="updateShape()"
+                                        />
+                                        <label for="right-width"><span x-text="rightWidth"></span> Szerokość Prawego Naświetla</label>
+                                    </div>
+                                </template>
+                                <template x-if="shapeLimitations.allowLeft === true">
+                                    <div class="shape-configurator__input__block">
+                                        <input
+                                                id="left-width"
+                                                type="range"
+                                                min="1"
+                                                max="4"
+                                                x-model="input.leftWidth"
+                                                @input="updateShape()"
+                                        />
+                                        <label for="left-width"><span x-text="leftWidth"></span> Szerokość Prawego Naświetla</label>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="shape-configurator__input__section">
+                                <template x-if="!(shapeLimitations.sides[0] === '')">
+                                    <div class="shape-configurator__input__line">
+                                        <template x-if="shapeLimitations.sides.includes('right')">
+                                            <label class="shape-configurator__input__option">
+                                                <input class='sr-only' type="radio" name="door-side" value="right" x-model="shapeValues.doorSide"/>
+                                                <span>Drzwi Prawe</span>
+                                            </label>
+                                        </template>
+                                        <template x-if="shapeLimitations.sides.includes('left')">
+                                            <label class="shape-configurator__input__option">
+                                                <input class='sr-only' type="radio" name="door-side" value="left" x-model="shapeValues.doorSide"/>
+                                                <span>Drzwi Lewe</span>
+                                            </label>
+                                        </template>
+                                        <template x-if="shapeLimitations.sides.includes('both')">
+                                            <label class="shape-configurator__input__option">
+                                                <input class='sr-only' type="radio" name="door-side" value="both" x-model="shapeValues.doorSide"/>
+                                                <span>Drzwi Prawe i Lewe</span>
+                                            </label>
+                                        </template>
+                                    </div>
+                                </template>
+                                <template x-if="shapeLimitations.allowTop">
+                                    <div class="shape-configurator__input__block">
+                                        <input
+                                                id="product-skylight-enable"
+                                                type="checkbox"
+                                                x-model="shapeValues.isSkylightEnabled"
+                                                @input="updateShape()"
+                                        />
+                                        <label for="product-skylight-enable">Naświetla Górne?: </label>
+                                    </div>
+                                </template>
+                                <template x-if="shapeLimitations.allowRight">
+                                    <div class="shape-configurator__input__block">
+                                        <input
+                                                id="product-right-enable"
+                                                type="checkbox"
+                                                x-model="shapeValues.isWindowsRightEnabled"
+                                                @input="updateShape()"
+                                        />
+                                        <label for="product-right-enable">Naświetla Prawe?: </label>
+                                    </div>
+                                </template>
+                                <template x-if="shapeLimitations.allowLeft">
+                                    <div class="shape-configurator__input__block">
+                                        <input
+                                                id="product-left-enable"
+                                                type="checkbox"
+                                                x-model="shapeValues.isWindowsLeftEnabled"
+                                                @input="updateShape()"
+                                        />
+                                        <label for="product-left-enable">Naświetla Lewe?: </label>
+                                    </div>
+                                </template>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <button class="selection__button" @click="confirmShape(); confirmStep(3);">
+    <!--                <button class="selection__button" @click="updateProductData(exportData())">-->
+                        <span>Potwierdź Układ</span>
+                    </button>
+
+                </div>
+            </template>
+        </div>
+        <div class="step" id="step-5">
+            <div class="section-configurator__headline">
+                <button class="section-configurator__headline__button" @click="switchStep(4)">
+                    <span class="sr-only">Step 5</span>
+                </button>
+                <svg :class="`section-configurator__headline__svg ${activeSteps[4] ? 'active' : 'inactive'}`">
+                    <use xlink:href="#argoArrow"></use>
+                </svg>
+                <div class="section-configurator__headline__content">
+                    <h1 class="section-configurator__headline__content__motto motto">KROK 5</h1>
+                    <h2 class="section-configurator__headline__content__subtitle subtitle">Wybierz akcesoria</h2>
+                </div>
+            </div>
+            <template x-if="activeSteps[4]">
+                <div class="section-configuration__content">
+                    <p class="description text">
+                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+                        nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                    </p>
+
+                    <!--            MOŻE BYĆ WIECEJ, DODAĆ DYNAMIKE-->
+                    <h3 class="accestory-section-configurator__headline__content__motto motto">POCHWYTY I KLAMKI</h3>
+                    <div
+                            class="selection selection--gap-small"
+                            :style="`
+                                    grid-template-columns: repeat(5, 1fr);
+                                `"
+                    >
+                        <div
+                                :class="`selection__element ${selectedHandleType === 'handle-1' ? 'selection__element--selected' : ''}`" role="button" tabindex="0" aria-label="handle-1"
+                                @click="chooseHandleType('handle-1')" @keydown.space.prevent="chooseHandleType('handle-1')" @keydown.enter.prevent="chooseHandleType('handle-1')"
+                        >
+                            <div class="selection__frame">
+                                <h4 class="selection__description__subtitle">KLAMKA (1)</h4>
+                                <img class="selection__description__subtitle" src="" alt="wizualizacja produktu"/>
+                            </div>
+                        </div>
+                        <div
+                                :class="`selection__element ${selectedHandleType === 'handle-2' ? 'selection__element--selected' : ''}`" role="button" tabindex="0" aria-label="handle-2"
+                                @click="chooseHandleType('handle-2')" @keydown.space.prevent="chooseHandleType('handle-2')" @keydown.enter.prevent="chooseHandleType('handle-2')"
+                        >
+                            <div class="selection__frame">
+                                <h4 class="selection__description__subtitle">KLAMKA (2)</h4>
+                                <img class="selection__description__subtitle" src="" alt="wizualizacja produktu"/>
+                            </div>
+                        </div>
+                        <div
+                                :class="`selection__element ${selectedHandleType === 'handle-3' ? 'selection__element--selected' : ''}`" role="button" tabindex="0" aria-label="handle-3"
+                                @click="chooseHandleType('handle-3')" @keydown.space.prevent="chooseHandleType('handle-3')" @keydown.enter.prevent="chooseHandleType('handle-3')"
+                        >
+                            <div class="selection__frame">
+                                <h4 class="selection__description__subtitle">KLAMKA (3)</h4>
+                                <img class="selection__description__subtitle" src="" alt="wizualizacja produktu"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--            MOŻE BYĆ WIECEJ, DODAĆ DYNAMIKE-->
+                    <h3 class="color-section-configurator__headline__content__motto motto">KOLOR</h3>
+                    <div class="color-selection">
+                        <div :class="`color-selection__element ${selectedColor === 'gold' ? 'color-selection__element--selected' : ''}`" @click="chooseColor('gold')" aria-label="golden color">
+                            <button class="color-selection__button color-selection__button--golden"></button>
+                        </div>
+                        <div :class="`color-selection__element ${selectedColor === 'silver' ? 'color-selection__element--selected' : ''}`" @click="chooseColor('silver')" aria-label="silver color">
+                            <button class="color-selection__button color-selection__button--silver"></button>
+                        </div>
+                        <div :class="`color-selection__element ${selectedColor === 'bronze' ? 'color-selection__element--selected' : ''}`" @click="chooseColor('bronze')" aria-label="bronze color">
+                            <button class="color-selection__button color-selection__button--bronze"></button>
+                        </div>
+                    </div>
+
+                    <button class="selection__button" :disabled="!isAccessorySelected" @click="confirmStep(4)">
+                        <span>Potwierdź Wybór</span>
+                    </button>
+                </div>
+            </template>
+        </div>
+        <div class="step" id="step-6">
+            <div class="section-configurator__headline">
+                <button class="section-configurator__headline__button" @click="switchStep(5)">
+                    <span class="sr-only">Step 6</span>
+                </button>
+                <svg :class="`section-configurator__headline__svg ${activeSteps[5] ? 'active' : 'inactive'}`">
+                    <use xlink:href="#argoArrow"></use>
+                </svg>
+                <div class="section-configurator__headline__content">
+                    <h1 class="section-configurator__headline__content__motto motto">KROK 6</h1>
+                    <h2 class="section-configurator__headline__content__subtitle subtitle">Smart Home</h2>
+                </div>
+            </div>
+            <template x-if="activeSteps[5]">
+                <div class="section-configuration__content">
+                    <p class="description text">
+                        Możliwość doposażenia produktów w el. umożliwiające zastosowanie rozwiązań podnoszących bezpieczeństwo i systemów
+                        SMART HOME: zamki wieloryglowe, kontaktrony, siłowniki
+                    </p>
+                    <div class="selection">
+                        <div class="color-selection__element">
+                            <label>
+                                <input type="checkbox" x-model="smartHome.multiPointLock"/>
+                                <span>ZAMEK WIELORYGLOWY</span>
+                            </label>
+                        </div>
+                        <div class="color-selection__element">
+                            <label>
+                                <input type="checkbox" x-model="smartHome.contractor"/>
+                                <span>KONTRAKTOR</span>
+                            </label>
+                        </div>
+                        <div class="color-selection__element">
+                            <label>
+                                <input type="checkbox" x-model="smartHome.actuator"/>
+                                <span>SIŁOWNIK</span>
+                            </label>
+                        </div>
+                    </div>
+                    <button class="selection__button" @click="confirmSmartHome(); confirmStep(5)">
+                        <span>Potwierdź Dodatki</span>
+                    </button>
+                </div>
+            </template>
+        </div>
+        <div class="step" id="step-7">
+            <div class="section-configurator__headline">
+                <button class="section-configurator__headline__button" @click="switchStep(6)">
+                    <span class="sr-only">Step 7</span>
+                </button>
+                <svg :class="`section-configurator__headline__svg ${activeSteps[6] ? 'active' : 'inactive'}`">
+                    <use xlink:href="#argoArrow"></use>
+                </svg>
+                <div class="section-configurator__headline__content">
+                    <h1 class="section-configurator__headline__content__motto motto">KROK 7</h1>
+                    <h2 class="section-configurator__headline__content__subtitle subtitle">Podsumowanie</h2>
+                </div>
+            </div>
+            <template x-if="activeSteps[6]">
+                <div class="section-configuration__content">
+                    <div class="columns-container">
+                        <div class="columns-container__column columns-container__column--centered">
+                            <div class="svg-display">
+                                <div x-html="svgDisplayFile">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="columns-container__column">
+                            <p class="description__paragraph text">Ostateczna weryfikacja i edycja wybranych parametrów, składanie zamówienia.</p>
+                            <p class="description__paragraph text">Wybrana linia stylu: <span x-text="styleLineDesc"></span></p>
+                            <p class="description__paragraph text">Wybrane użycie produktu: <span x-text="productUsecaseDesc"></span></p>
+                            <p class="description__paragraph text">Wybrany rodzaj produktu: <span x-text="productTypeDesc"></span></p>
+                            <p class="description__paragraph text">Wybrane dodatki: <span x-text="additivesDesc"></span></p>
+                            <p class="description__paragraph text">Wybrany kolor: <span x-text="colorDesc"></span></p>
+                            <p class="description__paragraph text">Wybrane elementy smart home: <span x-text="smartHomeDesc"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </section>
+</main>
+
+{% endblock content %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static 'home/js/configurator_page.js' %}"></script>
+{% endblock %}

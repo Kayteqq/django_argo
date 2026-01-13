@@ -24,8 +24,8 @@
         {% endif %}
 
         {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/Base.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/GlobalStructure.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/base_base.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/base_structure.css' %}">
 
         {% block extra_css %}
         {# Override this in templates to add extra stylesheets #}
@@ -38,10 +38,12 @@
         {% include 'sprite.svg' %}
         {% wagtailuserbar %}
 
-        <nav class="navbar" x-data="navbar()" x-init="init()" role="navigation" aria-label="main navigation">
-            <svg class="navbar__logo">
-                <use xlink:href="#argoLogo"></use>
-            </svg>
+        <nav class="navbar" x-data="base_navbar()" x-init="init()" role="navigation" aria-label="main navigation">
+            <a href="{{ home_page.url }}">
+                <svg class="navbar__logo">
+                    <use xlink:href="#argoLogo"></use>
+                </svg>
+            </a>
             <ul :class="`navbar__links ${mobileMenuDisabled ? 'disabled': ''} ${mobileMenuOpen ? 'visible' : 'hidden'}`">
                 {% for block in navbar_links %}
                     {% if block.block_type == 'page_link' %}
@@ -187,8 +189,8 @@
         {# Global javascript #}
         <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 
-        <script type="text/javascript" src="{% static 'js/ArgoWebsite.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/Navbar.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/base_global.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/base_navbar.js' %}"></script>
 
         {% block extra_js %}
         {# Override this in templates to add extra javascript #}

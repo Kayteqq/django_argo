@@ -89,6 +89,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "home.context_processors.navbar_links_processor",
                 "home.context_processors.footer_links_processor",
+                "home.context_processors.home_link_processor",
             ],
         },
     },

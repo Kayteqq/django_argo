@@ -13,7 +13,7 @@ const X_MIDDLE = 16.0;
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-function navbar() {
+function base_navbar() {
     return {
         langMenuOpen: false,
         mobileMenuOpen: false,
