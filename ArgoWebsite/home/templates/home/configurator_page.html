@@ -31,7 +31,7 @@
         <div class="step" id="step-1">
             <div class="section-configurator__headline">
                 <button class="section-configurator__headline__button" @click="switchStep(0)">
-                    <span class="sr-only">Step 1</span>
+                    <span style="color: transparent">Step 1</span>
                 </button>
                 <svg :class="`section-configurator__headline__svg ${activeSteps[0] ? 'active' : 'inactive'}`">
                     <use xlink:href="#argoArrow"></use>
@@ -45,13 +45,8 @@
                 <div class="section-configuration__content">
                     <p class="description text">Wybór jednej z trzech oferowanych linii stylistycznych.</p>
 
-                    <div
-                            class="selection selection--gap-wide"
-                            :style="`
-                                grid-template-columns: repeat(3, 1fr);
-                            `"
-                    >
-                        <div :class="`selection__element ${selectedStyleLine === 'industrial' ? 'selection__element--selected' : ''}`" @mousedown="chooseStyleLine('industrial')">
+                    <div class="selection step-1">
+                        <div :class="`selection__element step-1 ${selectedStyleLine === 'industrial' ? 'selection__element--selected' : ''}`" @mousedown="chooseStyleLine('industrial')">
                             <div class="selection__frame">
                                 <img class="selection__frame__vis" src="{% static 'home/images/carpentry_steel_collections_industrial.webp' %}" alt="wizualizacja linii stylistycznej"/>
                             </div>
@@ -69,7 +64,7 @@
                                 <span>Wybieram</span>
                             </button>
                         </div>
-                        <div :class="`selection__element ${selectedStyleLine === 'vintage' ? 'selection__element--selected' : ''}`" @mousedown="chooseStyleLine('vintage')">
+                        <div :class="`selection__element step-1 ${selectedStyleLine === 'vintage' ? 'selection__element--selected' : ''}`" @mousedown="chooseStyleLine('vintage')">
                             <div class="selection__frame">
                                 <img class="selection__frame__vis" src="{% static 'home/images/carpentry_steel_collections_vintage.webp' %}" alt="wizualizacja linii stylistycznej"/>
                             </div>
@@ -87,7 +82,7 @@
                                 <span>Wybieram</span>
                             </button>
                         </div>
-                        <div :class="`selection__element ${selectedStyleLine === 'glamour' ? 'selection__element--selected' : ''}`" @mousedown="chooseStyleLine('glamour')">
+                        <div :class="`selection__element step-1 ${selectedStyleLine === 'glamour' ? 'selection__element--selected' : ''}`" @mousedown="chooseStyleLine('glamour')">
                             <div class="selection__frame">
                                 <img class="selection__frame__vis" src="{% static 'home/images/carpentry_steel_collections_glamour.webp' %}" alt="wizualizacja linii stylistycznej"/>
                             </div>
@@ -116,7 +111,7 @@
         <div class="step" id="step-2">
             <div class="section-configurator__headline">
                 <button class="section-configurator__headline__button" @click="switchStep(1)">
-                    <span class="sr-only">Step 2</span>
+                    <span style="color: transparent">Step 2</span>
                 </button>
                 <svg :class="`section-configurator__headline__svg ${activeSteps[1] ? 'active' : 'inactive'}`">
                     <use xlink:href="#argoArrow"></use>
@@ -132,13 +127,8 @@
                         Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
                         volutpat.
                     </p>
-                    <div
-                            class="selection selection--gap-small"
-                            :style="`
-                                    grid-template-columns: repeat(2, 1fr);
-                                `"
-                    >
-                        <div :class="`selection__element ${selectedProductUsecase === 'profile-cold' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductUsecase('profile-cold')">
+                    <div class="selection step-2">
+                        <div :class="`selection__element step-2 ${selectedProductUsecase === 'profile-cold' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductUsecase('profile-cold')">
                             <div class="selection__frame">
                                 <img class="selection__description__subtitle" src="" alt="wizualizacja profilu"/>
                             </div>
@@ -150,7 +140,7 @@
                                 <span>Wybieram</span>
                             </button>
                         </div>
-                        <div :class="`selection__element ${selectedProductUsecase === 'profile-hot' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductUsecase('profile-hot')">
+                        <div :class="`selection__element step-2 ${selectedProductUsecase === 'profile-hot' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductUsecase('profile-hot')">
                             <div class="selection__frame">
                                 <img class="selection__description__subtitle" src="" alt="wizualizacja profilu"/>
                             </div>
@@ -172,7 +162,7 @@
         <div class="step" id="step-3">
             <div class="section-configurator__headline">
                 <button class="section-configurator__headline__button" @click="switchStep(2)">
-                    <span class="sr-only">Step 3</span>
+                    <span style="color: transparent">Step 3</span>
                 </button>
                 <svg :class="`section-configurator__headline__svg ${activeSteps[2] ? 'active' : 'inactive'}`">
                     <use xlink:href="#argoArrow"></use>
@@ -187,13 +177,8 @@
                     <p class="description text">
                         Możliwość wyboru preferowanej konfiguracji produktu.
                     </p>
-                    <div
-                            class="selection selection--gap-small"
-                            :style="`
-                                    grid-template-columns: repeat(5, 1fr);
-                                `"
-                    >
-                        <div :class="`selection__element ${selectedProductType === 'sliding' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('sliding')">
+                    <div class="selection step-3">
+                        <div :class="`selection__element step-3 ${selectedProductType === 'sliding' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('sliding')">
                             <div class="selection__frame">
                                 <img class="selection__description__vis" src="" alt="wizualizacja produktu"/>
                             </div>
@@ -204,7 +189,7 @@
                                 <span>Wybieram</span>
                             </button>
                         </div>
-                        <div :class="`selection__element ${selectedProductType === 'hinged' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('hinged')">
+                        <div :class="`selection__element step-3 ${selectedProductType === 'hinged' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('hinged')">
                             <div class="selection__frame">
                                 <img class="selection__description__vis" src="" alt="wizualizacja produktu"/>
                             </div>
@@ -215,7 +200,7 @@
                                 <span>Wybieram</span>
                             </button>
                         </div>
-                        <div :class="`selection__element ${selectedProductType === 'pivot' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('pivot')">
+                        <div :class="`selection__element step-3 ${selectedProductType === 'pivot' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('pivot')">
                             <div class="selection__frame">
                                 <img class="selection__description__vis" src="" alt="wizualizacja produktu"/>
                             </div>
@@ -226,7 +211,7 @@
                                 <span>Wybieram</span>
                             </button>
                         </div>
-                        <div :class="`selection__element ${selectedProductType === 'folding' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('folding')">
+                        <div :class="`selection__element step-3 ${selectedProductType === 'folding' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('folding')">
                             <div class="selection__frame">
                                 <img class="selection__description__vis" src="" alt="wizualizacja produktu"/>
                             </div>
@@ -237,7 +222,7 @@
                                 <span>Wybieram</span>
                             </button>
                         </div>
-                        <div :class="`selection__element ${selectedProductType === 'fixed' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('fixed')">
+                        <div :class="`selection__element step-3 ${selectedProductType === 'fixed' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('fixed')">
                             <div class="selection__frame">
                                 <img class="selection__description__vis" src="" alt="wizualizacja produktu"/>
                             </div>
@@ -258,7 +243,7 @@
         <div class="step" id="step-4">
             <div class="section-configurator__headline">
                 <button class="section-configurator__headline__button" @click="switchStep(3)">
-                    <span class="sr-only">Step 4</span>
+                    <span style="color: transparent">Step 4</span>
                 </button>
                 <svg :class="`section-configurator__headline__svg ${activeSteps[3] ? 'active' : 'inactive'}`">
                     <use xlink:href="#argoArrow"></use>
@@ -415,7 +400,7 @@
         <div class="step" id="step-5">
             <div class="section-configurator__headline">
                 <button class="section-configurator__headline__button" @click="switchStep(4)">
-                    <span class="sr-only">Step 5</span>
+                    <span style="color: transparent">Step 5</span>
                 </button>
                 <svg :class="`section-configurator__headline__svg ${activeSteps[4] ? 'active' : 'inactive'}`">
                     <use xlink:href="#argoArrow"></use>
@@ -434,14 +419,9 @@
 
                     <!--            MOŻE BYĆ WIECEJ, DODAĆ DYNAMIKE-->
                     <h3 class="accestory-section-configurator__headline__content__motto motto">POCHWYTY I KLAMKI</h3>
-                    <div
-                            class="selection selection--gap-small"
-                            :style="`
-                                    grid-template-columns: repeat(5, 1fr);
-                                `"
-                    >
+                    <div class="selection step-5">
                         <div
-                                :class="`selection__element ${selectedHandleType === 'handle-1' ? 'selection__element--selected' : ''}`" role="button" tabindex="0" aria-label="handle-1"
+                                :class="`selection__element step-5 ${selectedHandleType === 'handle-1' ? 'selection__element--selected' : ''}`" role="button" tabindex="0" aria-label="handle-1"
                                 @click="chooseHandleType('handle-1')" @keydown.space.prevent="chooseHandleType('handle-1')" @keydown.enter.prevent="chooseHandleType('handle-1')"
                         >
                             <div class="selection__frame">
@@ -450,7 +430,7 @@
                             </div>
                         </div>
                         <div
-                                :class="`selection__element ${selectedHandleType === 'handle-2' ? 'selection__element--selected' : ''}`" role="button" tabindex="0" aria-label="handle-2"
+                                :class="`selection__element step-5 ${selectedHandleType === 'handle-2' ? 'selection__element--selected' : ''}`" role="button" tabindex="0" aria-label="handle-2"
                                 @click="chooseHandleType('handle-2')" @keydown.space.prevent="chooseHandleType('handle-2')" @keydown.enter.prevent="chooseHandleType('handle-2')"
                         >
                             <div class="selection__frame">
@@ -459,7 +439,7 @@
                             </div>
                         </div>
                         <div
-                                :class="`selection__element ${selectedHandleType === 'handle-3' ? 'selection__element--selected' : ''}`" role="button" tabindex="0" aria-label="handle-3"
+                                :class="`selection__element step-5 ${selectedHandleType === 'handle-3' ? 'selection__element--selected' : ''}`" role="button" tabindex="0" aria-label="handle-3"
                                 @click="chooseHandleType('handle-3')" @keydown.space.prevent="chooseHandleType('handle-3')" @keydown.enter.prevent="chooseHandleType('handle-3')"
                         >
                             <div class="selection__frame">
@@ -469,7 +449,6 @@
                         </div>
                     </div>
 
-                    <!--            MOŻE BYĆ WIECEJ, DODAĆ DYNAMIKE-->
                     <h3 class="color-section-configurator__headline__content__motto motto">KOLOR</h3>
                     <div class="color-selection">
                         <div :class="`color-selection__element ${selectedColor === 'gold' ? 'color-selection__element--selected' : ''}`" @click="chooseColor('gold')" aria-label="golden color">
@@ -492,7 +471,7 @@
         <div class="step" id="step-6">
             <div class="section-configurator__headline">
                 <button class="section-configurator__headline__button" @click="switchStep(5)">
-                    <span class="sr-only">Step 6</span>
+                    <span style="color: transparent">Step 6</span>
                 </button>
                 <svg :class="`section-configurator__headline__svg ${activeSteps[5] ? 'active' : 'inactive'}`">
                     <use xlink:href="#argoArrow"></use>
@@ -537,7 +516,7 @@
         <div class="step" id="step-7">
             <div class="section-configurator__headline">
                 <button class="section-configurator__headline__button" @click="switchStep(6)">
-                    <span class="sr-only">Step 7</span>
+                    <span style="color: transparent">Step 7</span>
                 </button>
                 <svg :class="`section-configurator__headline__svg ${activeSteps[6] ? 'active' : 'inactive'}`">
                     <use xlink:href="#argoArrow"></use>
