@@ -136,11 +136,213 @@ class MainPage(Page):
     subpage_types = []
 
 
+    image_hero = models.ForeignKey(
+        Image,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    motto_lead = models.CharField("Lead - Lead", max_length=255, blank=True)
+    title_lead = models.CharField("Lead - Title", max_length=255, blank=True)
+    text_lead = models.TextField("Lead - Text", blank=True)
+    button_lead = models.CharField("Lead - Button Text ", max_length=255, blank=True)
+    redirect_lead = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    title_steel_carpentry = models.CharField("Carpentry - Steel Title", max_length=255, blank=True)
+    text_steel_carpentry = models.TextField("Carpentry - Steel Text", blank=True)
+    button_steel_carpentry = models.CharField("Carpentry - Steel Button Text ", max_length=255, blank=True)
+    redirect_steel_carpentry = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    image_steel_carpentry = models.ForeignKey(
+        Image,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    title_aluminium_carpentry = models.CharField("Carpentry - Aluminium Title", max_length=255, blank=True)
+    text_aluminium_carpentry = models.TextField("Carpentry - Aluminium Text", blank=True)
+    button_aluminium_carpentry = models.CharField("Carpentry - Aluminium Button Text ", max_length=255, blank=True)
+    redirect_aluminium_carpentry = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    image_aluminium_carpentry = models.ForeignKey(
+        Image,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    title_steel = models.CharField("Steel - Title", max_length=255, blank=True)
+    motto_steel = models.CharField("Steel - Lead", max_length=255, blank=True)
+    text_steel = models.TextField("Steel - Text", blank=True)
+    button_steel = models.CharField("Steel - Button Text ", max_length=255, blank=True)
+    redirect_steel = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    image_steel = models.ForeignKey(
+        Image,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    title_aluminium = models.CharField("Aluminium - Title", max_length=255, blank=True)
+    motto_aluminium = models.CharField("Aluminium - Lead", max_length=255, blank=True)
+    text_aluminium = models.TextField("Aluminium - Text", blank=True)
+    button_aluminium = models.CharField("Aluminium - Button Text ", max_length=255, blank=True)
+    redirect_aluminium = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    image_aluminium = models.ForeignKey(
+        Image,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    title_configurator = models.CharField("Aluminium - Title", max_length=255, blank=True)
+    motto_configurator = models.CharField("Aluminium - Lead", max_length=255, blank=True)
+    text_configurator = models.TextField("Aluminium - Text", blank=True)
+    button_configurator = models.CharField("Aluminium - Button Text ", max_length=255, blank=True)
+    redirect_configurator = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    image_divider = models.ForeignKey(
+        Image,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel('image_hero')
+            ],
+            heading="Section Hero",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('motto_lead'),
+                FieldPanel('title_lead'),
+                FieldPanel('text_lead'),
+                FieldPanel('button_lead'),
+                FieldPanel('redirect_lead'),
+            ],
+            heading="Section Lead",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('title_steel_carpentry'),
+                FieldPanel('text_steel_carpentry'),
+                FieldPanel('button_steel_carpentry'),
+                FieldPanel('redirect_steel_carpentry'),
+                FieldPanel('image_steel_carpentry'),
+                FieldPanel('title_aluminium_carpentry'),
+                FieldPanel('text_aluminium_carpentry'),
+                FieldPanel('button_aluminium_carpentry'),
+                FieldPanel('redirect_aluminium_carpentry'),
+                FieldPanel('image_aluminium_carpentry'),
+            ],
+            heading="Section Carpentry",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('title_steel'),
+                FieldPanel('motto_steel'),
+                FieldPanel('text_steel'),
+                FieldPanel('button_steel'),
+                FieldPanel('redirect_steel'),
+                FieldPanel('image_steel'),
+            ],
+            heading="Section Steel",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('title_aluminium'),
+                FieldPanel('motto_aluminium'),
+                FieldPanel('text_aluminium'),
+                FieldPanel('button_aluminium'),
+                FieldPanel('redirect_aluminium'),
+                FieldPanel('image_aluminium'),
+            ],
+            heading="Section Aluminium",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('title_configurator'),
+                FieldPanel('motto_configurator'),
+                FieldPanel('text_configurator'),
+                FieldPanel('button_configurator'),
+                FieldPanel('redirect_configurator'),
+            ],
+            heading="Section Text",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('image_divider'),
+            ],
+            heading="Section Image Divider",
+        )
+    ]
+
+
 class AboutPage(Page):
     max_count = 1
     template = 'home/about_page.html'
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
+
+    motto_hero = models.CharField("Lead - Hero", max_length=255, blank=True)
+    title_hero = models.CharField("Title - Hero", max_length=255, blank=True)
+    text_hero = models.TextField("Text - Hero", blank=True)
+    image_hero = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+
+    motto_quality = models.CharField("Lead - Quality", max_length=255, blank=True)
+    title_quality = models.CharField("Title - Quality", max_length=255, blank=True)
+    text_quality = models.TextField("Text - Quality", blank=True)
+    image_quality = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+
+    motto_project = models.CharField("Lead - Quality", max_length=255, blank=True)
+    title_project = models.CharField("Title - Quality", max_length=255, blank=True)
+    text_project = models.TextField("Text - Quality", blank=True)
+    image_project = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
 
 
 class CarpentrySteelPage(Page):
