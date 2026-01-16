@@ -1,7 +1,5 @@
 from wagtail import blocks
-
-
-
+from wagtail.models import Orderable
 
 
 class InternalLinkBlock(blocks.StructBlock):

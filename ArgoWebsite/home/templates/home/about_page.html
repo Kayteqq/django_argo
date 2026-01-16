@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load wagtailimages_tags %}
 
 {% block body_class %}{% endblock %}
 
@@ -88,45 +89,73 @@
             </div>
         </section>
         <section class="section-certificates">
-            <div class="section-certificates__segment">
-                <div class="section-certificates__segment__certificate">
-                    <div class="section-certificates__segment__img-wrapper">
-                        <img class="section-certificates__segment__img" src="{% static 'home/images/about_certificate_a.webp' %}" alt=""/>
+            <div class="section-certificates__segments" data-slider="certificates">
+                {% for item in page.certificates.all %}
+                    <div class="section-certificates__segment">
+                        <div class="section-certificates__segment__certificate">
+                            <div class="section-certificates__segment__img-wrapper">
+                                {% image item.image original class='section-certificates__segment__img' %}
+                            </div>
+                        </div>
+                        <h1 class="section-certificates__segment__subtitle subtitle">
+                            {{ item.title }}
+                        </h1>
+                        <p class="section-certificates__segment__text text">
+                            {{ item.text }}
+                        </p>
                     </div>
-                </div>
-                <h1 class="section-certificates__segment__subtitle subtitle">
-                    Certyfikaty Jakości
-                </h1>
-                <p class="section-certificates__segment__text text">
-                    Nasze produkty spełniają najwyższe standardy jakości potwierdzone certyfikatami branżowymi, które gwarantują trwałość i niezawodność. Każdy certyfikat stanowi dowód dbałości o szczegóły i profesjonalne podejście do produkcji.
-                </p>
+                {% endfor %}
             </div>
-            <div class="section-certificates__segment active">
-                <div class="section-certificates__segment__certificate">
-                    <div class="section-certificates__segment__img-wrapper">
-                        <img class="section-certificates__segment__img" src="{% static 'home/images/about_certificate_b.webp' %}" alt=""/>
-                    </div>
-                </div>
-                <h2 class="section-certificates__segment__subtitle subtitle">
-                    Wyróżnienia i Nagrody
-                </h2>
-                <p class="section-certificates__segment__text text">
-                    ARGO jest doceniane w branży za innowacyjny design i profesjonalizm, czego dowodem są liczne nagrody i wyróżnienia. To potwierdza nasze zaangażowanie w tworzenie produktów o najwyższej wartości estetycznej i użytkowej.
-                </p>
+            <div class="section-certificates__points">
+                {% for item in page.certificates.all %}
+                    <svg class="section-certificates__points__svg static"><use xlink:href="#dot"></use></svg>
+                {% endfor %}
             </div>
-            <div class="section-certificates__segment">
-                <div class="section-certificates__segment__certificate">
-                    <div class="section-certificates__segment__img-wrapper">
-                        <img class="section-certificates__segment__img" src="{% static 'home/images/about_certificate_c.webp' %}" alt=""/>
-                    </div>
-                </div>
-                <h2 class="section-certificates__segment__subtitle subtitle">
-                    Certyfikaty Jakości
-                </h2>
-                <p class="section-certificates__segment__text text">
-                    Nasze produkty spełniają najwyższe standardy jakości potwierdzone certyfikatami branżowymi, które gwarantują trwałość i niezawodność. Każdy certyfikat stanowi dowód dbałości o szczegóły i profesjonalne podejście do produkcji.
-                </p>
+            <div class="section-certificates__points">
+                {% for item in page.certificates.all %}
+                    <svg class="section-certificates__points__svg dynamic"><use xlink:href="#dot"></use></svg>
+                {% endfor %}
             </div>
+
+{#            <div class="section-certificates__segment">#}
+{#                <div class="section-certificates__segment__certificate">#}
+{#                    <div class="section-certificates__segment__img-wrapper">#}
+{#                        <img class="section-certificates__segment__img" src="{% static 'home/images/about_certificate_a.webp' %}" alt=""/>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <h1 class="section-certificates__segment__subtitle subtitle">#}
+{#                    Certyfikaty Jakości#}
+{#                </h1>#}
+{#                <p class="section-certificates__segment__text text">#}
+{#                    Nasze produkty spełniają najwyższe standardy jakości potwierdzone certyfikatami branżowymi, które gwarantują trwałość i niezawodność. Każdy certyfikat stanowi dowód dbałości o szczegóły i profesjonalne podejście do produkcji.#}
+{#                </p>#}
+{#            </div>#}
+{#            <div class="section-certificates__segment active">#}
+{#                <div class="section-certificates__segment__certificate">#}
+{#                    <div class="section-certificates__segment__img-wrapper">#}
+{#                        <img class="section-certificates__segment__img" src="{% static 'home/images/about_certificate_b.webp' %}" alt=""/>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <h2 class="section-certificates__segment__subtitle subtitle">#}
+{#                    Wyróżnienia i Nagrody#}
+{#                </h2>#}
+{#                <p class="section-certificates__segment__text text">#}
+{#                    ARGO jest doceniane w branży za innowacyjny design i profesjonalizm, czego dowodem są liczne nagrody i wyróżnienia. To potwierdza nasze zaangażowanie w tworzenie produktów o najwyższej wartości estetycznej i użytkowej.#}
+{#                </p>#}
+{#            </div>#}
+{#            <div class="section-certificates__segment">#}
+{#                <div class="section-certificates__segment__certificate">#}
+{#                    <div class="section-certificates__segment__img-wrapper">#}
+{#                        <img class="section-certificates__segment__img" src="{% static 'home/images/about_certificate_c.webp' %}" alt=""/>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <h2 class="section-certificates__segment__subtitle subtitle">#}
+{#                    Certyfikaty Jakości#}
+{#                </h2>#}
+{#                <p class="section-certificates__segment__text text">#}
+{#                    Nasze produkty spełniają najwyższe standardy jakości potwierdzone certyfikatami branżowymi, które gwarantują trwałość i niezawodność. Każdy certyfikat stanowi dowód dbałości o szczegóły i profesjonalne podejście do produkcji.#}
+{#                </p>#}
+{#            </div>#}
         </section>
         <section class="section-references">
             <div class="section-references__inner-divider left">
@@ -152,3 +181,153 @@
     </main>
 
 {% endblock content %}
+
+
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const slider = document.querySelector('[data-slider="certificates"]');
+
+
+        if (!slider) return;
+
+
+        const slides = Array.from(slider.querySelectorAll('.section-certificates__segment'));
+        const dots = Array.from(document.querySelectorAll('.section-certificates__points__svg.dynamic'))
+        let prev = 0;
+        let current = 1 % slides.length;
+        let next = 2 % slides.length;
+        const interval = 4000;
+
+        gsap.set(slides, {
+          '--x-pct': '200%',
+          '--x-rem': '3.75rem',
+        });
+        // inicjalny slide
+        gsap.set(slides[prev],      {
+            '--x-pct': '-100%', '--x-rem': '-1.875rem', '--x-remm': '-2rem'
+        });
+        gsap.set(slides[current],   {
+            '--x-pct': '0%', '--x-rem': '0rem', '--x-remm': '0rem',
+        });
+        gsap.set(slides[next],      {
+            '--x-pct': '100%', '--x-rem': '1.875rem', '--x-remm': '2rem'
+        });
+
+
+        gsap.set(dots, {opacity: 0})
+        gsap.set(dots[prev], { opacity: 1})
+        gsap.set(dots[current], { opacity: 1})
+        gsap.set(dots[next], { opacity: 1})
+
+        function runSlider() {
+            const next_next = (next + 1) % slides.length;
+
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    prev = current;
+                    current = next;
+                    next = next_next;
+                    setTimeout(runSlider, interval);
+                }
+            });
+
+            tl.fromTo(
+                slides[next_next],
+                {
+                    '--x-pct': '200%',
+                    '--x-rem': '3.75rem',
+
+                },
+                {
+                    '--x-pct': '100%',
+                    '--x-rem': '1.875rem',
+                    '--x-remm': '2rem',
+
+
+                    duration: 1.6,
+                    ease: 'power2.inOut',
+                },
+                0
+            );
+
+            tl.fromTo(
+                slides[next],
+                {
+                    '--x-pct': '100%',
+                    '--x-rem': '1.875rem',
+                    '--x-remm': '2rem',
+                },
+                {
+
+                    '--x-pct': '0%',
+                    '--x-rem': '0rem',
+                    '--x-remm': '0rem',
+
+                    duration: 1.6,
+                    ease: 'power2.inOut',
+                },
+                0
+            );
+
+            tl.fromTo(
+                slides[current],
+                {
+                    '--x-pct': '0%',
+                    '--x-rem': '0rem',
+                    '--x-remm': '0rem',
+
+                },
+                {
+                    '--x-pct': '-100%',
+                    '--x-rem': '-1.875rem',
+                    '--x-remm': '-2rem',
+
+                    duration: 1.6,
+                    ease: 'power2.inOut',
+                },
+                0
+            );
+
+            tl.to(
+                slides[prev],
+                {
+                    '--x-pct': '-200%',
+                    '--x-rem': '-3.75rem',
+
+                    duration: 1.6,
+                    ease: 'power2.inOut',
+                },
+                0
+            );
+
+            tl.fromTo(
+                dots[next_next],
+                { opacity: 0 },
+                {
+                    opacity: 1,
+                    duration: 1.6,
+                    ease: 'power2.inOut',
+                },
+                0
+            );
+            tl.to(
+                dots[prev],
+                {
+                    opacity: 0,
+                    duration: 1.6,
+                    ease: 'power2.inOut',
+                },
+                0
+            );
+
+        }
+
+        // start
+        setTimeout(runSlider, interval);
+
+    });
+</script>
+{% endblock extra_js %}
+

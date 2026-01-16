@@ -1,3 +1,9 @@
+html {
+    --x-pct: 0%;
+    --x-rem: 0rem;
+    --x-remm: 0rem;
+}
+
 
 
 @media(max-width: 767px) {
@@ -98,6 +104,7 @@
     .section-realizations {
         background: var(--argo-stal);
         padding: 3rem 4rem 9.5rem 4rem;
+        position: relative;
     }
 
     .section-realizations__grid {
@@ -108,16 +115,36 @@
     .section-realizations__grid__item {
         grid-row: 1;
         grid-column: 1;
+        transform: translateX(calc(var(--x-pct) + var(--x-remm)));
     }
 
-    .section-realizations__grid__item.left {
-        transform: translateX(calc(-4rem));
-        max-width: 2rem;
+
+    .section-realizations__points {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 5rem;
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        justify-content: center;
     }
-    .section-realizations__grid__item.right {
-        transform: translateX(calc(100vw - 6rem));
-        max-width: 2rem;
+
+    .section-realizations__points__svg {
+        width: 1.5rem;
+        height: 1.5rem;
     }
+
+    .section-realizations__points__svg.static {
+        --stroke-width: 2px;
+        --color-stroke: var(--argo-czarny);
+        --color-fill: transparent;
+    }
+    .section-realizations__points__svg.dynamic {
+        --color-stroke: transparent;
+        --color-fill: var(--argo-czarny);
+    }
+
 
     .section-projects {
         display: flex;
@@ -245,6 +272,7 @@
         padding: 2.5rem 1.875rem 7.1875rem 1.875rem;
         display: flex;
         flex-direction: column;
+        position: relative;
     }
 
     .section-realizations__title
@@ -260,6 +288,36 @@
 
     .section-realizations__grid__item {
         aspect-ratio: 60 / 62;
+        grid-column: 2;
+        grid-row: 1;
+        transform: translateX(calc(var(--x-pct) + var(--x-rem)));
+    }
+
+
+    .section-realizations__points {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 3.75rem;
+        display: flex;
+        flex-direction: row;
+        gap: 0.75rem;
+        justify-content: center;
+    }
+
+    .section-realizations__points__svg {
+        width: 0.9375rem;
+        height: 0.9375rem;
+    }
+
+    .section-realizations__points__svg.static {
+        --stroke-width: 2px;
+        --color-stroke: var(--argo-czarny);
+        --color-fill: transparent;
+    }
+    .section-realizations__points__svg.dynamic {
+        --color-stroke: transparent;
+        --color-fill: var(--argo-czarny);
     }
 
     .section-projects {

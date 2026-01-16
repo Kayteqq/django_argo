@@ -1,15 +1,17 @@
 from django.core.exceptions import PermissionDenied
 from django.db import models
 from django.shortcuts import redirect
-from wagtail.admin.panels import PageChooserPanel, FieldPanel, MultiFieldPanel
+from wagtail.admin.panels import PageChooserPanel, FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.contrib.settings.models import BaseSiteSetting
 from wagtail.contrib.settings.registry import register_setting
 from wagtail.images.models import Image
+from wagtail.models import Page, Orderable
 from wagtail.fields import StreamField
+from modelcluster.fields import ParentalKey
 
 from .blocks import NavbarBlockContainer, FooterBlockContainer
 
-from wagtail.models import Page
+
 
 class NavbarLinksPage(Page):
     parent_page_types = ['RootRedirectPage']
@@ -129,20 +131,22 @@ class RootRedirectPage(Page):
             return redirect('/')
 
 
+class MainPageCarouselItem(Orderable):
+    page = ParentalKey('MainPage', related_name='hero_images')
+    image = models.ForeignKey(
+        Image,
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+    panels = [FieldPanel('image')]
+
 class MainPage(Page):
     max_count = 1
     template = 'home/main_page.html'
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
-
-
-    image_hero = models.ForeignKey(
-        Image,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
 
     motto_lead = models.CharField("Lead - Lead", max_length=255, blank=True)
     title_lead = models.CharField("Lead - Title", max_length=255, blank=True)
@@ -253,7 +257,7 @@ class MainPage(Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
-                FieldPanel('image_hero')
+                InlinePanel('hero_images'),
             ],
             heading="Section Hero",
         ),
@@ -323,6 +327,24 @@ class MainPage(Page):
     ]
 
 
+class AboutPageCarouselItem(Orderable):
+    page = ParentalKey('AboutPage', related_name='certificates')
+
+    title = models.CharField("Cartificate Title", max_length=255, blank=True)
+    text = models.TextField("Certificate Text", blank=True)
+    image = models.ForeignKey(
+        Image,
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+    panels = [
+        FieldPanel('image'),
+        FieldPanel('title'),
+        FieldPanel('text'),
+    ]
+
 class AboutPage(Page):
     max_count = 1
     template = 'home/about_page.html'
@@ -344,6 +366,26 @@ class AboutPage(Page):
     text_project = models.TextField("Text - Quality", blank=True)
     image_project = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
 
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                InlinePanel('certificates'),
+            ],
+            heading="Section Certificates",
+        ),
+    ]
+
+
+class CarpentrySteelPageCarouselItem(Orderable):
+    page = ParentalKey('CarpentrySteelPage', related_name='realizations_images')
+    image = models.ForeignKey(
+        Image,
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+    panels = [FieldPanel('image')]
 
 class CarpentrySteelPage(Page):
     max_count = 1
@@ -351,12 +393,40 @@ class CarpentrySteelPage(Page):
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
 
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                InlinePanel('realizations_images'),
+            ],
+            heading="Realizations Hero",
+        ),
+    ]
+
+class CarpentryAluminiumPageCarouselItem(Orderable):
+    page = ParentalKey('CarpentryAluminiumPage', related_name='realizations_images')
+    image = models.ForeignKey(
+        Image,
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+    panels = [FieldPanel('image')]
 
 class CarpentryAluminiumPage(Page):
     max_count = 1
     template = 'home/carpentry_aluminium_page.html'
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                InlinePanel('realizations_images'),
+            ],
+            heading="Realizations Hero",
+        ),
+    ]
 
 
 class CollectionPage(Page):

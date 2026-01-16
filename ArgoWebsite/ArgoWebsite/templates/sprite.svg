@@ -109,6 +109,9 @@
             <polygon points="0,10 10,10 10,0"/>
         </g>
     </symbol>
-</svg>
-
+    <symbol id="dot" viewBox="0 0 20 20" fill="var(--color-fill)" stroke="var(--color-stroke)" stroke-width="var(--stroke-width)">
+        <g>
+            <circle cx="10" cy="10" r="8"/>
+        </g>
+    </symbol>
 </svg>

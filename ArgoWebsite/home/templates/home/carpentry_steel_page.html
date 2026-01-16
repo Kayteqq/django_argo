@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load wagtailimages_tags %}
 
 {% block body_class %}{% endblock %}
 
@@ -85,16 +86,22 @@
         <h1 class="section-realizations__title title">
             Nasze Realizacje
         </h1>
-        <div class="section-realizations__grid">
-            <div class="section-realizations__grid__item image-wrapper left">
-                <img class="section-realizations__img" src="{% static 'home/images/carpentry_steel_realizations_1.webp' %}" alt="hero image, presentation of windows">
-            </div>
-            <div class="section-realizations__grid__item image-wrapper middle">
-                <img class="section-realizations__img" src="{% static 'home/images/carpentry_steel_realizations_2.webp' %}" alt="hero image, presentation of windows">
-            </div>
-            <div class="section-realizations__grid__item image-wrapper right">
-                <img class="section-realizations__img" src="{% static 'home/images/carpentry_steel_realizations_3.webp' %}" alt="hero image, presentation of windows">
-            </div>
+        <div class="section-realizations__grid" data-slider>
+            {% for item in page.realizations_images.all %}
+                <div class="section-realizations__grid__item image-wrapper">
+                    {% image item.image original %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="section-realizations__points static">
+            {% for item in page.realizations_images.all %}
+                <svg class="section-realizations__points__svg static"><use xlink:href="#dot"></use></svg>
+            {% endfor %}
+        </div>
+        <div class="section-realizations__points dynamic">
+            {% for item in page.realizations_images.all %}
+                <svg class="section-realizations__points__svg dynamic" style="opacity: 0"><use xlink:href="#dot"></use></svg>
+            {% endfor %}
         </div>
     </section>
     <section class="section-projects">
@@ -119,3 +126,150 @@
 </main>
 
 {% endblock content %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const slider = document.querySelector('[data-slider]');
+
+
+        if (!slider) return;
+
+
+        const slides = Array.from(slider.querySelectorAll('.section-realizations__grid__item'));
+        const dots = Array.from(document.querySelectorAll('.section-realizations__points__svg.dynamic'))
+        let prev = 0;
+        let current = 1 % slides.length;
+        let next = 2 % slides.length;
+        const interval = 2000;
+
+        gsap.set(slides, {
+          '--x-pct': '200%',
+          '--x-rem': '3.75rem',
+        });
+        // inicjalny slide
+        gsap.set(slides[prev],      {
+            '--x-pct': '-100%', '--x-rem': '-1.875rem', '--x-remm': '-2rem'
+        });
+        gsap.set(slides[current],   {
+            '--x-pct': '0%', '--x-rem': '0rem', '--x-remm': '0rem',
+        });
+        gsap.set(slides[next],      {
+            '--x-pct': '100%', '--x-rem': '1.875rem', '--x-remm': '2rem'
+        });
+
+
+
+        gsap.set(dots[prev], { opacity: 1})
+        gsap.set(dots[current], { opacity: 1})
+        gsap.set(dots[next], { opacity: 1})
+
+        function runSlider() {
+            const next_next = (next + 1) % slides.length;
+
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    prev = current;
+                    current = next;
+                    next = next_next;
+                    setTimeout(runSlider, interval);
+                }
+            });
+
+            tl.fromTo(
+                slides[next_next],
+                {
+                    '--x-pct': '200%',
+                    '--x-rem': '3.75rem',
+
+                },
+                {
+                    '--x-pct': '100%',
+                    '--x-rem': '1.875rem',
+                    '--x-remm': '2rem',
+
+
+                    duration: 1.6,
+                    ease: 'power2.inOut',
+                },
+                0
+            );
+
+            tl.fromTo(
+                slides[next],
+                {
+                    '--x-pct': '100%',
+                    '--x-rem': '1.875rem',
+                    '--x-remm': '2rem',
+                },
+                {
+
+                    '--x-pct': '0%',
+                    '--x-rem': '0rem',
+                    '--x-remm': '0rem',
+
+                    duration: 1.6,
+                    ease: 'power2.inOut',
+                },
+                0
+            );
+
+            tl.fromTo(
+                slides[current],
+                {
+                    '--x-pct': '0%',
+                    '--x-rem': '0rem',
+                    '--x-remm': '0rem',
+
+                },
+                {
+                    '--x-pct': '-100%',
+                    '--x-rem': '-1.875rem',
+                    '--x-remm': '-2rem',
+
+                    duration: 1.6,
+                    ease: 'power2.inOut',
+                },
+                0
+            );
+
+            tl.to(
+                slides[prev],
+                {
+                    '--x-pct': '-200%',
+                    '--x-rem': '-3.75rem',
+
+                    duration: 1.6,
+                    ease: 'power2.inOut',
+                },
+                0
+            );
+
+            tl.fromTo(
+                dots[next_next],
+                { opacity: 0 },
+                {
+                    opacity: 1,
+                    duration: 1.6,
+                    ease: 'power2.inOut',
+                },
+                0
+            );
+            tl.to(
+                dots[prev],
+                {
+                    opacity: 0,
+                    duration: 1.6,
+                    ease: 'power2.inOut',
+                },
+                0
+            );
+
+        }
+
+        // start
+        setTimeout(runSlider, interval);
+
+    });
+</script>
+{% endblock extra_js %}

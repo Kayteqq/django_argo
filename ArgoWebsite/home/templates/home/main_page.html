@@ -1,18 +1,34 @@
 {% extends "base.html" %}
 {% load static %}
+{% load wagtailimages_tags %}
 
 {% block body_class %}
 {% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'home/css/main_page.css' %}">
-
 {% endblock extra_css %}
 
 {% block content %}
     <main>
-        <section class="section-hero image-wrapper">
-            <img class="section-hero__img" src="{% static 'home/images/main_hero.webp' %}" alt="hero image, presentation of windows">
+        <section class="section-hero">
+            <div class="section-hero__slider" data-slider>
+                {% for item in page.hero_images.all %}
+                    <div class="section-hero__slider__slide image-wrapper">
+                        {% image item.image original %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="section-hero__gallery_points static">
+                {% for item in page.hero_images.all %}
+                    <svg class="section-hero__gallery_points__svg static"><use xlink:href="#dot"></use></svg>
+                {% endfor %}
+            </div>
+            <div class="section-hero__gallery_points dynamic">
+                {% for item in page.hero_images.all %}
+                    <svg class="section-hero__gallery_points__svg dynamic" style="opacity: 0"><use xlink:href="#dot"></use></svg>
+                {% endfor %}
+            </div>
             <svg class="section-hero__svg"><use xlink:href="#rightTriangle"></use></svg>
         </section>
         <section class="section-lead">
@@ -64,9 +80,10 @@
         </section>
         <section class="section-steel">
             <div class="section-steel__inner-divider">
+                <svg class="section-steel__img__svg"><use xlink:href="#rightTriangle"></use></svg>
+
                 <div class="section-steel__img-container image-wrapper">
                     <img class="section-steel__img" src="{% static 'home/images/main_steel.webp' %}" alt=""/>
-                    <svg class="section-steel__img__svg"><use xlink:href="#rightTriangle"></use></svg>
                 </div>
             </div>
             <div class="section-steel__inner-divider">
@@ -130,3 +147,83 @@
         </section>
     </main>
 {% endblock content %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const slider = document.querySelector('[data-slider]');
+        if (!slider) return;
+
+        const slides = Array.from(slider.querySelectorAll('.section-hero__slider__slide'));
+        const dots = Array.from(document.querySelectorAll('.section-hero__gallery_points__svg.dynamic'))
+        let current = 0;
+        const interval = 2000;
+
+        // inicjalny slide
+        gsap.set(slides[0], { x: '0%', opacity: 1 });
+        gsap.set(dots[0], { opacity: 1})
+
+        function runSlider() {
+            const next = (current + 1) % slides.length;
+
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    current = next;
+                    setTimeout(runSlider, interval);
+                }
+            });
+
+            tl.fromTo(
+                slides[next],
+                {
+                    x: '100%',
+                    opacity: 1,
+                },
+                {
+                    x: '0%',
+                    opacity: 1,
+                    duration: 1.6,
+                    ease: 'power2.inOut',
+                },
+                0
+            );
+
+            tl.to(
+                slides[current],
+                {
+                    x: '-100%',
+                    opacity: 1,
+                    duration: 1.6,
+                    ease: 'power2.inOut',
+                },
+                0
+            );
+
+            tl.fromTo(
+                dots[next],
+                { opacity: 0 },
+                {
+                    opacity: 1,
+                    duration: 1.6,
+                    ease: 'power2.inOut',
+                },
+                0
+            );
+
+            tl.to(
+                dots[current],
+                {
+                    opacity: 0,
+                    duration: 1.6,
+                    ease: 'power2.inOut',
+                },
+                0
+            );
+        }
+
+        // start
+        setTimeout(runSlider, interval);
+
+    });
+</script>
+{% endblock extra_js %}

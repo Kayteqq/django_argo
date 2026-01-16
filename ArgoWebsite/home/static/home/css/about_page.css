@@ -1,4 +1,9 @@
-
+html {
+    --x-pct: 0%;
+    --x-rem: 0rem;
+    /*--x-remm: 0rem;*/
+    /*--opac: 0%;*/
+}
 
 @media(max-width: 767px) {
     .motto {
@@ -415,14 +420,21 @@
     }
 
     .section-certificates {
+        display: flex;
+        margin: 0 1.875rem 6.25rem 1.875rem;
+        position: relative;
+    }
+
+    .section-certificates__segments {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         gap: 1.875rem;
-        margin: 0 1.875rem 6.25rem 1.875rem;
     }
 
     .section-certificates__segment {
-        min-width: 0;
+        grid-column: 2;
+        grid-row: 1;
+        transform: translateX(calc(var(--x-pct) + var(--x-rem)));
     }
 
     .section-certificates__segment__certificate {
@@ -445,6 +457,33 @@
     }
     .section-certificates__segment__text {
         margin-bottom: 6.25rem;
+    }
+
+    .section-certificates__points {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0.3125rem;
+
+        display: flex;
+        flex-direction: row;
+        gap: 0.75rem;
+        justify-content: center;
+    }
+
+    .section-certificates__points__svg {
+        width: 1rem;
+        height: 1rem;
+    }
+
+    .section-certificates__points__svg.static {
+        --stroke-width: 2px;
+        --color-stroke: var(--argo-czarny);
+        --color-fill: transparent;
+    }
+    .section-certificates__points__svg.dynamic {
+        --color-stroke: transparent;
+        --color-fill: var(--argo-czarny);
     }
 
     .section-references {
