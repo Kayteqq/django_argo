@@ -136,12 +136,18 @@ const FIXED_DEFAULTS = {
 
 function globalData() {
     const defaults = {
-        initialActiveSteps: [true, false, false, false, false, false, false],
-        styleLine: 'vintage', //industrial, vintage, glamour
+        initialActiveSteps: [false, false, false, false, false, false, false],
+        styleLine: '', //industrial, vintage, glamour
         productUsecase: '',
         productType: '', //hinged, sliding, pivot, folding, fixed
         handleType: '',
         color: '',
+
+        isStyleLineConfirmed: false,
+        isProductUsecaseConfirmed: false,
+        isProductTypeConfirmed: false,
+        isHandleConfirmed: false,
+        isColorConfirmed: false,
         isShapeConfirmed: false,
         isSmartHomeConfirmed: false,
 
@@ -168,12 +174,19 @@ function globalData() {
 
     }
     return {
+        finalized: false,
+
         selectedStyleLine: defaults.styleLine,
         selectedProductUsecase: defaults.productUsecase,
         selectedProductType: defaults.productType,
         selectedHandleType: defaults.handleType,
         selectedColor: defaults.color,
 
+        isStyleLineConfirmed: defaults.isStyleLineConfirmed,
+        isProductUsecaseConfirmed: defaults.isProductUsecaseConfirmed,
+        isProductTypeConfirmed: defaults.isProductTypeConfirmed,
+        isHandleConfirmed: defaults.isHandleConfirmed,
+        isColorConfirmed: defaults.isColorConfirmed,
         isShapeConfirmed: defaults.isShapeConfirmed,
         isSmartHomeConfirmed: defaults.isSmartHomeConfirmed,
         get isStyleLineSelected() {return this.selectedStyleLine !== ''},
@@ -259,9 +272,11 @@ function globalData() {
 
         chooseStyleLine(name) {
             if(name) this.selectedStyleLine = name;
+            this.isStyleLineConfirmed = true;
         },
         chooseProductUsecase(name) {
             if(name) this.selectedProductUsecase = name;
+            this.isProductUsecaseConfirmed = true;
         },
         chooseProductType(name) {
             if(name) this.selectedProductType = name;
@@ -301,13 +316,16 @@ function globalData() {
             this.shapeValues.skylightCells.y = values.skylightCells.y;
 
             this.updateInput();
+            this.isProductTypeConfirmed = true;
 
         },
         chooseHandleType(name) {
             if(name) this.selectedHandleType = name;
+            this.isHandleConfirmed = true;
         },
         chooseColor(name) {
             if(name) this.selectedColor = name;
+            this.isColorConfirmed = true;
         },
         confirmShape() {
             this.isShapeConfirmed = true;
@@ -327,7 +345,7 @@ function globalData() {
                     this.activeSteps[0] = false;
                     if (this.selectedProductUsecase === '')
                     {
-                        this.activeSteps[1] = true;
+                        this.activeSteps[1] = true
                         break;
                     }
                 case 1:
@@ -361,8 +379,22 @@ function globalData() {
                 case 5:
                     this.activeSteps[5] = false;
                     this.activeSteps[6] = true;
+                    window.scrollTo(0, 0)
                     break;
             }
+
+            if (
+                this.isStyleLineConfirmed &&
+                this.isProductUsecaseConfirmed &&
+                this.isProductTypeConfirmed &&
+                this.isHandleConfirmed &&
+                this.isColorConfirmed &&
+                this.isShapeConfirmed &&
+                this.isSmartHomeConfirmed
+            )
+            this.finalized = true;
+
+
         },
 
         //shape
@@ -535,6 +567,18 @@ function globalData() {
 
         get rightWidth() {
             return this.shapeValues.rightCells.x * this.cellWidth;
+        },
+
+        get doorWidth() {
+            if(this.shapeValues.isWindowsLeftEnabled && this.shapeValues.isWindowsRightEnabled)
+                return this.productWidth - this.rightWidth - this.leftWidth;
+            else if(this.shapeValues.isWindowsLeftEnabled)
+                return this.productWidth - this.leftWidth;
+            else if(this.shapeValues.isWindowsRightEnabled)
+                return this.productWidth - this.rightWidth;
+            else
+                return this.productWidth;
+
         },
 
 
@@ -1218,7 +1262,13 @@ function globalData() {
             this.updateInput();
 
             return `
-                    <svg width="${this.svgWidth}" height="${this.svgHeight}">
+                    <svg
+                        class="svg-display-file"
+                        style="--svg-width: ${this.svgWidth}px"
+                        viewBox="0 0 ${this.svgWidth} ${this.svgHeight}"
+                        preserveAspectRatio="xMidYMid meet"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
                         <rect
                             x="0" y="0"
                             width="${this.svgWidth}"

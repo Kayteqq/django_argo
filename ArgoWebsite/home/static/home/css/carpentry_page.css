@@ -185,6 +185,7 @@ html {
         margin: 0 1.875rem 3.75rem 1.875rem;
         display: grid;
         grid-template-columns: 1fr 1fr;
+        max-height: 62.5rem;
 
         column-gap: 10.215%;
     }
@@ -214,7 +215,7 @@ html {
         height: 20.3125vw;
         aspect-ratio: 1 / 1;
         transform: translateX(-0.653645833vw);
-        margin-bottom: 3.75rem;
+        margin-bottom: 9.25rem;
     }
 
     .section-hero__text {

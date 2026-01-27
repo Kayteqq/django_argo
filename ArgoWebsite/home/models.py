@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from wagtail.admin.panels import PageChooserPanel, FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.contrib.settings.models import BaseSiteSetting
 from wagtail.contrib.settings.registry import register_setting
+from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.models import Image
 from wagtail.models import Page, Orderable
 from wagtail.fields import StreamField
@@ -587,11 +588,35 @@ class ServicesPage(Page):
     subpage_types = []
 
 
+class GalleryPageItem(Orderable):
+    page = ParentalKey('GalleryPage', related_name='gallery_items', on_delete=models.CASCADE)
+    images = StreamField(
+        [
+            ('image', ImageChooserBlock()),
+        ],
+        blank=True,
+        use_json_field=True,
+    )
+
+    panels = [
+        FieldPanel('images'),
+    ]
+
+
 class GalleryPage(Page):
     max_count = 1
     template = 'home/gallery_page.html'
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                InlinePanel('gallery_items'),
+            ],
+            heading="Galleries",
+        ),
+    ]
 
 
 class ContactPage(Page):

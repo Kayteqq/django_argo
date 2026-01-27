@@ -193,6 +193,10 @@ svg.flipped {
     text-transform: uppercase;
 }
 
+.parameter {
+    font-family: 'Archivo-SemiBold', sans-serif;
+}
+
 .list-text {
     font-family: 'Archivo-Regular', sans-serif;
     font-size: 1.5rem;
@@ -259,6 +263,10 @@ svg.flipped {
         font-size: 1.1875rem;
         line-height: 1.5625rem;
         letter-spacing: 0.059375rem;
+    }
+    .parameter {
+        font-size: 0.9375rem;
+        line-height: 1rem;
     }
 
     .list-text {
