@@ -12,22 +12,23 @@
 <main>
     <section class="section-hero">
         <div class="section-hero__inner-divider left image-wrapper">
-            <img class="section-hero__img" src="{% static 'home/images/carpentry_aluminium_hero.webp' %}" alt="hero image, presentation of windows">
+            {% image page.image_hero orignal class='section-hero__img' %}
         </div>
         <div class="section-hero__inner-divider right">
             <svg class="section-hero__svg-container">
                 <use xlink:href="#argoArrow"></use>
             </svg>
             <h1 class="section-hero__title title">
-                Stolarka Aluminiowa
+                {{ page.title_hero }}
             </h1>
             <p class="section-hero__text text">
-Tworzymy stolarkę aluminiową w oparciu o najlepsze europejskie systemy, takie jak SCHÜCO, REYNAERS, SAPA i ALUPROF. Jako partner SCHÜCO Polska realizujemy okna i drzwi rozwierne, konstrukcje przesuwne – w tym cienkoprofilowe systemy ASS 77 PANORAMA DESIGN z napędem ręcznym lub automatycznym. Dzięki szerokim możliwościom systemowym dopasowujemy produkty do oczekiwań estetycznych, parametrów technicznych i klasy termicznej.            </p>
+                {{ page.text_hero }}
+            </p>
         </div>
     </section>
     <section class="section-realizations">
         <h1 class="section-realizations__title title">
-            Nasze Realizacje
+            {{ page.title_realizations }}
         </h1>
         <div class="section-realizations__grid" data-slider>
             {% for item in page.realizations_images.all %}
@@ -50,21 +51,21 @@ Tworzymy stolarkę aluminiową w oparciu o najlepsze europejskie systemy, takie 
     <section class="section-projects">
         <div class="section-projects__inner-divider left">
             <h1 class="section-projects__title title">
-                Nasza specjalizacja: aluminiowe systemy HS
+                {{ page.title_projects }}
             </h1>
             <p class="section-projects__text text">
-Tworzymy zaawansowane, wielkopowierzchniowe systemy przesuwne HS, które łączą wyjątkową jakość i funkcjonalność. Umożliwiają one maksymalne otwarcie przestrzeni, wpuszczając do wnętrz więcej światła i zapewniając płynne przejście między strefami wewnętrznymi a zewnętrznymi.
+                {{ page.text_projects }}
             </p>
-            <a class="section-projects__button button--variant_a" href="#">
-                <span>SKONTAKTUJ SIĘ Z NAMI</span>
+            <a class="section-projects__button button--variant_a" href="{{ page.redirect_projects }}">
+                <span>{{ page.button_projects }}</span>
             </a>
         </div>
         <div class="section-projects__inner-divider right image-wrapper">
-            <img class="section-projects__img" src="{% static 'home/images/carpentry_aluminium_projects.webp' %}" alt="hero image, presentation of windows">
+            {% image page.image_projects original class='section-projects__img' %}
         </div>
     </section>
     <section class="section-image-divider image-wrapper">
-        <img class="section-image-divider__img" src="{% static 'home/images/carpentry_aluminium_divider.webp' %}" alt=""/>
+        {% image page.image_divider original class='section-image-divider__img' %}
     </section>
 </main>
 

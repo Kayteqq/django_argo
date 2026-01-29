@@ -597,13 +597,58 @@ class CarpentryAluminiumPage(Page):
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
 
+    image_hero = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    title_hero = models.CharField("Title - Hero", max_length=255, blank=True)
+    text_hero = models.TextField("Text - Hero", blank=True)
+
+    title_realizations = models.CharField("Title - Realization", max_length=255, blank=True)
+
+    image_projects = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    title_projects = models.CharField("Title - Projects", max_length=255, blank=True)
+    text_projects = models.TextField("Text - Projects", blank=True)
+    button_projects = models.CharField("Button Text - Projects", max_length=255, blank=True)
+    redirect_projects = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    image_divider = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
+                FieldPanel('image_hero'),
+                FieldPanel('title_hero'),
+                FieldPanel('text_hero'),
+            ],
+            heading="Section Hero",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('title_realizations'),
                 InlinePanel('realizations_images'),
             ],
-            heading="Realizations Hero",
+            heading="Section Realizations",
         ),
+        MultiFieldPanel(
+            [
+                FieldPanel('image_projects'),
+                FieldPanel('title_projects'),
+                FieldPanel('text_projects'),
+                FieldPanel('button_projects'),
+                FieldPanel('redirect_projects'),
+            ],
+            heading="Section Projects",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('image_divider'),
+            ],
+            heading="Section Image Divider",
+        )
     ]
 
 class CollectionPage(Page):
@@ -801,5 +846,6 @@ class PrivacyPoliticsPage(Page):
     template = 'home/privacy_politics_page.html'
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
+
 
 
