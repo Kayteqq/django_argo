@@ -12,79 +12,79 @@
 <main>
     <section class="section-hero">
         <div class="section-hero__inner-divider left image-wrapper">
-            <img class="section-hero__img" src="{% static 'home/images/carpentry_steel_hero.webp' %}" alt="hero image, presentation of windows">
+            {% image page.image_hero orignal class='section-hero__img' %}
         </div>
         <div class="section-hero__inner-divider right">
             <svg class="section-hero__svg-container">
                 <use xlink:href="#argoArrow"></use>
             </svg>
             <h1 class="section-hero__title title">
-Stolarka Stalowa
+                {{ page.title_hero }}
             </h1>
             <p class="section-hero__text text">
-Od 2010 roku oferujemy stolarkę stalową opartą na systemach JANSEN, odpowiadając na rosnące potrzeby wymagających klientów. Rozwiązania tej szwajcarskiej marki umożliwiają tworzenie konstrukcji o wysokich parametrach technicznych i estetycznych, także w wariantach opartych na systemach JANISOL ARTE i JANISOL HI.
+                {{ page.text_hero }}
             </p>
         </div>
     </section>
     <section class="section-collections">
         <h1 class="section-collections__mobile-title title">
-            Steel Line
+            {{ page.title_collections }}
         </h1>
         <p class="section-collections__mobile-text text">
-            Nasze kolekcje drzwi i przeszkleń stalowych łączą różnorodną estetykę z jednolitą jakością wykonania. Industrial, Vintage i Glamour pozwalają dopasować charakter stolarki do każdej przestrzeni – od surowych loftów po eleganckie, klasyczne i wysmakowane wnętrza.
+            {{ page.text_collections }}
         </p>
         <div class="section-collections__segment">
             <div class="section-collections__segment__certificate">
                 <div class="section-collections__segment__img-wrapper">
-                    <img class="section-collections__segment__img" src="{% static 'home/images/carpentry_steel_collections_industrial.webp' %}" alt=""/>
+                    {% image page.image_1_collections original class='section-collections__segment__img' %}
                 </div>
             </div>
             <h1 class="section-collections__segment__subtitle subtitle">
-                Linia Industrial
+                {{ page.subtitle_1_collections }}
             </h1>
             <p class="section-collections__segment__text text">
-                Linia Industrial czerpie z estetyki loftów i architektury przemysłowej. Smukłe stalowe profile, oszczędne podziały i matowe wykończenia tworzą surowy, minimalistyczny charakter. To rozwiązanie dla przestrzeni nowoczesnych, które cenią prostotę formy i wyrazistą geometrię.
+                {{ page.text_1_collections }}
             </p>
-            <a class="section-collections__segment__button button--variant_b" href="#">
-                <span>Odkryj linię industrial</span>
+            <a class="section-collections__segment__button button--variant_b" href="{{ page.redirect_1_collections.url }}">
+                <span>{{ page.button_1_collections }}</span>
             </a>
         </div>
         <div class="section-collections__segment active">
             <div class="section-collections__segment__certificate">
                 <div class="section-collections__segment__img-wrapper">
-                    <img class="section-collections__segment__img" src="{% static 'home/images/carpentry_steel_collections_vintage.webp' %}" alt=""/>
+                    {% image page.image_2_collections original class='section-collections__segment__img' %}
                 </div>
             </div>
-            <h2 class="section-collections__segment__subtitle subtitle">
-                Linia Vintage
-            </h2>
+            <h1 class="section-collections__segment__subtitle subtitle">
+                {{ page.subtitle_2_collections }}
+            </h1>
             <p class="section-collections__segment__text text">
-                Vintage to linia inspirowana klasycznym rzemiosłem i detalem sprzed lat. Subtelne zdobienia, łukowe podziały oraz stonowana kolorystyka nadają stolarce ponadczasowego uroku. Sprawdza się we wnętrzach tradycyjnych, jak i tych, które chcą wprowadzić akcent historii.
+                {{ page.text_2_collections }}
             </p>
-            <a class="section-collections__segment__button button--variant_b" href="#">
-                <span>Odkryj linię vintage</span>
+            <a class="section-collections__segment__button button--variant_b" href="{{ page.redirect_2_collections.url }}">
+                <span>{{ page.button_2_collections }}</span>
             </a>
         </div>
         <div class="section-collections__segment">
             <div class="section-collections__segment__certificate">
                 <div class="section-collections__segment__img-wrapper">
-                    <img class="section-collections__segment__img" src="{% static 'home/images/carpentry_steel_collections_glamour.webp' %}" alt=""/>
+                    {% image page.image_3_collections original class='section-collections__segment__img' %}
                 </div>
             </div>
-            <h2 class="section-collections__segment__subtitle subtitle">
-                Linia Glamour
-            </h2>
+            <h1 class="section-collections__segment__subtitle subtitle">
+                {{ page.subtitle_3_collections }}
+            </h1>
             <p class="section-collections__segment__text text">
-                Linia Glamour podkreśla prestiż i dekoracyjność stolarki stalowej. Lśniące wykończenia, szlachetne kolory i dopracowane detale nadają produktom wyjątkowo reprezentacyjny charakter. To propozycja dla przestrzeni, w których liczy się efekt, styl i luksusowa forma.
+                {{ page.text_3_collections }}
             </p>
-            <a class="section-collections__segment__button button--variant_b" href="#">
-                <span>Odkryj linię glamour</span>
+            <a class="section-collections__segment__button button--variant_b" href="{{ page.redirect_3_collections.url }}">
+                <span>{{ page.button_3_collections }}</span>
             </a>
         </div>
     </section>
     <section class="section-realizations">
         <h1 class="section-realizations__title title">
-            Nasze Realizacje
+            {{ page.title_realizations }}
         </h1>
         <div class="section-realizations__grid" data-slider>
             {% for item in page.realizations_images.all %}
@@ -107,21 +107,21 @@ Od 2010 roku oferujemy stolarkę stalową opartą na systemach JANSEN, odpowiada
     <section class="section-projects">
         <div class="section-projects__inner-divider left">
             <h1 class="section-projects__title title">
-                Wyjątkowe projekty szyte na miarę
+                {{ page.title_projects }}
             </h1>
             <p class="section-projects__text text">
-                Tworzymy stalową stolarkę w pełni dopasowaną do indywidualnych potrzeb klientów, realizując zarówno własne koncepcje, jak i te przygotowane przez zewnętrznych projektantów. Każdy projekt może być w pełni spersonalizowany – od detali po unikatowe formy – co pozwala nam tworzyć rozwiązania prestiżowe i jednocześnie perfekcyjnie wpisujące się w charakter przestrzeni.
+                {{ page.text_projects }}
             </p>
-            <a class="section-projects__button button--variant_a" href="#">
-                <span>SKONTAKTUJ SIĘ Z NAMI</span>
+            <a class="section-projects__button button--variant_a" href="{{ page.redirect_projects }}">
+                <span>{{ page.button_projects }}</span>
             </a>
         </div>
         <div class="section-projects__inner-divider right image-wrapper">
-            <img class="section-projects__img" src="{% static 'home/images/carpentry_steel_projects.webp' %}" alt="hero image, presentation of windows">
+            {% image page.image_projects original class='section-projects__img' %}
         </div>
     </section>
     <section class="section-image-divider image-wrapper">
-        <img class="section-image-divider__img" src="{% static 'home/images/carpentry_steel_divider.webp' %}" alt=""/>
+        {% image page.image_divider original class='section-image-divider__img' %}
     </section>
 </main>
 

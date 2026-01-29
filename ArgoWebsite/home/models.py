@@ -459,16 +459,125 @@ class CarpentrySteelPage(Page):
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
 
+    image_hero = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    title_hero = models.CharField("Title - Hero", max_length=255, blank=True)
+    text_hero = models.TextField("Text - Hero", blank=True)
+
+
+    title_collections = models.CharField("Title - Collections", max_length=255, blank=True)
+    text_collections = models.TextField("Text - Collections", blank=True)
+
+    image_1_collections = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    subtitle_1_collections = models.CharField("Subtitle Industrial - Collections", max_length=255, blank=True)
+    text_1_collections = models.TextField("Text Industrial - Collections", blank=True)
+    button_1_collections = models.CharField("Button Industrial - Collections", max_length=255, blank=True)
+    redirect_1_collections = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    image_2_collections = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    subtitle_2_collections = models.CharField("Subtitle Vintage - Collections", max_length=255, blank=True)
+    text_2_collections = models.TextField("Text Vintage - Collections", blank=True)
+    button_2_collections = models.CharField("Button Vintage - Collections", max_length=255, blank=True)
+    redirect_2_collections = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    image_3_collections = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    subtitle_3_collections = models.CharField("Subtitle Glamour - Collections", max_length=255, blank=True)
+    text_3_collections = models.TextField("Text Glamour - Collections", blank=True)
+    button_3_collections = models.CharField("Button Glamour - Collections", max_length=255, blank=True)
+    redirect_3_collections = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    title_realizations = models.CharField("Title - Realization", max_length=255, blank=True)
+
+    image_projects = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    title_projects = models.CharField("Title - Projects", max_length=255, blank=True)
+    text_projects = models.TextField("Text - Projects", blank=True)
+    button_projects = models.CharField("Button Text - Projects", max_length=255, blank=True)
+    redirect_projects = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    image_divider = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
 
 
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
+                FieldPanel('image_hero'),
+                FieldPanel('title_hero'),
+                FieldPanel('text_hero'),
+            ],
+            heading="Section Hero",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('title_collections'),
+                FieldPanel('text_collections'),
+
+                FieldPanel('image_1_collections'),
+                FieldPanel('subtitle_1_collections'),
+                FieldPanel('text_1_collections'),
+                FieldPanel('button_1_collections'),
+                FieldPanel('redirect_1_collections'),
+
+                FieldPanel('image_2_collections'),
+                FieldPanel('subtitle_2_collections'),
+                FieldPanel('text_2_collections'),
+                FieldPanel('button_2_collections'),
+                FieldPanel('redirect_2_collections'),
+
+                FieldPanel('image_3_collections'),
+                FieldPanel('subtitle_3_collections'),
+                FieldPanel('text_3_collections'),
+                FieldPanel('button_3_collections'),
+                FieldPanel('redirect_3_collections'),
+            ],
+            heading="Section Collections",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('title_realizations'),
                 InlinePanel('realizations_images'),
             ],
-            heading="Realizations Hero",
+            heading="Section Realizations",
         ),
+        MultiFieldPanel(
+            [
+                FieldPanel('image_projects'),
+                FieldPanel('title_projects'),
+                FieldPanel('text_projects'),
+                FieldPanel('button_projects'),
+                FieldPanel('redirect_projects'),
+            ],
+            heading="Section Projects",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('image_divider'),
+            ],
+            heading="Section Image Divider",
+        )
     ]
 
 class CarpentryAluminiumPageCarouselItem(Orderable):
