@@ -33,16 +33,16 @@
         </section>
         <section class="section-lead">
             <div class="section-lead__inner-divider">
-                <p class="section-lead__motto motto text-black">
-                    stolarka stalowa i aluminiowa argo
+                <p class="section-lead__motto motto">
+                    {{ page.motto_lead }}
                 </p>
-                <h1 class="section-lead__title title text-black">
-                    Innowacyjne rozwiązania, które definiują przestrzeń
+                <h1 class="section-lead__title title">
+                    {{ page.title_lead }}
                 </h1>
-                <p class="section-lead__text text text-black">
-                    Tworzymy stolarkę stalową i aluminiową, łącząc wytrzymałość materiałów z ponadczasową estetyką. Nasze realizacje wyróżniają się smukłymi liniami, precyzyjnymi detalami i perfekcją wykonania, dopasowaną do nawet najbardziej wymagającej przestrzeni.                </p>
-                <a class="section-lead__button button--variant_a" href="#">
-                    <span>poznaj nasze wartosci</span>
+                <p class="section-lead__text text">
+                    {{ page.text_lead }}
+                <a class="section-lead__button button--variant_a" href="{{ page.redirect_button.url }}">
+                    <span>{{ page.button_lead }}</span>
                 </a>
             </div>
 
@@ -51,30 +51,30 @@
         <section class="section-carpentry">
             <div class="section-carpentry__inner-divider left">
                 <div class="section-carpentry__img-container image-wrapper">
-                    <img class="section-carpentry__img" src="{% static 'home/images/main_carpentry_left.webp' %}" alt="visualisation of metal carpentry"/>
+                    {% image page.image_steel_carpentry original class='section-carpentry__img' %}
                 </div>
-                <p class="section-carpentry__subtitle subtitle text-black">
-                    Stolarka Stalowa
+                <p class="section-carpentry__subtitle subtitle">
+                    {{ page.title_steel_carpentry }}
                 </p>
-                <h1 class="section-carpentry__text text text-black">
-                    Oferujemy nowoczesne okna i drzwi stalowe, które łączą wytrzymałość z elegancją i minimalistycznym designem. Smukłe profile i duże przeszklenia pozwalają tworzyć konstrukcje o wyjątkowej estetyce, idealnie dopasowane do loftów, rezydencji i nowoczesnych przestrzeni.
+                <h1 class="section-carpentry__text text">
+                    {{ page.text_steel_carpentry }}
                 </h1>
-                <a class="section-carpentry__button button--variant_b" href="#">
-                    <span>odkryj stolarke stalową</span>
+                <a class="section-carpentry__button button--variant_b" href="{{ page.redirect_steel_carpentry.url }}">
+                    <span>{{ page.button_steel_carpentry }}</span>
                 </a>
             </div>
             <div class="section-carpentry__inner-divider right">
                 <div class="section-carpentry__img-container image-wrapper">
-                    <img class="section-carpentry__img" src="{% static 'home/images/main_carpentry_right.webp' %}" alt="visualisation of aluminium carpentry"/>
+                    {% image page.image_aluminium_carpentry original class='section-carpentry__img' %}
                 </div>
-                <p class="section-carpentry__subtitle subtitle text-black">
-                    Stolarka Aluminiowa
+                <p class="section-carpentry__subtitle subtitle">
+                    {{ page.title_aluminium_carpentry }}
                 </p>
-                <h1 class="section-carpentry__text text text-black">
-                    Nasze okna i drzwi aluminiowe łączą funkcjonalność z wysoką izolacyjnością termiczną i estetyką dopracowaną w najdrobniejszych detalach. Dostępne w różnych systemach, umożliwiają realizację projektów od klasycznych po nowoczesne, zarówno w domach, jak i w obiektach komercyjnych.
+                <h1 class="section-carpentry__text text">
+                    {{ page.text_aluminium_carpentry }}
                 </h1>
-                <a class="section-carpentry__button button--variant_b" href="#">
-                    <span>odkryj stolarke aluminiową</span>
+                <a class="section-carpentry__button button--variant_b" href="{{ page.redirect_aluminium_carpentry.url }}">
+                    <span>{{ page.button_aluminium_carpentry }}</span>
                 </a>
             </div>
         </section>
@@ -83,46 +83,44 @@
                 <svg class="section-steel__img__svg"><use xlink:href="#rightTriangle"></use></svg>
 
                 <div class="section-steel__img-container image-wrapper">
-                    <img class="section-steel__img" src="{% static 'home/images/main_steel.webp' %}" alt=""/>
+                    {% image page.image_steel original class="section-steel__img" %}
                 </div>
             </div>
             <div class="section-steel__inner-divider">
                 <div class="section-steel__inner-divider__container">
                     <svg class="section-steel__svg"><use xlink:href="#argoArrow"></use></svg>
-                    <p class="section-steel__motto motto text-black">
-                        Stolarka Stalowa
+                    <p class="section-steel__motto motto">
+                        {{ page.motto_steel }}
                     </p>
-                    <h1 class="section-steel__title title text-black">
-                        Okna i drzwi stalowe<br>
-                        – nowoczesny design i trwałość
+                    <h1 class="section-steel__title title">
+                        {{ page.title_steel }}
                     </h1>
-                    <p class="section-steel__text text text-black">
-                        Nasze stalowe okna i drzwi łączą minimalistyczny design z wysoką trwałością. Smukłe profile i duże przeszklenia pozwalają na tworzenie nowoczesnych, estetycznych przestrzeni, idealnych do loftów, rezydencji <br>i wnętrz komercyjnych.
+                    <p class="section-steel__text text">
+                        {{ page.text_steel }}
                     </p>
-                    <a class="section-steel__button button--variant_a" href="#">
-                        <span>poznaj stalową precyzję</span>
+                    <a class="section-steel__button button--variant_a" href="{{ page.redirect_steel.url }}">
+                        <span>{{ page.button_steel }}</span>
                     </a>
                 </div>
             </div>
         </section>
         <section class="section-aluminium">
             <div class="section-aluminium__inner-divider right image-wrapper">
-                <img class="section-aluminium__img" src="{% static 'home/images/main_aluminium.webp' %}" alt=""/>
+                {% image page.image_aluminium original class='section-aluminium__img' %}
                 <svg class="section-aluminium__img__svg"><use xlink:href="#rightTriangle"></use></svg>
             </div>
             <div class="section-aluminium__inner-divider left">
                 <p class="section-aluminium__motto motto">
-                    Stolarka Aluminiowa
+                    {{ page.motto_aluminium }}
                 </p>
                 <h1 class="section-aluminium__title title">
-                    Okna i drzwi aluminiowe<br>
-                    – lekkość i wszechstronność
+                    {{ page.title_aluminium }}
                 </h1>
                 <p class="section-aluminium__text text">
-                    Produkty aluminiowe łączą nowoczesną estetykę z doskonałą izolacyjnością termiczną. Oferujemy różne systemy i konfiguracje, które pozwalają dopasować okna i drzwi do indywidualnych potrzeb domu lub obiektu komercyjnego.
+                    {{ page.text_aluminium }}
                 </p>
-                <a class="section-aluminium__button button--variant_a" href="#">
-                    <span>sprawdź aluminiowe możliwości</span>
+                <a class="section-aluminium__button button--variant_a" href="{{ page.redirect_aluminium.url }}">
+                    <span>{{ page.button_aluminium }}</span>
                 </a>
             </div>
         </section>
@@ -132,18 +130,18 @@
             </div>
             <div class="section-configurator__inner-divider right">
                 <p class="section-configurator__motto motto">
-                    Rozwiazania, które definiują przestrzeń
+                    {{ page.motto_configurator }}
                 </p>
                 <h1 class="section-configurator__title title">
-                    Skonfiguruj drzwi i okna stalowe ARGO krok po kroku: wybierz styl, wymiary, rodzaj szkła i dodatkowe funkcje.
+                    {{ page.title_configurator }}
                 </h1>
-                <a class="section-configurator__button button--variant_a" href="#">
-                    <span>skonfiguruj swój produkt</span>
+                <a class="section-configurator__button button--variant_a" href="{{ page.redirect_configurator.url }}">
+                    <span>{{ page.button_configurator }}</span>
                 </a>
             </div>
         </section>
         <section class="section-image-divider image-wrapper">
-            <img class="section-image-divider__img" src="{% static 'home/images/main_divider.webp' %}" alt=""/>
+            {% image page.image_divider original class='section-image-divider__img' %}
         </section>
     </main>
 {% endblock content %}

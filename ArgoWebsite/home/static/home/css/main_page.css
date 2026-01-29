@@ -440,6 +440,7 @@
     }
 
     .section-lead__button {
+        margin-top: 3.75rem;
         grid-area: button;
     }
 

@@ -87,7 +87,6 @@ class FooterLinksPage(Page):
         verbose_name = 'Footer Links'
         verbose_name_plural = 'Footer Links'
 
-
 @register_setting
 class SocialMediaSettings(BaseSiteSetting):
     url_x           = models.URLField("URL X",          blank=True, null=True)
@@ -105,9 +104,6 @@ class SocialMediaSettings(BaseSiteSetting):
     class Meta:
         verbose_name = 'Social Media - Linki'
         verbose_name_plural = 'Social Media - Linki'
-
-
-
 
 class RootRedirectPage(Page):
     parent_page_types = ['wagtailcore.Page']
@@ -130,7 +126,6 @@ class RootRedirectPage(Page):
         else:
             # Jeśli nie wybrano strony, możesz przekierować np. na stronę główną
             return redirect('/')
-
 
 class MainPageCarouselItem(Orderable):
     page = ParentalKey('MainPage', related_name='hero_images')
@@ -197,8 +192,8 @@ class MainPage(Page):
         related_name='+'
     )
 
-    title_steel = models.CharField("Steel - Title", max_length=255, blank=True)
     motto_steel = models.CharField("Steel - Lead", max_length=255, blank=True)
+    title_steel = models.CharField("Steel - Title", max_length=255, blank=True)
     text_steel = models.TextField("Steel - Text", blank=True)
     button_steel = models.CharField("Steel - Button Text ", max_length=255, blank=True)
     redirect_steel = models.ForeignKey(
@@ -216,8 +211,8 @@ class MainPage(Page):
         related_name='+'
     )
 
-    title_aluminium = models.CharField("Aluminium - Title", max_length=255, blank=True)
     motto_aluminium = models.CharField("Aluminium - Lead", max_length=255, blank=True)
+    title_aluminium = models.CharField("Aluminium - Title", max_length=255, blank=True)
     text_aluminium = models.TextField("Aluminium - Text", blank=True)
     button_aluminium = models.CharField("Aluminium - Button Text ", max_length=255, blank=True)
     redirect_aluminium = models.ForeignKey(
@@ -235,10 +230,9 @@ class MainPage(Page):
         related_name='+'
     )
 
-    title_configurator = models.CharField("Aluminium - Title", max_length=255, blank=True)
-    motto_configurator = models.CharField("Aluminium - Lead", max_length=255, blank=True)
-    text_configurator = models.TextField("Aluminium - Text", blank=True)
-    button_configurator = models.CharField("Aluminium - Button Text ", max_length=255, blank=True)
+    motto_configurator = models.CharField("Configurator - Lead", max_length=255, blank=True)
+    title_configurator = models.CharField("Configurator - Title", max_length=255, blank=True)
+    button_configurator = models.CharField("Configurator - Button Text ", max_length=255, blank=True)
     redirect_configurator = models.ForeignKey(
         Page,
         null=True,
@@ -274,46 +268,45 @@ class MainPage(Page):
         ),
         MultiFieldPanel(
             [
+                FieldPanel('image_steel_carpentry'),
                 FieldPanel('title_steel_carpentry'),
                 FieldPanel('text_steel_carpentry'),
                 FieldPanel('button_steel_carpentry'),
                 FieldPanel('redirect_steel_carpentry'),
-                FieldPanel('image_steel_carpentry'),
+                FieldPanel('image_aluminium_carpentry'),
                 FieldPanel('title_aluminium_carpentry'),
                 FieldPanel('text_aluminium_carpentry'),
                 FieldPanel('button_aluminium_carpentry'),
                 FieldPanel('redirect_aluminium_carpentry'),
-                FieldPanel('image_aluminium_carpentry'),
             ],
             heading="Section Carpentry",
         ),
         MultiFieldPanel(
             [
-                FieldPanel('title_steel'),
+                FieldPanel('image_steel'),
                 FieldPanel('motto_steel'),
+                FieldPanel('title_steel'),
                 FieldPanel('text_steel'),
                 FieldPanel('button_steel'),
                 FieldPanel('redirect_steel'),
-                FieldPanel('image_steel'),
             ],
             heading="Section Steel",
         ),
         MultiFieldPanel(
             [
-                FieldPanel('title_aluminium'),
+                FieldPanel('image_aluminium'),
                 FieldPanel('motto_aluminium'),
+                FieldPanel('title_aluminium'),
                 FieldPanel('text_aluminium'),
                 FieldPanel('button_aluminium'),
                 FieldPanel('redirect_aluminium'),
-                FieldPanel('image_aluminium'),
             ],
             heading="Section Aluminium",
         ),
         MultiFieldPanel(
             [
-                FieldPanel('title_configurator'),
                 FieldPanel('motto_configurator'),
-                FieldPanel('text_configurator'),
+                FieldPanel('title_configurator'),
                 FieldPanel('button_configurator'),
                 FieldPanel('redirect_configurator'),
             ],
@@ -326,7 +319,6 @@ class MainPage(Page):
             heading="Section Image Divider",
         )
     ]
-
 
 class AboutPageCarouselItem(Orderable):
     page = ParentalKey('AboutPage', related_name='certificates')
@@ -352,20 +344,8 @@ class AboutPage(Page):
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
 
-    motto_hero = models.CharField("Lead - Hero", max_length=255, blank=True)
-    title_hero = models.CharField("Title - Hero", max_length=255, blank=True)
-    text_hero = models.TextField("Text - Hero", blank=True)
-    image_hero = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
 
-    motto_quality = models.CharField("Lead - Quality", max_length=255, blank=True)
-    title_quality = models.CharField("Title - Quality", max_length=255, blank=True)
-    text_quality = models.TextField("Text - Quality", blank=True)
-    image_quality = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
-
-    motto_project = models.CharField("Lead - Quality", max_length=255, blank=True)
-    title_project = models.CharField("Title - Quality", max_length=255, blank=True)
-    text_project = models.TextField("Text - Quality", blank=True)
-    image_project = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
@@ -375,7 +355,6 @@ class AboutPage(Page):
             heading="Section Certificates",
         ),
     ]
-
 
 class CarpentrySteelPageCarouselItem(Orderable):
     page = ParentalKey('CarpentrySteelPage', related_name='realizations_images')
@@ -428,7 +407,6 @@ class CarpentryAluminiumPage(Page):
             heading="Realizations Hero",
         ),
     ]
-
 
 class CollectionPage(Page):
     template = 'home/collection_page.html'
@@ -573,20 +551,17 @@ class CollectionPage(Page):
 
     ]
 
-
 class ConfiguratorPage(Page):
     max_count = 1
     template = 'home/configurator_page.html'
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
 
-
 class ServicesPage(Page):
     max_count = 1
     template = 'home/services_page.html'
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
-
 
 class GalleryPageItem(Orderable):
     page = ParentalKey('GalleryPage', related_name='gallery_items', on_delete=models.CASCADE)
@@ -601,7 +576,6 @@ class GalleryPageItem(Orderable):
     panels = [
         FieldPanel('images'),
     ]
-
 
 class GalleryPage(Page):
     max_count = 1
@@ -618,13 +592,11 @@ class GalleryPage(Page):
         ),
     ]
 
-
 class ContactPage(Page):
     max_count = 1
     template = 'home/contact_page.html'
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
-
 
 class PrivacyPoliticsPage(Page):
     max_count = 1

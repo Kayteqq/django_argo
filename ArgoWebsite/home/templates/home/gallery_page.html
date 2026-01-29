@@ -18,6 +18,18 @@
                         {% image block.value original class="section-gallery__item__image__img" %}
                     </div>
                 {% endfor %}
+                <button
+                    type="button"
+                    class="section-gallery__item__button right"
+                    data-action="slide">
+                    Click
+                </button>
+                <button
+                    type="button"
+                    class="section-gallery__item__button left"
+                    data-action="slide">
+                    Click
+                </button>
                 <div class="section-gallery__item__description">
                     <h1 class="section-gallery__item__description__subtitle subtitle">Project Name</h1>
                     <div class="section-gallery__item__description__points">
@@ -49,16 +61,70 @@
         sliders.forEach(slider => {
             const slides = Array.from(slider.querySelectorAll('.section-gallery__item__image'))
             const dots = Array.from(slider.querySelectorAll('.section-gallery__item__description__points__svg.dynamic'))
+            const buttonRight = slider.querySelector('.section-gallery__item__button.right')
+            const buttonLeft = slider.querySelector('.section-gallery__item__button.left')
+
             let current = 0;
             const timeout = 0;
+            let next = 0;
+
+            buttonRight.addEventListener('click', () => {
+                runSlider();
+             })
+            buttonLeft.addEventListener('click', () => {
+                runSliderReverse();
+             })
+
+            {#next = (current + 1) % slides.length;#}
+            {#const tl = gsap.timeline({#}
+            {#    paused: true,#}
+            {#});#}
+            {#tl.fromTo(slides[next],#}
+            {#    {#}
+            {#        x: '100%',#}
+            {#    },#}
+            {#    {#}
+            {#        x: '0%',#}
+            {#        duration: 1.6,#}
+            {#        ease: 'none'#}
+            {#    },#}
+            {#    0#}
+            {#)#}
+            {#tl.fromTo(slides[current],#}
+            {#    {#}
+            {#        x: '-100%',#}
+            {#        duration: 1.6,#}
+            {#        ease: 'none'#}
+            {#    },#}
+            {#    0#}
+            {#)#}
+            {#tl.fromTo(dots[next],#}
+            {#    {#}
+            {#        opacity: 0,#}
+            {#    },#}
+            {#    {#}
+            {#        opacity: 1,#}
+            {#        duration: 1.6,#}
+            {#        ease: 'power2.inOut'#}
+            {#    },#}
+            {#    0#}
+            {#)#}
+            {#tl.to(dots[current],#}
+            {#    {#}
+            {#        opacity: 0,#}
+            {#        duration: 1.6,#}
+            {#        ease: 'power2.inOut'#}
+            {#    },#}
+            {#    0#}
+            {#)#}
 
             function runSlider()
             {
-                const next = (current + 1) % slides.length;
+                next = (current + 1) % slides.length;
                 const tl = gsap.timeline({
                     onComplete: () => {
                         current = next;
-                        setTimeout(runSlider, timeout);
+                        {#setTimeout(runSlider, timeout);#}
                     }
                 });
                 tl.fromTo(slides[next],
@@ -99,7 +165,55 @@
                     },
                     0
                 )
-            }
+             }
+            function runSliderReverse()
+            {
+                next = (current - 1 + slides.length) % slides.length;
+                const tl = gsap.timeline({
+                    onComplete: () => {
+                        current = next;
+                        setTimeout(runSlider, timeout);
+                    }
+                });
+                tl.fromTo(slides[next],
+                    {
+                        x: '-100%',
+                    },
+                    {
+                        x: '0%',
+                        duration: 1.6,
+                        ease: 'none'
+                    },
+                    0
+                )
+                tl.to(slides[current],
+                    {
+                        x: '100%',
+                        duration: 1.6,
+                        ease: 'none'
+                    },
+                    0
+                )
+                tl.fromTo(dots[next],
+                    {
+                        opacity: 0,
+                    },
+                    {
+                        opacity: 1,
+                        duration: 1.6,
+                        ease: 'power2.inOut'
+                    },
+                    0
+                )
+                tl.to(dots[current],
+                    {
+                        opacity: 0,
+                        duration: 1.6,
+                        ease: 'power2.inOut'
+                    },
+                    0
+                )
+             }
             {#runSlider();#}
         });
 
