@@ -12,55 +12,51 @@
     <main>
         <section class="section-hero">
             <div class="section-hero__inner-divider right image-wrapper">
-                <img class="section-hero__img" src="{% static 'home/images/about_hero.webp' %}" alt=""/>
+                {% image page.image_hero original class='section-hero__img' %}
                 <svg class="section-hero__img__svg"><use xlink:href="#rightTriangle"></use></svg>
             </div>
             <div class="section-hero__inner-divider left">
                 <p class="section-hero__motto motto">
-                    Poznaj naszą historię i wartości
+                    {{ page.motto_hero }}
                 </p>
                 <h1 class="section-hero__title title">
-                    ARGO – od koncepcji do realizacji – stolarka stalowa z charakterem i prestiżem
+                    {{ page.title_hero }}
                 </h1>
                 <p class="section-hero__text text">
-                    Od lat projektujemy i tworzymy stolarkę stalową, która łączy funkcjonalność z ponadczasowym designem. Nasze doświadczenie, precyzja wykonania i dbałość o detale sprawiają, że każdy projekt odzwierciedla profesjonalizm i wysokie standardy marki. Dowiedz się więcej o tym, co nas wyróżnia i jak budujemy przestrzenie pełne światła i charakteru.
+                    {{ page.text_hero }}
                 </p>
             </div>
         </section>
         <section class="section-quality">
             <div class="section-quality__inner-divider left image-wrapper">
-                <img class="section-quality__img" src="{% static 'home/images/about_quality.webp' %}" alt=""/>
+                {% image page.image_quality original class='section-quality__img' %}
             </div>
             <div class="section-quality__inner-divider right">
                 <p class="section-quality__motto motto">
-                    Co nas wyróżnia
+                    {{ page.motto_quality }}
                 </p>
                 <h1 class="section-quality__title title">
-                    Jakość, design i funkcjonalność
-                    w każdym detalu
+                    {{ page.title_quality }}
                 </h1>
                 <p class="section-quality__text text">
-                    W ARGO dysponujemy własnym biurem konstrukcyjnym i doświadczonym zespołem produkcyjnym. Posiadamy zaawansowane maszyny CNC oraz specjalistyczne narzędzia kalibracyjne, które pozwalają realizować projekty z najwyższą precyzją i dbałością o każdy detal.
-                    <br><br>
-                    Nasze możliwości obejmują tworzenie indywidualnych rozwiązań stolarki stalowej i aluminiowej, personalizację produktów, zastosowanie innowacyjnych technologii oraz realizację nawet najbardziej wymagających projektów pod kątem formy, funkcji i estetyki.
+                    {{ page.text_quality }}
                 </p>
             </div>
 
         </section>
         <section class="section-project">
             <div class="section-project__inner-divider right image-wrapper">
-                <img class="section-project__img" src="{% static 'home/images/about_project.webp' %}" alt=""/>
+                {% image page.image_project original class='section-project__img' %}
             </div>
             <div class="section-project__inner-divider left">
                 <p class="section-project__motto motto">
-                    Od koncepcji po gotowy projekt
+                    {{ page.motto_project }}
                 </p>
                 <h1 class="section-project__title title">
-                    Nasze realizacje pokazują,
-                    jak pasja łączy się z precyzją
+                    {{ page.title_project }}
                 </h1>
                 <p class="section-project__text text">
-                    Współpracujemy z inwestorami i architektami, dostarczając rozwiązania dopasowane do każdej przestrzeni. W realizacjach stolarki stalowej korzystamy z profili JANSEN, a w stolarki aluminiowej z profili SCHÜCO, co pozwala łączyć najwyższą precyzję wykonania z funkcjonalnością i elegancją.
+                    {{ page.text_project }}
                 </p>
                 <div class="section-project__business__grid">
                     <img class="section-project__business__img" src="{% static 'home/images/about_project_business_1.webp' %}" alt=""/>
@@ -69,8 +65,8 @@
                     <p class="section-project__business__name text">dostawca profili aluminiowych</p>
                 </div>
 
-                <a class="section-project__button button--variant_a" href="#">
-                    <span>skontaktuj się z nami</span>
+                <a class="section-project__button button--variant_a" href="{{ page.redirect_project.url }}">
+                    <span>{{ page.button_project }}</span>
                 </a>
             </div>
         </section>
@@ -120,22 +116,36 @@
         <section class="section-references">
             <div class="section-references__inner-divider left">
                 <svg class="section-references__svg"><use xlink:href="#argoArrow"></use></svg>
+                {% image page.image_references original class='section-references__img' %}
                 <img class="section-references__img" src="{% static 'home/images/about_references.webp' %}" alt=""/>
-                <img class="section-references__shadow" src="{% static 'home/images/about_references_shadow.webp' %}" alt=""/>
             </div>
-            <div class="section-references__inner-divider right">
+            <div class="section-references__inner-divider right" data-slider="references">
                 <p class="section-references__motto motto">
-                    Referencje Klientów
+                    {{ page.title_references }}
                 </p>
-                <h2 class="section-references__title title">
-                    „Profesjonalizm i precyzja wykonania w połączeniu z najwyższą jakością"
-                </h2>
-                <p class="section-references__text text">
-                    „Współpraca z firmą Argo była wyjątkowym doświadczeniem – precyzyjne wykonanie, terminowość i dbałość o każdy detal sprawiły, że nasze oczekiwania zostały w pełni spełnione.”
-                </p>
-                <p class="section-references__sign text">
-                   - Jan Kowalski, właściciel inwestycji „Nowoczesne Apartamenty Warszawa”
-                </p>
+                {% for item in page.references.all %}
+                    <div class="section-references__reference">
+                        <h2 class="section-references__title title">
+                            {{ item.title }}
+                        </h2>
+                        <p class="section-references__text text">
+                            {{ item.text }}
+                        </p>
+                        <p class="section-references__sign text">
+                           {{ item.sign }}
+                        </p>
+                    </div>
+                {% endfor %}
+                <div class="section-references__points">
+                    {% for item in page.references.all %}
+                        <svg class="section-references__points__svg static"><use xlink:href="#dot"></use></svg>
+                    {% endfor %}
+                </div>
+                <div class="section-references__points">
+                    {% for item in page.references.all %}
+                        <svg class="section-references__points__svg dynamic"><use xlink:href="#dot"></use></svg>
+                    {% endfor %}
+                </div>
             </div>
         </section>
     </main>
@@ -149,9 +159,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         const slider = document.querySelector('[data-slider="certificates"]');
 
-
         if (!slider) return;
-
 
         const slides = Array.from(slider.querySelectorAll('.section-certificates__segment'));
         const dots = Array.from(document.querySelectorAll('.section-certificates__points__svg.dynamic'))
@@ -287,6 +295,74 @@
         // start
         setTimeout(runSlider, interval);
 
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+        const slider = document.querySelector('[data-slider="references"]');
+
+        if (!slider) return;
+
+        const slides = Array.from(slider.querySelectorAll('.section-references__reference'));
+        const dots = Array.from(slider.querySelectorAll('.section-references__points__svg.dynamic'));
+
+        {#const dots = Array.from(document.querySelectorAll('.section-certificates__points__svg.dynamic'))#}
+        let current = 0;
+        const interval = 6000;
+
+
+        gsap.set(slides, {
+            opacity: '0',
+        });
+        gsap.set(slides[current], {
+            opacity: '1',
+        });
+        gsap.set(dots, {
+            opacity: 0,
+        })
+        gsap.set(dots[current], {
+            opacity: 1,
+        })
+
+        function runSlider() {
+            const next = (current + 1) % slides.length;
+
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    current = next;
+                    setTimeout(runSlider, interval);
+                }
+            });
+            gsap.to(dots[current],
+                {
+                    opacity: 0,
+                    duration: 1.6,
+                    ease: 'power4.inOut',
+                }
+            )
+
+            gsap.to(slides[current],
+                {
+                    opacity: 0,
+                    duration: 1.6,
+                    ease: 'power3.out',
+                }
+            )
+            gsap.to(slides[next],
+                {
+                    opacity: 1,
+                    duration: 1.6,
+                    ease: 'power3.in',
+                }
+            )
+            gsap.to(dots[next],
+                {
+                    opacity: 1,
+                    duration: 1.6,
+                    ease: 'power4.inOut',
+                }
+            )
+
+        }
+        runSlider();
     });
 </script>
 {% endblock extra_js %}

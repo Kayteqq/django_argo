@@ -338,22 +338,108 @@ class AboutPageCarouselItem(Orderable):
         FieldPanel('text'),
     ]
 
+class AboutPageReferencesItem(Orderable):
+    page = ParentalKey('AboutPage', related_name='references')
+
+    title = models.CharField("Reference Title", max_length=255, blank=True)
+    text = models.TextField("Reference Text", blank=True)
+    sign = models.TextField("Reference Sign", blank=True)
+    panels = [
+        FieldPanel('title'),
+        FieldPanel('text'),
+        FieldPanel('sign'),
+    ]
+
 class AboutPage(Page):
     max_count = 1
     template = 'home/about_page.html'
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
 
+    motto_hero = models.CharField("Lead - Hero", max_length=255, blank=True)
+    title_hero = models.CharField("Title - Hero", max_length=255, blank=True)
+    text_hero = models.TextField("Text - Hero", blank=True)
+    image_hero = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
 
-    
+    motto_quality = models.CharField("Lead - Quality", max_length=255, blank=True)
+    title_quality = models.CharField("Title - Quality", max_length=255, blank=True)
+    text_quality = models.TextField("Text - Quality", blank=True)
+    image_quality = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+
+    motto_project = models.CharField("Lead - Partners", max_length=255, blank=True)
+    title_project = models.CharField("Title - Partners", max_length=255, blank=True)
+    text_project = models.TextField("Text - Partners", blank=True)
+    image_project = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    button_project = models.CharField("Button Text - Partners", max_length=255, blank=True)
+    redirect_project = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    image_team = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    title_team = models.CharField("Title - Team", max_length=255, blank=True)
+    text_team = models.TextField("Text - Team", blank=True)
+
+
+    title_references = models.CharField("Title - References", max_length=255, blank=True)
+    image_references = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+
 
     content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel('image_hero'),
+                FieldPanel('motto_hero'),
+                FieldPanel('title_hero'),
+                FieldPanel('text_hero')
+            ],
+            heading="Section Hero",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('image_quality'),
+                FieldPanel('motto_quality'),
+                FieldPanel('title_quality'),
+                FieldPanel('text_quality'),
+            ],
+            heading="Section Quality",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('image_project'),
+                FieldPanel('motto_project'),
+                FieldPanel('title_project'),
+                FieldPanel('text_project'),
+                FieldPanel('button_project'),
+                FieldPanel('redirect_project'),
+            ],
+            heading="Section Partners",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('image_team'),
+                FieldPanel('title_team'),
+                FieldPanel('text_team'),
+            ],
+            heading='Section Team',
+        ),
         MultiFieldPanel(
             [
                 InlinePanel('certificates'),
             ],
             heading="Section Certificates",
         ),
+        MultiFieldPanel(
+            [
+                FieldPanel('image_references'),
+                FieldPanel('title_references'),
+                InlinePanel('references')
+            ],
+            heading="Section References",
+        )
     ]
 
 class CarpentrySteelPageCarouselItem(Orderable):
@@ -372,6 +458,9 @@ class CarpentrySteelPage(Page):
     template = 'home/carpentry_steel_page.html'
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
+
+
+
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
