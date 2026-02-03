@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load wagtailimages_tags %}
 
 {% block body_class %}{% endblock %}
 
@@ -8,20 +9,20 @@
 {% endblock extra_css %}
 
 {% block content %}
-<main x-data="globalData()">
+<main x-data="globalData()" x-init="init()">
 <template x-if="!finalized">
     <section class="section-hero">
         <p class="section-hero__motto motto">
-            Stwórz model dopasowany do siebie
+            {{ page.motto_hero }}
         </p>
         <h1 class="section-hero__title title">
-            Konfigurator produktu
+            {{ page.title_hero }}
         </h1>
         <p class="section-hero__text text">
-            Konfigurator umożliwia samodzielne dobranie parametrów okien i drzwi stalowych - od wymiarów i podziałów, po kolor, szklenie i detale wykończenia. Po zakończeniu konfiguracji możesz otrzymać wstępną wycenę oraz przekazać projekt do bezpośredniego kontaktu z naszym zespołem. To szybki sposób, by przejść od pomysłu do realizacji.
+            {{ page.text_hero }}
         </p>
         <button class="section-hero__button button--variant_a" @click="activeSteps[0] = true">
-            <span>START</span>
+            <span>{{ page.button_hero }}</span>
         </button>
 
     </section>
@@ -31,14 +32,14 @@
         <div class="step" id="step-1">
             <div class="section-configurator__headline">
                 <button class="section-configurator__headline__button" @click="switchStep(0)">
-                    <span style="color: transparent">Step 1</span>
+                    <span style="color: transparent">{{ page.step_word }} 1</span>
                 </button>
                 <svg :class="`section-configurator__headline__svg ${activeSteps[0] ? 'active' : 'inactive'}`">
                     <use xlink:href="#argoArrow"></use>
                 </svg>
                 <div class="section-configurator__headline__content">
-                    <h1 class="section-configurator__headline__content__motto motto">KROK 1</h1>
-                    <h2 class="section-configurator__headline__content__subtitle subtitle">Wybór kolekcji</h2>
+                    <h1 class="section-configurator__headline__content__motto motto">{{ page.step_word }} 1</h1>
+                    <h2 class="section-configurator__headline__content__subtitle subtitle">{{ page.title_step_1 }}</h2>
                 </div>
             </div>
             <template x-if="activeSteps[0]">
@@ -47,61 +48,57 @@
                         x-ref="step_1"
                         x-init="$refs.step_1.scrollIntoView({ behavior: 'instant', block: 'start' });"
                 >
-                    <p class="description text">Wybór jednej z trzech oferowanych linii stylistycznych.</p>
+                    <p class="description text">
+                        {{ page.description_step_1 }}
+                    </p>
 
                     <div class="selection step-1">
                         <div :class="`selection__element step-1 ${selectedStyleLine === 'industrial' ? 'selection__element--selected' : ''}`" @mousedown="chooseStyleLine('industrial')">
                             <div class="selection__frame">
-                                <img class="selection__frame__vis" src="{% static 'home/images/carpentry_steel_collections_industrial.webp' %}" alt="wizualizacja linii stylistycznej"/>
+                                {% image page.step_1_choice_1_img original class='selection__frame__vis' %}
                             </div>
                             <div class="selection__description">
-                                <h2 class="selection__description__subtitle subtitle">Linia Industrial</h2>
+                                <h2 class="selection__description__subtitle subtitle">
+                                    {{ page.step_1_choice_1_subtitle }}
+                                </h2>
                                 <p class="selection__description__text text">
-                                    Lorem ipsum dolor sit amet, consectetuer
-                                    adipiscing elit, sed diam nonummy nibh
-                                    euismod tincidunt ut laoreet dolore magna
-                                    aliquam erat volutpat. Ut wisi enim ad
-                                    minim veniam, quis
+                                    {{ page.step_1_choice_1_text }}
                                 </p>
                             </div>
                             <button class="selection__button variant_a" @click="chooseStyleLine('industrial')">
-                                <span>Wybieram</span>
+                                <span>{{ page.button_word }}</span>
                             </button>
                         </div>
                         <div :class="`selection__element step-1 ${selectedStyleLine === 'vintage' ? 'selection__element--selected' : ''}`" @mousedown="chooseStyleLine('vintage')">
                             <div class="selection__frame">
-                                <img class="selection__frame__vis" src="{% static 'home/images/carpentry_steel_collections_vintage.webp' %}" alt="wizualizacja linii stylistycznej"/>
+                                {% image page.step_1_choice_2_img original class='selection__frame__vis' %}
                             </div>
                             <div class="selection__description">
-                                <h2 class="selection__description__subtitle subtitle">Linia Vintage</h2>
+                                <h2 class="selection__description__subtitle subtitle">
+                                    {{ page.step_1_choice_2_subtitle }}
+                                </h2>
                                 <p class="selection__description__text text">
-                                    Lorem ipsum dolor sit amet, consectetuer
-                                    adipiscing elit, sed diam nonummy nibh
-                                    euismod tincidunt ut laoreet dolore magna
-                                    aliquam erat volutpat. Ut wisi enim ad
-                                    minim veniam, quis
+                                    {{ page.step_1_choice_2_text }}
                                 </p>
                             </div>
                             <button class="selection__button variant_a" @click="chooseStyleLine('vintage')">
-                                <span>Wybieram</span>
+                                <span>{{ page.button_word }}</span>
                             </button>
                         </div>
                         <div :class="`selection__element step-1 ${selectedStyleLine === 'glamour' ? 'selection__element--selected' : ''}`" @mousedown="chooseStyleLine('glamour')">
                             <div class="selection__frame">
-                                <img class="selection__frame__vis" src="{% static 'home/images/carpentry_steel_collections_glamour.webp' %}" alt="wizualizacja linii stylistycznej"/>
+                                {% image page.step_1_choice_3_img original class='selection__frame__vis' %}
                             </div>
                             <div class="selection__description">
-                                <h2 class="selection__description__subtitle subtitle">Linia Glamour</h2>
+                                <h2 class="selection__description__subtitle subtitle">
+                                    {{ page.step_1_choice_3_subtitle }}
+                                </h2>
                                 <p class="selection__description__text text">
-                                    Lorem ipsum dolor sit amet, consectetuer
-                                    adipiscing elit, sed diam nonummy nibh
-                                    euismod tincidunt ut laoreet dolore magna
-                                    aliquam erat volutpat. Ut wisi enim
-                                    minim veniam, quis
+                                    {{ page.step_1_choice_3_text }}
                                 </p>
                             </div>
                             <button class="selection__button variant_a" @click="chooseStyleLine('glamour')">
-                                <span>Wybieram</span>
+                                <span>{{ page.button_word }}</span>
                             </button>
                         </div>
                         <div class="section-configuration__dots">
@@ -115,7 +112,7 @@
                         </div>
                     </div>
                     <button class="selection__button variant_b" :disabled="!isStyleLineSelected" @click="confirmStep(0)">
-                        <span>Akceptuję i przechodzę dalej</span>
+                        <span>{{ page.confirm_word }}</span>
                     </button>
                 </div>
             </template>
@@ -123,14 +120,14 @@
         <div class="step" id="step-2">
             <div class="section-configurator__headline">
                 <button class="section-configurator__headline__button" @click="switchStep(1)">
-                    <span style="color: transparent">Step 2</span>
+                    <span style="color: transparent">{{ page.step_word }} 2</span>
                 </button>
                 <svg :class="`section-configurator__headline__svg ${activeSteps[1] ? 'active' : 'inactive'}`">
                     <use xlink:href="#argoArrow"></use>
                 </svg>
                 <div class="section-configurator__headline__content">
-                    <h1 class="section-configurator__headline__content__motto motto">KROK 2</h1>
-                    <h2 class="section-configurator__headline__content__subtitle subtitle">Przeznaczenie produktów</h2>
+                    <h1 class="section-configurator__headline__content__motto motto">{{ page.step_word }} 2</h1>
+                    <h2 class="section-configurator__headline__content__subtitle subtitle">{{ page.title_step_2 }}</h2>
                 </div>
             </div>
             <template x-if="activeSteps[1]">
@@ -140,32 +137,35 @@
                         x-init="$refs.step_2.scrollIntoView({ behavior: 'instant', block: 'start' });"
                 >
                     <p class="description text">
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
-                        volutpat.
+                        {{ page.description_step_2 }}
                     </p>
                     <div class="selection step-2">
                         <div :class="`selection__element step-2 ${selectedProductUsecase === 'profile-cold' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductUsecase('profile-cold')">
                             <div class="selection__frame">
-                                <img class="selection__description__subtitle" src="" alt="wizualizacja profilu"/>
+                                {% image page.step_2_choice_1_img original class='selection__description__vis' %}
                             </div>
                             <div class="selection__description">
-                                <h3 class="selection__description__subtitle subtitle">Profil Zimny</h3>
-                                <h4 class="selection__description__text text">Zastosowanie wewnętrzne</h4>
+                                <h3 class="selection__description__subtitle subtitle">
+                                    {{ page.step_2_choice_1_subtitle }}
+                                </h3>
+                                <h4 class="selection__description__text text">{{ page.step_2_choice_1_text }}</h4>
                             </div>
                             <button class="selection__button variant_a" @click="chooseProductUsecase('profile-cold')">
-                                <span>Wybieram</span>
+                                <span>{{ page.button_word }}</span>
                             </button>
                         </div>
                         <div :class="`selection__element step-2 ${selectedProductUsecase === 'profile-hot' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductUsecase('profile-hot')">
                             <div class="selection__frame">
-                                <img class="selection__description__subtitle" src="" alt="wizualizacja profilu"/>
+                                {% image page.step_2_choice_2_img original class='selection__description__vis' %}
                             </div>
                             <div class="selection__description">
-                                <h3 class="selection__description__subtitle subtitle">Profil Ciepły</h3>
-                                <h4 class="selection__description__text text">Zastosowanie zewnętrzne</h4>
+                                <h3 class="selection__description__subtitle subtitle">
+                                    {{ page.step_2_choice_2_subtitle }}
+                                </h3>
+                                <h4 class="selection__description__text text">{{ page.step_2_choice_2_text }}</h4>
                             </div>
                             <button class="selection__button variant_a" @click="chooseProductUsecase('profile-hot')">
-                                <span>Wybieram</span>
+                                <span>{{ page.button_word }}</span>
                             </button>
                         </div>
                         <div class="section-configuration__dots">
@@ -179,7 +179,7 @@
                         </div>
                     </div>
                     <button class="selection__button variant_b" :disabled="!isProductUsecaseSelected" @click="confirmStep(1)">
-                        <span>Potwierdź Wybór</span>
+                        <span>{{ page.confirm_word }}</span>
                     </button>
                 </div>
             </template>
@@ -187,14 +187,14 @@
         <div class="step" id="step-3">
             <div class="section-configurator__headline">
                 <button class="section-configurator__headline__button" @click="switchStep(2)">
-                    <span style="color: transparent">Step 3</span>
+                    <span style="color: transparent">{{ page.step_word }} 3</span>
                 </button>
                 <svg :class="`section-configurator__headline__svg ${activeSteps[2] ? 'active' : 'inactive'}`">
                     <use xlink:href="#argoArrow"></use>
                 </svg>
                 <div class="section-configurator__headline__content">
-                    <h1 class="section-configurator__headline__content__motto motto">KROK 3</h1>
-                    <h2 class="section-configurator__headline__content__subtitle subtitle">Wybór produktów</h2>
+                    <h1 class="section-configurator__headline__content__motto motto">{{ page.step_word }} 3</h1>
+                    <h2 class="section-configurator__headline__content__subtitle subtitle">{{ page.title_step_3 }}</h2>
                 </div>
             </div>
             <template x-if="activeSteps[2]">
@@ -204,62 +204,72 @@
                         x-init="$refs.step_3.scrollIntoView({ behavior: 'instant', block: 'start' });"
                 >
                     <p class="description text">
-                        Możliwość wyboru preferowanej konfiguracji produktu.
+                        {{ page.description_step_3 }}
                     </p>
                     <div class="selection step-3">
                         <div :class="`selection__element step-3 ${selectedProductType === 'sliding' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('sliding')">
                             <div class="selection__frame">
-                                <img class="selection__description__vis" src="" alt="wizualizacja produktu"/>
+                                {% image page.step_3_choice_1_img original class='selection__description__vis' %}
                             </div>
                             <div class="selection__description">
-                                <h3 class="selection__description__small-subtitle subtitle">Drzwi Przesuwne</h3>
+                                <h3 class="selection__description__small-subtitle subtitle">
+                                    {{ page.step_3_choice_1_title }}
+                                </h3>
                             </div>
                             <button class="selection__button variant_a" @click="chooseProductType('sliding')">
-                                <span>Wybieram</span>
+                                <span>{{ page.button_word }}</span>
                             </button>
                         </div>
                         <div :class="`selection__element step-3 ${selectedProductType === 'hinged' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('hinged')">
                             <div class="selection__frame">
-                                <img class="selection__description__vis" src="" alt="wizualizacja produktu"/>
+                                {% image page.step_3_choice_2_img original class='selection__description__vis' %}
                             </div>
                             <div class="selection__description">
-                                <h3 class="selection__description__small-subtitle subtitle">Drzwi i Okna Rozwierane</h3>
+                                <h3 class="selection__description__small-subtitle subtitle">
+                                    {{ page.step_3_choice_2_title }}
+                                </h3>
                             </div>
                             <button class="selection__button variant_a" @click="chooseProductType('hinged')">
-                                <span>Wybieram</span>
+                                <span>{{ page.button_word }}</span>
                             </button>
                         </div>
                         <div :class="`selection__element step-3 ${selectedProductType === 'pivot' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('pivot')">
                             <div class="selection__frame">
-                                <img class="selection__description__vis" src="" alt="wizualizacja produktu"/>
+                                {% image page.step_3_choice_3_img original class='selection__description__vis' %}
                             </div>
                             <div class="selection__description">
-                                <h3 class="selection__description__small-subtitle subtitle">Drzwi Wahadłowe</h3>
+                                <h3 class="selection__description__small-subtitle subtitle">
+                                    {{ page.step_3_choice_3_title }}
+                                </h3>
                             </div>
                             <button class="selection__button variant_a" @click="chooseProductType('pivot')">
-                                <span>Wybieram</span>
+                                <span>{{ page.button_word }}</span>
                             </button>
                         </div>
                         <div :class="`selection__element step-3 ${selectedProductType === 'folding' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('folding')">
                             <div class="selection__frame">
-                                <img class="selection__description__vis" src="" alt="wizualizacja produktu"/>
+                                {% image page.step_3_choice_4_img original class='selection__description__vis' %}
                             </div>
                             <div class="selection__description">
-                                <h3 class="selection__description__small-subtitle subtitle">Drzwi Harmonijkowe</h3>
+                                <h3 class="selection__description__small-subtitle subtitle">
+                                    {{ page.step_3_choice_4_title }}
+                                </h3>
                             </div>
                             <button class="selection__button variant_a" @click="chooseProductType('folding')">
-                                <span>Wybieram</span>
+                                <span>{{ page.button_word }}</span>
                             </button>
                         </div>
                         <div :class="`selection__element step-3 ${selectedProductType === 'fixed' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductType('fixed')">
                             <div class="selection__frame">
-                                <img class="selection__description__vis" src="" alt="wizualizacja produktu"/>
+                                {% image page.step_3_choice_5_img original class='selection__description__vis' %}
                             </div>
                             <div class="selection__description">
-                                <h3 class="selection__description__small-subtitle subtitle">Ścianki Stałe</h3>
+                                <h3 class="selection__description__small-subtitle subtitle">
+                                    {{ page.step_3_choice_5_title }}
+                                </h3>
                             </div>
                             <button class="selection__button variant_a" @click="chooseProductType('fixed')">
-                                <span>Wybieram</span>
+                                <span>{{ page.button_word }}</span>
                             </button>
                         </div>
                         <div class="section-configuration__dots">
@@ -273,7 +283,7 @@
                         </div>
                     </div>
                     <button class="selection__button variant_b" :disabled="!isProductTypeSelected" @click="confirmStep(2)">
-                        <span>Potwierdź Wybór</span>
+                        <span>{{ page.confirm_word }}</span>
                     </button>
                 </div>
             </template>
@@ -281,14 +291,14 @@
         <div class="step" id="step-4">
             <div class="section-configurator__headline">
                 <button class="section-configurator__headline__button" @click="switchStep(3)">
-                    <span style="color: transparent">Step 4</span>
+                    <span style="color: transparent">{{ page.step_word }} 4</span>
                 </button>
                 <svg :class="`section-configurator__headline__svg ${activeSteps[3] ? 'active' : 'inactive'}`">
                     <use xlink:href="#argoArrow"></use>
                 </svg>
                 <div class="section-configurator__headline__content">
-                    <h1 class="section-configurator__headline__content__motto motto">KROK 4</h1>
-                    <h2 class="section-configurator__headline__content__subtitle subtitle">Dopasuj układ</h2>
+                    <h1 class="section-configurator__headline__content__motto motto">{{ page.step_word }} 4</h1>
+                    <h2 class="section-configurator__headline__content__subtitle subtitle">{{ page.title_step_4 }}</h2>
                 </div>
             </div>
             <template x-if="activeSteps[3]">
@@ -297,6 +307,9 @@
                         x-ref="step_4"
                         x-init="$refs.step_4.scrollIntoView({ behavior: 'instant', block: 'start' });"
                 >
+                    <p class="description text">
+                        {{ page.description_step_4 }}
+                    </p>
                     <div class="shape-configurator">
                         <div class="shape-configurator__visual">
                             <div class="svg-display" x-html="svgDisplayFile">
@@ -310,19 +323,19 @@
                                         <template x-if="shapeLimitations.sides.includes('right')">
                                             <label class="input_text subtitle shape-configurator__input__option">
                                                 <input class='sr-only' type="radio" name="door-side" value="right" x-model="shapeValues.doorSide"/>
-                                                <span>Drzwi Prawe</span>
+                                                <span>{{ page.step_4_input_1_option_1 }}</span>
                                             </label>
                                         </template>
                                         <template x-if="shapeLimitations.sides.includes('left')">
                                             <label class="input_text subtitle shape-configurator__input__option">
                                                 <input class='sr-only' type="radio" name="door-side" value="left" x-model="shapeValues.doorSide"/>
-                                                <span>Drzwi Lewe</span>
+                                                <span>{{ page.step_4_input_1_option_2 }}</span>
                                             </label>
                                         </template>
                                         <template x-if="shapeLimitations.sides.includes('both')">
                                             <label class="input_text subtitle shape-configurator__input__option">
                                                 <input class='sr-only' type="radio" name="door-side" value="both" x-model="shapeValues.doorSide"/>
-                                                <span>Drzwi Prawe i Lewe</span>
+                                                <span>{{ page.step_4_input_1_option_3 }}</span>
                                             </label>
                                         </template>
                                     </div>
@@ -339,7 +352,7 @@
                                                     x-model="shapeValues.isSkylightEnabled"
                                                     @input="updateShape()"
                                             />
-                                            <label class="input_text subtitle" for="product-skylight-enable">Naświetla Górne?: </label>
+                                            <label class="input_text subtitle" for="product-skylight-enable">{{ page.step_4_input_2 }}</label>
                                         </div>
                                     </template>
                                     <template x-if="shapeLimitations.allowRight">
@@ -350,7 +363,7 @@
                                                     x-model="shapeValues.isWindowsRightEnabled"
                                                     @input="updateShape()"
                                             />
-                                            <label class="input_text subtitle" for="product-right-enable">Naświetla Prawe?: </label>
+                                            <label class="input_text subtitle" for="product-right-enable">{{ page.step_4_input_3 }}</label>
                                         </div>
                                     </template>
                                     <template x-if="shapeLimitations.allowLeft">
@@ -361,7 +374,7 @@
                                                     x-model="shapeValues.isWindowsLeftEnabled"
                                                     @input="updateShape()"
                                             />
-                                            <label class="input_text subtitle" for="product-left-enable">Naświetla Lewe?: </label>
+                                            <label class="input_text subtitle" for="product-left-enable">{{ page.step_4_input_4 }}</label>
                                         </div>
                                     </template>
                                 </div>
@@ -369,7 +382,7 @@
                             <div class="shape-configurator__input__section">
                                 <template x-if="shapeLimitations.allowLeft === false && shapeLimitations.allowRight === false">
                                     <div class="shape-configurator__input__flex">
-                                        <label class="input_text subtitle" for="product-width">Szerokość: <span x-text="productWidth"></span> cm</label>
+                                        <label class="input_text subtitle" for="product-width">{{ page.step_4_input_5 }}: <span x-text="productWidth"></span> cm</label>
 
                                         <input
                                                 id="product-width"
@@ -382,7 +395,7 @@
                                     </div>
                                 </template>
                                 <div class="shape-configurator__input__flex">
-                                    <label class="input_text subtitle" for="product-height">Wysokość: <span x-text="productHeight"></span> cm</label>
+                                    <label class="input_text subtitle" for="product-height">{{ page.step_4_input_6 }}: <span x-text="productHeight"></span> cm</label>
 
                                     <input
                                             id="product-height"
@@ -397,7 +410,7 @@
 
                                 <template x-if="shapeLimitations.allowLeft === true || shapeLimitations.allowRight === true">
                                     <div class="shape-configurator__input__flex">
-                                        <label class="input_text subtitle" for="door-width"> Szerokość Drzwi: <span x-text="doorWidth"></span> cm</label>
+                                        <label class="input_text subtitle" for="door-width"> {{ page.step_4_input_7 }}: <span x-text="doorWidth"></span> cm</label>
 
                                         <input
                                                 id="door-width"
@@ -412,7 +425,7 @@
                                 </template>
                                 <template x-if="shapeLimitations.allowRight === true">
                                     <div class="shape-configurator__input__flex">
-                                        <label class="input_text subtitle" for="right-width"> Szerokość Prawego Naświetla: <span x-text="rightWidth"></span> cm</label>
+                                        <label class="input_text subtitle" for="right-width"> {{ page.step_4_input_8 }}: <span x-text="rightWidth"></span> cm</label>
 
                                         <input
                                                 id="right-width"
@@ -427,7 +440,7 @@
                                 </template>
                                 <template x-if="shapeLimitations.allowLeft === true">
                                     <div class="shape-configurator__input__flex">
-                                        <label class="input_text subtitle" for="left-width"> Szerokość Lewego Naświetla: <span x-text="leftWidth"></span> cm</label>
+                                        <label class="input_text subtitle" for="left-width"> {{ page.step_4_input_9 }}: <span x-text="leftWidth"></span> cm</label>
 
                                         <input
                                                 id="left-width"
@@ -455,7 +468,7 @@
                     </div>
                     <button class="selection__button variant_b" @click="confirmShape(); confirmStep(3);">
     <!--                <button class="selection__button" @click="updateProductData(exportData())">-->
-                        <span>Potwierdź Układ</span>
+                        <span>{{ page.confirm_word }}</span>
                     </button>
 
                 </div>
@@ -464,14 +477,14 @@
         <div class="step" id="step-5">
             <div class="section-configurator__headline">
                 <button class="section-configurator__headline__button" @click="switchStep(4)">
-                    <span style="color: transparent">Step 5</span>
+                    <span style="color: transparent">{{ page.step_word }} 5</span>
                 </button>
                 <svg :class="`section-configurator__headline__svg ${activeSteps[4] ? 'active' : 'inactive'}`">
                     <use xlink:href="#argoArrow"></use>
                 </svg>
                 <div class="section-configurator__headline__content">
-                    <h1 class="section-configurator__headline__content__motto motto">KROK 5</h1>
-                    <h2 class="section-configurator__headline__content__subtitle subtitle">Wybierz akcesoria</h2>
+                    <h1 class="section-configurator__headline__content__motto motto">{{ page.step_word }} 5</h1>
+                    <h2 class="section-configurator__headline__content__subtitle subtitle">{{ page.title_step_5 }}</h2>
                 </div>
             </div>
             <template x-if="activeSteps[4]">
@@ -481,7 +494,7 @@
                         x-init="$refs.step_5.scrollIntoView({ behavior: 'instant', block: 'start' });"
                 >
                     <p class="description text">
-                        Dopasuj detale i wykończenia produktu według własnych preferencji.
+                        {{ page.description_step_5a }}
                     </p>
 
                     <!--            MOŻE BYĆ WIECEJ, DODAĆ DYNAMIKE-->
@@ -491,20 +504,16 @@
                                 @click="chooseHandleType('handle-1')" @keydown.space.prevent="chooseHandleType('handle-1')" @keydown.enter.prevent="chooseHandleType('handle-1')"
                         >
                             <div class="selection__frame">
-                                <img class="selection__description__vis" src="" alt="wizualizacja produktu"/>
+                                {% image page.step_5_choice_1_img original class='selection__description__vis' %}
                             </div>
                             <div class="selection__description">
-                                <h2 class="selection__description__subtitle subtitle">Klamka - Styl 1</h2>
+                                <h2 class="selection__description__subtitle subtitle">{{ page.step_5_choice_1_subtitle }}</h2>
                                 <p class="selection__description__text text">
-                                    Lorem ipsum dolor sit amet, consectetuer
-                                    adipiscing elit, sed diam nonummy nibh
-                                    euismod tincidunt ut laoreet dolore magna
-                                    aliquam erat volutpat. Ut wisi enim
-                                    minim veniam, quis
+                                    {{ page.step_5_choice_1_text }}
                                 </p>
                             </div>
                             <button class="selection__button variant_a" @click="chooseHandleType('handle-1')">
-                                <span>Wybieram</span>
+                                <span>{{ page.button_word }}</span>
                             </button>
                         </div>
                         <div
@@ -512,20 +521,16 @@
                                 @click="chooseHandleType('handle-2')" @keydown.space.prevent="chooseHandleType('handle-2')" @keydown.enter.prevent="chooseHandleType('handle-2')"
                         >
                             <div class="selection__frame">
-                                <img class="selection__description__vis" src="" alt="wizualizacja produktu"/>
+                                {% image page.step_5_choice_2_img original class='selection__description__vis' %}
                             </div>
                             <div class="selection__description">
-                                <h2 class="selection__description__subtitle subtitle">Klamka - Styl 2</h2>
+                                <h2 class="selection__description__subtitle subtitle">{{ page.step_5_choice_2_subtitle }}</h2>
                                 <p class="selection__description__text text">
-                                    Lorem ipsum dolor sit amet, consectetuer
-                                    adipiscing elit, sed diam nonummy nibh
-                                    euismod tincidunt ut laoreet dolore magna
-                                    aliquam erat volutpat. Ut wisi enim
-                                    minim veniam, quis
+                                    {{ page.step_5_choice_2_text }}
                                 </p>
                             </div>
                             <button class="selection__button variant_a" @click="chooseHandleType('handle-2')">
-                                <span>Wybieram</span>
+                                <span>{{ page.button_word }}</span>
                             </button>
                         </div>
                         <div
@@ -533,20 +538,16 @@
                                 @click="chooseHandleType('handle-3')" @keydown.space.prevent="chooseHandleType('handle-3')" @keydown.enter.prevent="chooseHandleType('handle-3')"
                         >
                             <div class="selection__frame">
-                                <img class="selection__description__vis" src="" alt="wizualizacja produktu"/>
+                                {% image page.step_5_choice_3_img original class='selection__description__vis' %}
                             </div>
                             <div class="selection__description">
-                                <h2 class="selection__description__subtitle subtitle">Klamka - Styl 3</h2>
+                                <h2 class="selection__description__subtitle subtitle">{{ page.step_5_choice_3_subtitle }}</h2>
                                 <p class="selection__description__text text">
-                                    Lorem ipsum dolor sit amet, consectetuer
-                                    adipiscing elit, sed diam nonummy nibh
-                                    euismod tincidunt ut laoreet dolore magna
-                                    aliquam erat volutpat. Ut wisi enim
-                                    minim veniam, quis
+                                    {{ page.step_5_choice_3_text }}
                                 </p>
                             </div>
                             <button class="selection__button variant_a" @click="chooseHandleType('handle-2')">
-                                <span>Wybieram</span>
+                                <span>{{ page.button_word }}</span>
                             </button>
                         </div>
                         <div class="section-configuration__dots">
@@ -562,7 +563,7 @@
 
 
                     <p class="description text">
-                        Dopasuj detale i wykończenia produktu według własnych preferencji.
+                        {{ page.description_step_5b }}
                     </p>
 
                     <div class="selection color-selection">
@@ -584,7 +585,7 @@
                     </div>
 
                     <button class="selection__button variant_b" :disabled="!isAccessorySelected" @click="confirmStep(4)">
-                        <span>Potwierdź Wybór</span>
+                        <span>{{ page.confirm_word }}</span>
                     </button>
                 </div>
             </template>
@@ -592,14 +593,14 @@
         <div class="step" id="step-6">
             <div class="section-configurator__headline">
                 <button class="section-configurator__headline__button" @click="switchStep(5)">
-                    <span style="color: transparent">Step 6</span>
+                    <span style="color: transparent">{{ page.step_word }} 6</span>
                 </button>
                 <svg :class="`section-configurator__headline__svg ${activeSteps[5] ? 'active' : 'inactive'}`">
                     <use xlink:href="#argoArrow"></use>
                 </svg>
                 <div class="section-configurator__headline__content">
-                    <h1 class="section-configurator__headline__content__motto motto">KROK 6</h1>
-                    <h2 class="section-configurator__headline__content__subtitle subtitle">Smart Home</h2>
+                    <h1 class="section-configurator__headline__content__motto motto">{{ page.step_word }} 6</h1>
+                    <h2 class="section-configurator__headline__content__subtitle subtitle">{{ page.title_step_6 }}</h2>
                 </div>
             </div>
             <template x-if="activeSteps[5]">
@@ -609,57 +610,51 @@
                         x-init="$refs.step_6.scrollIntoView({ behavior: 'instant', block: 'start' });"
                 >
                     <p class="description text">
-                        Opcja wyposażenia produktów w funkcje zwiększające bezpieczeństwo oraz kompatybilne z systemami inteligentnego domu.
+                        {{ page.description_step_6 }}
                     </p>
                     <div class="selection step-6">
                         <div class="selection__element step-6">
                             <div class="selection__description">
-                                <h2 class="selection__description__subtitle subtitle">Zamek Wieloryglowy</h2>
+                                <h2 class="selection__description__subtitle subtitle">
+                                    {{ page.step_6_choice_1_subtitle }}
+                                </h2>
                                 <p class="selection__description__text text">
-                                    Lorem ipsum dolor sit amet, consectetuer
-                                    adipiscing elit, sed diam nonummy nibh
-                                    euismod tincidunt ut laoreet dolore magna
-                                    aliquam erat volutpat. Ut wisi enim
-                                    minim veniam, quis
+                                    {{ page.step_6_choice_1_text }}
                                 </p>
                             </div>
                             <input type="checkbox" id="option-1" class="btn-checkbox"  x-model="smartHome.multiPointLock"/>
                             <label for="option-1" class="btn-checkbox-label">
-                                <span>Wybieram</span>
+                                <span>{{ page.button_word }}</span>
                             </label>
                         </div>
                         <div class="selection__element step-6">
 
                             <div class="selection__description">
-                                <h2 class="selection__description__subtitle subtitle">Kontraktor</h2>
+                                <h2 class="selection__description__subtitle subtitle">
+                                    {{ page.step_6_choice_2_subtitle }}
+                                </h2>
                                 <p class="selection__description__text text">
-                                    Lorem ipsum dolor sit amet, consectetuer
-                                    adipiscing elit, sed diam nonummy nibh
-                                    euismod tincidunt ut laoreet dolore magna
-                                    aliquam erat volutpat. Ut wisi enim
-                                    minim veniam, quis
+                                    {{ page.step_6_choice_2_text }}
                                 </p>
                             </div>
                             <input type="checkbox" id="option-2" class="btn-checkbox" x-model="smartHome.contractor"/>
                             <label for="option-2" class="btn-checkbox-label">
-                                <span>Wybieram</span>
+                                <span>{{ page.button_word }}</span>
                             </label>
                         </div>
                         <div class="selection__element step-6">
 
                             <div class="selection__description">
-                                <h2 class="selection__description__subtitle subtitle">Siłownik</h2>
+                                <h2 class="selection__description__subtitle subtitle">
+                                    {{ page.step_6_choice_3_subtitle }}
+                                </h2>
                                 <p class="selection__description__text text">
-                                    Lorem ipsum dolor sit amet, consectetuer
-                                    adipiscing elit, sed diam nonummy nibh
-                                    euismod tincidunt ut laoreet dolore magna
-                                    aliquam erat volutpat. Ut wisi enim
-                                    minim veniam, quis
+                                    {{ page.step_6_choice_3_text }}
                                 </p>
                             </div>
                             <input type="checkbox" id="option-3" class="btn-checkbox" x-model="smartHome.actuator"/>
                             <label for="option-3" class="btn-checkbox-label">
-                                <span>Wybieram</span>
+                                <span>{{ page.button_word }}</span>
                             </label>
                         </div>
                         <div class="section-configuration__dots">
@@ -673,7 +668,7 @@
                         </div>
                     </div>
                     <button class="selection__button variant_b" @click="confirmSmartHome(); confirmStep(5)">
-                        <span>Potwierdź Dodatki</span>
+                        <span>{{ page.confirm_word }}</span>
                     </button>
                 </div>
             </template>
@@ -682,9 +677,9 @@
 </template>
 <template x-if="finalized">
     <section class="section-summary">
-        <h1 class="section-summary__motto motto">KROK 7</h1>
-        <h2 class="section-summary__subtitle subtitle">Podsumowanie</h2>
-        <h2 class="section-summary__text text">Podsumowanie wybranych parametrów i konfiguracji produktu.</h2>
+        <h1 class="section-summary__motto motto">{{ page.step_word }} 7</h1>
+        <h2 class="section-summary__subtitle subtitle">{{ page.title_summary }}</h2>
+        <h2 class="section-summary__text text">{{ page.text_summary }}</h2>
 
         <div class="section-summary__container">
             <div class="section-configuration__dots">
@@ -705,23 +700,19 @@
             </div>
             <div class="section-summary__container__column right">
                 <div class="section-summary__container__row top">
-                    <p class="section-summary__parameter parameter">Wybrana linia stylu: <span class="text" x-text="styleLineDesc"></span></p>
-                    <p class="section-summary__parameter parameter">Wybrane użycie produktu: <span class="text"  x-text="productUsecaseDesc"></span></p>
-                    <p class="section-summary__parameter parameter">Wybrany rodzaj produktu: <span class="text" x-text="productTypeDesc"></span></p>
-                    <p class="section-summary__parameter parameter">Wybrane dodatki: <span class="text" x-text="additivesDesc"></span></p>
-                    <p class="section-summary__parameter parameter">Wybrany kolor: <span class="text"  x-text="colorDesc"></span></p>
-                    <p class="section-summary__parameter parameter">Wybrane elementy smart home: <span class="text" x-text="smartHomeDesc"></span></p>
-                </div>
-                <div class="section-summary__container__row bottom">
-                    <p class="section-summary__price subtitle">Szacowana Cena (brutto):</p>
-                    <p class="section-summary__price subtitle">9999,99PLN</p>
+                    <p class="section-summary__parameter parameter">{{ page.styleline_summary }}: <span class="text" x-text="styleLineDesc"></span></p>
+                    <p class="section-summary__parameter parameter">{{ page.usecase_summary }}: <span class="text"  x-text="productUsecaseDesc"></span></p>
+                    <p class="section-summary__parameter parameter">{{ page.type_summary }}: <span class="text" x-text="productTypeDesc"></span></p>
+                    <p class="section-summary__parameter parameter">{{ page.additions_summary }}: <span class="text" x-text="additivesDesc"></span></p>
+                    <p class="section-summary__parameter parameter">{{ page.color_summary }}: <span class="text"  x-text="colorDesc"></span></p>
+                    <p class="section-summary__parameter parameter">{{ page.smarthome_summary }}: <span class="text" x-text="smartHomeDesc"></span></p>
                 </div>
                 <div class="section-summary__buttons">
                     <button class="confirm-button variant_a">
-                        <span>Generuj i pobierz pdf</span>
+                        <span>{{ page.button_download_summary }}</span>
                     </button>
                     <button class="confirm-button variant_b">
-                        <span>Wyślij zapytanie</span>
+                        <span>{{ page.button_mail_summary }}</span>
                     </button>
                 </div>
             </div>
@@ -732,12 +723,14 @@
                 <use xlink:href="#sharpArrow"></use>
             </svg>
             <span>
-                wstecz
+                {{ page.button_back_summary }}
             </span>
         </button>
     </section>
 </template>
 </main>
+
+<div hidden> <div id="styleline-industrial">{{ page.step_1_choice_1_subtitle }}</div><div id="styleline-vintage">{{ page.step_1_choice_2_subtitle }}</div><div id="styleline-glamour">{{ page.step_1_choice_3_subtitle }}</div><div id="profile-cold">{{ page.step_2_choice_1_subtitle }}</div><div id="profile-hot">{{ page.step_2_choice_2_subtitle }}</div><div id="type-sliding">{{ page.step_3_choice_1_title }}</div><div id="type-hinged">{{ page.step_3_choice_2_title }}</div><div id="type-pivot">{{ page.step_3_choice_3_title }}</div><div id="type-folding">{{ page.step_3_choice_4_title }}</div><div id="type-fixed">{{ page.step_3_choice_5_title }}</div><div id="handle-1">{{ page.step_5_choice_1_subtitle }}</div><div id="handle-2">{{ page.step_5_choice_2_subtitle }}</div><div id="handle-3">{{ page.step_5_choice_3_subtitle }}</div></div>
 
 {% endblock content %}
 

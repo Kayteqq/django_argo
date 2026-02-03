@@ -219,6 +219,52 @@ function globalData() {
             leftWidth: defaults.inputLeftWidth,
             rightWidth: defaults.inputRightWidth,
         },
+        names: {
+            industrial: '',
+            vintage: '',
+            glamour: '',
+            coldProfile: '',
+            hotProfile: '',
+            sliding: '',
+            hinged: '',
+            pivot: '',
+            folding: '',
+            fixed: '',
+            handle1: '',
+            handle2: '',
+            handle3: '',
+        },
+
+        init() {
+            let source = document.getElementById('styleline-industrial')
+            if (source) this.names.industrial = source.textContent
+            source = document.getElementById('styleline-vintage')
+            if (source) this.names.vintage = source.textContent
+            source = document.getElementById('styleline-glamour')
+            if (source) this.names.glamour = source.textContent
+            source = document.getElementById('profile-cold')
+            if (source) this.names.coldProfile = source.textContent
+            source = document.getElementById('profile-hot')
+            if (source) this.names.hotProfile = source.textContent
+            source = document.getElementById('type-sliding')
+            if (source) this.names.sliding = source.textContent
+            source = document.getElementById('type-hinged')
+            if (source) this.names.hinged = source.textContent
+            source = document.getElementById('type-pivot')
+            if (source) this.names.pivot = source.textContent
+            source = document.getElementById('type-folding')
+            if (source) this.names.folding = source.textContent
+            source = document.getElementById('type-fixed')
+            if (source) this.names.fixed = source.textContent
+            source = document.getElementById('handle-1')
+            if (source) this.names.handle1 = source.textContent
+            source = document.getElementById('handle-2')
+            if (source) this.names.handle2 = source.textContent
+            source = document.getElementById('handle-3')
+            if (source) this.names.handle3 = source.textContent
+
+            console.log(this.names)
+        },
 
         activeSteps: defaults.initialActiveSteps,
         get smartHomeDesc() {
@@ -228,38 +274,31 @@ function globalData() {
         },
         get styleLineDesc() {
             let text = '';
-            if (this.selectedStyleLine === 'industrial') text = 'Industrial';
-            if (this.selectedStyleLine === 'vintage') text = 'Vintage';
-            if (this.selectedStyleLine === 'glamour') text = 'Glamour';
+            if (this.selectedStyleLine === 'industrial') text = this.names.industrial;
+            if (this.selectedStyleLine === 'vintage') text = this.names.vintage;
+            if (this.selectedStyleLine === 'glamour') text = this.names.glamour;
             return text;
         },
         get productUsecaseDesc() {
             let text = '';
-            if (this.selectedProductUsecase === 'profile-cold') text = 'Profil Zimny (użycie wewnętrzne)';
-            if (this.selectedProductUsecase === 'profile-hot') text = 'Profil Ciepły (użycie zewnętrzne)';
+            if (this.selectedProductUsecase === 'profile-cold') text = this.names.coldProfile;
+            if (this.selectedProductUsecase === 'profile-hot') text = this.names.hotProfile;
             return text;
         },
         get productTypeDesc() {
             let text = '';
-
-            // door-sliding, door-swing, door-pivot, door-folding, partitions-fixed
-            if (this.selectedProductType === 'sliding') text = 'Drzwi Przesuwne';
-            if (this.selectedProductType === 'hinged') text = 'Drzwi i Okna Rozwierane';
-            if (this.selectedProductType === 'pivot') text = 'Drzwi Wahadłowe';
-            if (this.selectedProductType === 'folding') text = 'Drzwi Harmonijkowe (Łamane)';
-            if (this.selectedProductType === 'fixed') text = 'Ścianka Stała';
-
-
+            if (this.selectedProductType === 'sliding') text = this.names.sliding;
+            if (this.selectedProductType === 'hinged') text = this.names.hinged;
+            if (this.selectedProductType === 'pivot') text = this.names.pivot;
+            if (this.selectedProductType === 'folding') text = this.names.folding;
+            if (this.selectedProductType === 'fixed') text = this.names.fixed;
             return text;
         },
         get additivesDesc() {
             let text = '';
-            let handleText = '';
-            if (this.selectedHandleType === 'handle-1') handleText = 'Pierwsza Klamka';
-            if (this.selectedHandleType === 'handle-2') handleText = 'Druga Klamka';
-            if (this.selectedHandleType === 'handle-3') handleText = 'Trzecia Klamka';
-
-            if (handleText !== '') text = `Klamka: ${handleText}`;
+            if (this.selectedHandleType === 'handle-1') text = this.names.handle1;
+            if (this.selectedHandleType === 'handle-2') text = this.names.handle2;
+            if (this.selectedHandleType === 'handle-3') text = this.names.handle3;
             return text;
         },
         get colorDesc() {

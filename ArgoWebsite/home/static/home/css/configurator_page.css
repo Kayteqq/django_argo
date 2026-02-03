@@ -143,11 +143,19 @@ html {
     }
 
     .selection__frame__vis {
-        height: 80%;
+        max-height: 80%;
+        max-width: 80%;
+        height: auto;
         width: auto;
     }
     .selection__description {
         margin: auto 1.25rem 0 1.25rem;
+    }
+    .selection__description__vis {
+        max-height: 80%;
+        max-width: 80%;
+        height: auto;
+        width: auto;
     }
 
     .selection__button {
