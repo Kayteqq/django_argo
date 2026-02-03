@@ -791,7 +791,6 @@ class CollectionPage(Page):
             ],
             heading='Section Configurator',
         )
-
     ]
 
 class ConfiguratorPage(Page):
@@ -799,6 +798,250 @@ class ConfiguratorPage(Page):
     template = 'home/configurator_page.html'
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
+
+    motto_hero = models.CharField("Hero - Lead", max_length=255, blank=True)
+    title_hero = models.CharField("Hero - Title", max_length=255, blank=True)
+    text_hero = models.TextField("Hero - Text", blank=True)
+    button_hero = models.CharField("Hero - Button Text ", max_length=255, blank=True)
+
+    step_word = models.CharField("Step Word", max_length=32, blank=True)
+    button_word = models.CharField("Button Word", max_length=32, blank=True)
+    confirm_word = models.CharField("Confirm Word", max_length=32, blank=True)
+
+
+    title_step_1 = models.CharField("Step 1 - Title", max_length=255, blank=True)
+    title_step_2 = models.CharField("Step 2 - Title", max_length=255, blank=True)
+    title_step_3 = models.CharField("Step 3 - Title", max_length=255, blank=True)
+    title_step_4 = models.CharField("Step 4 - Title", max_length=255, blank=True)
+    title_step_5 = models.CharField("Step 5 - Title", max_length=255, blank=True)
+    title_step_6 = models.CharField("Step 6 - Title", max_length=255, blank=True)
+
+    description_step_1 = models.CharField("Step 1 - Description", max_length=255, blank=True)
+    description_step_2 = models.CharField("Step 2 - Description", max_length=255, blank=True)
+    description_step_3 = models.CharField("Step 3 - Description", max_length=255, blank=True)
+    description_step_4 = models.CharField("Step 4 - Description", max_length=255, blank=True)
+    description_step_5a = models.CharField("Step 5a - Description", max_length=255, blank=True)
+    description_step_5b = models.CharField("Step 5b - Description", max_length=255, blank=True)
+    description_step_6 = models.CharField("Step 6 - Description", max_length=255, blank=True)
+
+    # step 1
+    step_1_choice_1_subtitle = models.CharField("Step 1 - Choice 1 Subtitle", max_length=255, blank=True)
+    step_1_choice_2_subtitle = models.CharField("Step 1 - Choice 2 Subtitle", max_length=255, blank=True)
+    step_1_choice_3_subtitle = models.CharField("Step 1 - Choice 3 Subtitle", max_length=255, blank=True)
+
+    step_1_choice_1_text = models.TextField("Step 1 - Choice 1 Text", blank=True)
+    step_1_choice_2_text = models.TextField("Step 1 - Choice 2 Text", blank=True)
+    step_1_choice_3_text = models.TextField("Step 1 - Choice 3 Text", blank=True)
+
+    step_1_choice_1_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    step_1_choice_2_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    step_1_choice_3_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+
+    # step 2
+    step_2_choice_1_subtitle = models.CharField("Step 2 - Choice 1 Subtitle", max_length=255, blank=True)
+    step_2_choice_2_subtitle = models.CharField("Step 2 - Choice 2 Subtitle", max_length=255, blank=True)
+
+    step_2_choice_1_text = models.CharField("Step 2 - Choice 2 Text", max_length=255,  blank=True)
+    step_2_choice_2_text = models.CharField("Step 2 - Choice 2 Text", max_length=255,  blank=True)
+
+    step_2_choice_1_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    step_2_choice_2_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+
+    # step 3
+    step_3_choice_1_title = models.CharField("Step 3 - Choice 1 Title", max_length=255, blank=True)
+    step_3_choice_2_title = models.CharField("Step 3 - Choice 2 Title", max_length=255, blank=True)
+    step_3_choice_3_title = models.CharField("Step 3 - Choice 3 Title", max_length=255, blank=True)
+    step_3_choice_4_title = models.CharField("Step 3 - Choice 4 Title", max_length=255, blank=True)
+    step_3_choice_5_title = models.CharField("Step 3 - Choice 5 Title", max_length=255, blank=True)
+
+    step_3_choice_1_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    step_3_choice_2_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    step_3_choice_3_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    step_3_choice_4_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    step_3_choice_5_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+
+
+    # step 4
+    step_4_input_1_option_1 = models.CharField("Step 4 - Input 1 Option 1", max_length=255, blank=True)
+    step_4_input_1_option_2 = models.CharField("Step 4 - Input 1 Option 2", max_length=255, blank=True)
+    step_4_input_1_option_3 = models.CharField("Step 4 - Input 1 Option 3", max_length=255, blank=True)
+    step_4_input_2 = models.CharField("Step 4 - Input 2", max_length=255, blank=True)
+    step_4_input_3 = models.CharField("Step 4 - Input 3", max_length=255, blank=True)
+    step_4_input_4 = models.CharField("Step 4 - Input 4", max_length=255, blank=True)
+    step_4_input_5 = models.CharField("Step 4 - Input 5", max_length=255, blank=True)
+    step_4_input_6 = models.CharField("Step 4 - Input 6", max_length=255, blank=True)
+    step_4_input_7 = models.CharField("Step 4 - Input 7", max_length=255, blank=True)
+    step_4_input_8 = models.CharField("Step 4 - Input 8", max_length=255, blank=True)
+    step_4_input_9 = models.CharField("Step 4 - Input 9", max_length=255, blank=True)
+
+    # step 5
+    step_5_choice_1_subtitle = models.CharField("Step 5 - Choice 1 Subtitle", max_length=255, blank=True)
+    step_5_choice_2_subtitle = models.CharField("Step 5 - Choice 2 Subtitle", max_length=255, blank=True)
+    step_5_choice_3_subtitle = models.CharField("Step 5 - Choice 3 Subtitle", max_length=255, blank=True)
+    step_5_choice_1_text = models.TextField("Step 5 - Choice 1 Text", blank=True)
+    step_5_choice_2_text = models.TextField("Step 5 - Choice 2 Text", blank=True)
+    step_5_choice_3_text = models.TextField("Step 5 - Choice 3 Text", blank=True)
+    step_5_choice_1_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    step_5_choice_2_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    step_5_choice_3_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+
+    # step 6
+    step_6_choice_1_subtitle = models.CharField("Step 6 - Choice 1 Subtitle", max_length=255, blank=True)
+    step_6_choice_2_subtitle = models.CharField("Step 6 - Choice 2 Subtitle", max_length=255, blank=True)
+    step_6_choice_3_subtitle = models.CharField("Step 6 - Choice 3 Subtitle", max_length=255, blank=True)
+
+    step_6_choice_1_text = models.TextField("Step 6 - Choice 1 Text", blank=True)
+    step_6_choice_2_text = models.TextField("Step 6 - Choice 2 Text", blank=True)
+    step_6_choice_3_text = models.TextField("Step 6 - Choice 3 Text", blank=True)
+
+    title_summary = models.CharField("Summary - Title", max_length=255, blank=True)
+    text_summary = models.CharField("Summary - Text", max_length=255, blank=True)
+    styleline_summary = models.CharField("Summary - Style Line", max_length=255, blank=True)
+    usecase_summary = models.CharField("Summary - Use Case", max_length=255, blank=True)
+    type_summary = models.CharField("Summary - Type", max_length=255, blank=True)
+    additions_summary = models.CharField("Summary - Additions", max_length=255, blank=True)
+    color_summary = models.CharField("Summary - Color", max_length=255, blank=True)
+    smarthome_summary = models.CharField("Summary - Smart Home", max_length=255, blank=True)
+
+    button_download_summary = models.CharField("Summary - Button Download", max_length=255, blank=True)
+    button_mail_summary = models.CharField("Summary - Button Mail", max_length=255, blank=True)
+    button_back_summary = models.CharField("Summary - Back", max_length=255, blank=True)
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel("motto_hero"),
+                FieldPanel("title_hero"),
+                FieldPanel("text_hero"),
+                FieldPanel("button_hero"),
+            ],
+            heading='Section Hero',
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("step_word"),
+                FieldPanel("button_word"),
+                FieldPanel("confirm_word"),
+            ],
+            heading='Base Configurator Parameters'
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("title_step_1"),
+                FieldPanel("description_step_1"),
+                FieldPanel("title_step_2"),
+                FieldPanel("description_step_2"),
+                FieldPanel("title_step_3"),
+                FieldPanel("description_step_3"),
+                FieldPanel("title_step_4"),
+                FieldPanel("description_step_4"),
+                FieldPanel("title_step_5"),
+                FieldPanel("description_step_5a"),
+                FieldPanel("description_step_5b"),
+                FieldPanel("title_step_6"),
+                FieldPanel("description_step_6"),
+            ],
+            heading='Configurator Step Titles'
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("step_1_choice_1_subtitle"),
+                FieldPanel("step_1_choice_1_text"),
+                FieldPanel("step_1_choice_1_img"),
+                FieldPanel("step_1_choice_2_subtitle"),
+                FieldPanel("step_1_choice_2_text"),
+                FieldPanel("step_1_choice_2_img"),
+                FieldPanel("step_1_choice_3_subtitle"),
+                FieldPanel("step_1_choice_3_text"),
+                FieldPanel("step_1_choice_3_img"),
+            ],
+            heading='Configurator Step 1'
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("step_2_choice_1_subtitle"),
+                FieldPanel("step_2_choice_1_text"),
+                FieldPanel("step_2_choice_1_img"),
+                FieldPanel("step_2_choice_2_subtitle"),
+                FieldPanel("step_2_choice_2_text"),
+                FieldPanel("step_2_choice_2_img"),
+            ],
+            heading='Configurator Step 2'
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("step_3_choice_1_title"),
+                FieldPanel("step_3_choice_1_img"),
+                FieldPanel("step_3_choice_2_title"),
+                FieldPanel("step_3_choice_2_img"),
+                FieldPanel("step_3_choice_3_title"),
+                FieldPanel("step_3_choice_3_img"),
+                FieldPanel("step_3_choice_4_title"),
+                FieldPanel("step_3_choice_4_img"),
+                FieldPanel("step_3_choice_5_title"),
+                FieldPanel("step_3_choice_5_img"),
+            ],
+            heading='Configurator Step 3'
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("step_4_input_1_option_1"),
+                FieldPanel("step_4_input_1_option_2"),
+                FieldPanel("step_4_input_1_option_3"),
+                FieldPanel("step_4_input_2"),
+                FieldPanel("step_4_input_3"),
+                FieldPanel("step_4_input_4"),
+                FieldPanel("step_4_input_5"),
+                FieldPanel("step_4_input_6"),
+                FieldPanel("step_4_input_7"),
+                FieldPanel("step_4_input_8"),
+                FieldPanel("step_4_input_9"),
+            ],
+            heading='Configurator Step 4'
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("step_5_choice_1_subtitle"),
+                FieldPanel("step_5_choice_1_text"),
+                FieldPanel("step_5_choice_1_img"),
+                FieldPanel("step_5_choice_2_subtitle"),
+                FieldPanel("step_5_choice_2_text"),
+                FieldPanel("step_5_choice_2_img"),
+                FieldPanel("step_5_choice_3_subtitle"),
+                FieldPanel("step_5_choice_3_text"),
+                FieldPanel("step_5_choice_3_img"),
+            ],
+            heading='Configurator Step 5'
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("step_6_choice_1_subtitle"),
+                FieldPanel("step_6_choice_1_text"),
+                FieldPanel("step_6_choice_2_subtitle"),
+                FieldPanel("step_6_choice_2_text"),
+                FieldPanel("step_6_choice_3_subtitle"),
+                FieldPanel("step_6_choice_3_text"),
+            ],
+            heading='Configurator Step 6'
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("title_summary"),
+                FieldPanel("text_summary"),
+                FieldPanel("styleline_summary"),
+                FieldPanel("usecase_summary"),
+                FieldPanel("type_summary"),
+                FieldPanel("additions_summary"),
+                FieldPanel("color_summary"),
+                FieldPanel("smarthome_summary"),
+                FieldPanel("button_download_summary"),
+                FieldPanel("button_mail_summary"),
+                FieldPanel("button_back_summary"),
+            ],
+            heading='Configurator Summary',
+        )
+
+    ]
 
 class ServicesPage(Page):
     max_count = 1
@@ -840,6 +1083,16 @@ class ContactPage(Page):
     template = 'home/contact_page.html'
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
+
+    image_hero = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel('image_hero'),
+            ],
+            heading="Section Hero",
+        ),
+    ]
 
 class PrivacyPoliticsPage(Page):
     max_count = 1
