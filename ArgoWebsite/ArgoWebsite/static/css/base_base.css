@@ -184,6 +184,9 @@ svg.flipped {
     line-height: 3rem;
 
 }
+.bold {
+    font-family: 'Archivo-SemiBold', sans-serif;
+}
 
 .keyword {
     font-family: 'Archivo-SemiBold', sans-serif;

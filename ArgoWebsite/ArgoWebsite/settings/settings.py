@@ -31,6 +31,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: define the correct hosts in production!
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 # Application definition
+CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', cast=Csv())
 
 INSTALLED_APPS = [
     "home",
@@ -203,6 +204,7 @@ WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'tx
 
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+DEFAULT_FROM_EMAIL = 'no-reply@localhost.com'
 
 
 try:

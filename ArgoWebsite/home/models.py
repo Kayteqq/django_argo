@@ -1,6 +1,9 @@
 from django.core.exceptions import PermissionDenied
 from django.db import models
-from django.shortcuts import redirect
+from django.http import JsonResponse
+from django.shortcuts import redirect, render
+from django.core.mail import send_mail
+from django.contrib import messages
 from wagtail.admin.panels import PageChooserPanel, FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.contrib.settings.models import BaseSiteSetting
 from wagtail.contrib.settings.registry import register_setting
@@ -11,7 +14,7 @@ from wagtail.fields import StreamField
 from modelcluster.fields import ParentalKey
 
 from .blocks import NavbarBlockContainer, FooterBlockContainer
-
+from .forms import ContactForm
 
 
 class NavbarLinksPage(Page):
@@ -1085,6 +1088,14 @@ class ContactPage(Page):
     subpage_types = []
 
     image_hero = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    recipient_mail = models.EmailField()
+    success_message = models.CharField(max_length=255)
+
+    label_name = models.CharField(max_length=100, default="Imie i Nazwisko")
+    label_email = models.CharField(max_length=100, default="E-mail")
+    label_phone = models.CharField(max_length=100, default="Telefon")
+    label_message = models.CharField(max_length=100, default="Twoja wiadomosc")
+
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
@@ -1092,7 +1103,71 @@ class ContactPage(Page):
             ],
             heading="Section Hero",
         ),
+        MultiFieldPanel(
+            [
+                FieldPanel('recipient_mail'),
+                FieldPanel('success_message'),
+                FieldPanel('label_name'),
+                FieldPanel('label_email'),
+                FieldPanel('label_phone'),
+                FieldPanel('label_message'),
+            ],
+            heading="Ustawienia Formularza",
+        )
     ]
+
+    def serve(self, request):
+        custom_labels = {
+            'name': self.label_name,
+            'email': self.label_email,
+            'phone': self.label_phone,
+            'message': self.label_message,
+        }
+
+        if request.method == 'POST':
+            form = ContactForm(request.POST, custom_labels=custom_labels)
+            if form.is_valid():
+                data = form.cleaned_data
+                full_message = f"""
+                Nowa wiadomość od: {data['name']}
+                Email: {data['email']}
+                Tel: {data['phone']}
+                
+                Treść:
+                {data['message']}
+                """
+
+                send_mail(
+                    subject=f"Kontakt ze strony: {data['name']}",
+                    message=full_message,
+                    from_email=None,
+                    recipient_list=[self.recipient_mail],
+                )
+
+                if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                    return JsonResponse({
+                        'status': 'success',
+                        'message': self.success_message,
+                    })
+
+                return render(request, self.template, {
+                    'page': self,
+                    'form': ContactForm(custom_labels=custom_labels),
+                    'submitted': True,
+                })
+            else:
+                if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                    return JsonResponse({
+                        'status': 'error',
+                        'errors': form.errors.get_json_data(),
+                    }, status=400)
+        else:
+            form = ContactForm(custom_labels=custom_labels)
+        return render(request, self.template, {
+            'page': self,
+            'form': form,
+            'submitted': False,
+        })
 
 class PrivacyPoliticsPage(Page):
     max_count = 1
