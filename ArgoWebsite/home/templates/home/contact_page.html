@@ -44,22 +44,18 @@
                     </div>
                     <div class="section-contact__grid__item element-3">
                         <p class="section-contact__grid__text bold text">
-                            Telefony
+{#                            {{ page.title_phone }}#}
+                            {{ page.config_data.summary }}
                         </p>
-                        <br class="text">
-                        <p class="section-contact__grid__text text">
-                            biuro techniczne, ksiegowosc
-                        </p>
-                        <p class="section-contact__grid__text text">
-                            +48 AA AAA AA AA
-                        </p>
-                        <br class="text">
-                        <p class="section-contact__grid__text text">
-                            produkcja
-                        </p>
-                        <p class="section-contact__grid__text text">
-                            +48 AA AAA AA AA
-                        </p>
+                        {% for item in page.title_phones.all %}
+                            <br class="text">
+                            <p class="section-contact__grid__text text">
+                                {{ item.description }}
+                            </p>
+                            <p class="section-contact__grid__text text">
+                                {{ item.telephone }}
+                            </p>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -80,10 +76,10 @@
                     </div>
                     <button class="section-contact__button button--variant_a" type="submit" :disabled="loading">
                         <span x-show="!loading">
-                            Wyslij
+                            {{ page.label_send }}
                         </span>
                         <span x-show="loading">
-                            Wysylanie...
+                            {{ page.label_sending }}
                         </span>
                     </button>
                 </form>
@@ -125,7 +121,7 @@
                         if (response.ok && data.status === 'success')
                         {
                             this.message = data.message;
-                            this.$refs.fromElement.reset();
+                            this.$refs.formElement.reset();
                         }
                         else
                         {

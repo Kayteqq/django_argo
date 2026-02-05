@@ -1,3 +1,5 @@
+import json
+
 from django.core.exceptions import PermissionDenied
 from django.db import models
 from django.http import JsonResponse
@@ -16,6 +18,18 @@ from modelcluster.fields import ParentalKey
 from .blocks import NavbarBlockContainer, FooterBlockContainer
 from .forms import ContactForm
 
+
+# @register_setting
+# class CompanyParametersSetting(BaseSiteSetting):
+#     company_name = models.CharField("company_name", max_length=255, blank=True)
+#
+#     content_panels = Page.content_panels + [
+#
+#     ]
+#
+#     class Meta:
+#         verbose_name = "Company Parameters"
+#         verbose_name_plural = "Company Parameters"
 
 class NavbarLinksPage(Page):
     parent_page_types = ['RootRedirectPage']
@@ -89,24 +103,6 @@ class FooterLinksPage(Page):
     class Meta:
         verbose_name = 'Footer Links'
         verbose_name_plural = 'Footer Links'
-
-@register_setting
-class SocialMediaSettings(BaseSiteSetting):
-    url_x           = models.URLField("URL X",          blank=True, null=True)
-    url_facebook    = models.URLField("URL Facebook",   blank=True, null=True)
-    url_linkedin    = models.URLField("URL LinkedIn",   blank=True, null=True)
-    url_instagram   = models.URLField("URL Instagram",  blank=True, null=True)
-
-    content_panels = Page.content_panels + [
-        FieldPanel('url_x'),
-        FieldPanel('url_facebook'),
-        FieldPanel('url_linkedin'),
-        FieldPanel('url_instagram'),
-    ]
-
-    class Meta:
-        verbose_name = 'Social Media - Linki'
-        verbose_name_plural = 'Social Media - Linki'
 
 class RootRedirectPage(Page):
     parent_page_types = ['wagtailcore.Page']
@@ -1043,8 +1039,8 @@ class ConfiguratorPage(Page):
             ],
             heading='Configurator Summary',
         )
-
     ]
+
 
 class ServicesPage(Page):
     max_count = 1
@@ -1081,11 +1077,28 @@ class GalleryPage(Page):
         ),
     ]
 
+class ContactPagePhone(Orderable):
+    page = ParentalKey('ContactPage', related_name='contact_phones', on_delete=models.CASCADE)
+    description = models.CharField("Description", max_length=100, blank=True)
+    telephone = models.CharField("Telephone", max_length=100, blank=True)
+
+    panels = [
+        FieldPanel('description'),
+        FieldPanel('telephone'),
+    ]
+
+
 class ContactPage(Page):
     max_count = 1
     template = 'home/contact_page.html'
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
+
+    motto_contact = models.CharField("Lead", max_length=255, blank=True)
+    title_contact = models.CharField("Title", max_length=255, blank=True)
+    text_contact = models.TextField("Description", blank=True)
+
+    title_phone = models.CharField("Phones Title", max_length=255, blank=True)
 
     image_hero = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
     recipient_mail = models.EmailField()
@@ -1095,6 +1108,8 @@ class ContactPage(Page):
     label_email = models.CharField(max_length=100, default="E-mail")
     label_phone = models.CharField(max_length=100, default="Telefon")
     label_message = models.CharField(max_length=100, default="Twoja wiadomosc")
+    label_send = models.CharField(max_length=100, default="Prześlij wiadomość")
+    label_sending = models.CharField(max_length=100, default="Wysyłanie...")
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
@@ -1105,18 +1120,41 @@ class ContactPage(Page):
         ),
         MultiFieldPanel(
             [
+                FieldPanel('motto_contact'),
+                FieldPanel('title_contact'),
+                FieldPanel('text_contact'),
+            ],
+            heading="Section Contact"
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('title_phone'),
+                InlinePanel('contact_phones'),
+            ],
+            heading="Contact Information",
+        ),
+        MultiFieldPanel(
+            [
                 FieldPanel('recipient_mail'),
                 FieldPanel('success_message'),
                 FieldPanel('label_name'),
                 FieldPanel('label_email'),
                 FieldPanel('label_phone'),
                 FieldPanel('label_message'),
+                FieldPanel('label_send'),
+                FieldPanel('label_sending'),
             ],
-            heading="Ustawienia Formularza",
+            heading="Form Settings",
         )
     ]
 
-    def serve(self, request):
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        config_data = request.session.get('config_data')
+        context['config_data'] = config_data
+        return context
+
+    def serve(self, request, *args, **kwargs):
         custom_labels = {
             'name': self.label_name,
             'email': self.label_email,
