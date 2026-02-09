@@ -88,6 +88,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "wagtail.contrib.settings.context_processors.settings",
                 "home.context_processors.navbar_links_processor",
                 "home.context_processors.footer_links_processor",
                 "home.context_processors.home_link_processor",

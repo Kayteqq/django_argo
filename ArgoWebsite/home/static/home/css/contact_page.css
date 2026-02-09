@@ -100,4 +100,18 @@
         margin-top: 1.25rem;
         width: 100%;
     }
+    .section-contact__attachment {
+        margin-top: 1.25rem;
+        height: 2.1875rem;
+        outline: solid 1px var(--argo-czarny);
+        outline-offset: -1px;
+        border: none;
+        border-radius: 0;
+        font-family: 'Archivo-Regular', sans-serif;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-left: 0.625rem;
+        font-size: 1.1875rem;
+    }
 }

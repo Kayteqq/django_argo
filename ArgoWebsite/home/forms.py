@@ -11,8 +11,6 @@ class ContactForm(forms.Form):
         super().__init__(*args, **kwargs)
 
 
-        print('aaaaaaaaaa')
-        print(labels)
         if labels:
             self.fields['name'].label = labels.get('name')
             self.fields['email'].label = labels.get('email')

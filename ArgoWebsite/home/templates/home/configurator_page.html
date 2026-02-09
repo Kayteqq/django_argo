@@ -707,11 +707,13 @@
                     <p class="section-summary__parameter parameter">{{ page.color_summary }}: <span class="text"  x-text="colorDesc"></span></p>
                     <p class="section-summary__parameter parameter">{{ page.smarthome_summary }}: <span class="text" x-text="smartHomeDesc"></span></p>
                 </div>
-                <div class="section-summary__buttons">
+                <div class="section-summary__buttons" x-ref="buttons">
                     <button class="confirm-button variant_a">
                         <span>{{ page.button_download_summary }}</span>
                     </button>
-                    <button class="confirm-button variant_b">
+                    <button class="confirm-button variant_b"
+                            data-url="{{ page.button_redirection_summary.url }}"
+                            @click.prevent="sendData($el).then().catch(e => console.log(e))">
                         <span>{{ page.button_mail_summary }}</span>
                     </button>
                 </div>
@@ -728,9 +730,38 @@
         </button>
     </section>
 </template>
+{% csrf_token %}
 </main>
 
-<div hidden> <div id="styleline-industrial">{{ page.step_1_choice_1_subtitle }}</div><div id="styleline-vintage">{{ page.step_1_choice_2_subtitle }}</div><div id="styleline-glamour">{{ page.step_1_choice_3_subtitle }}</div><div id="profile-cold">{{ page.step_2_choice_1_subtitle }}</div><div id="profile-hot">{{ page.step_2_choice_2_subtitle }}</div><div id="type-sliding">{{ page.step_3_choice_1_title }}</div><div id="type-hinged">{{ page.step_3_choice_2_title }}</div><div id="type-pivot">{{ page.step_3_choice_3_title }}</div><div id="type-folding">{{ page.step_3_choice_4_title }}</div><div id="type-fixed">{{ page.step_3_choice_5_title }}</div><div id="handle-1">{{ page.step_5_choice_1_subtitle }}</div><div id="handle-2">{{ page.step_5_choice_2_subtitle }}</div><div id="handle-3">{{ page.step_5_choice_3_subtitle }}</div></div>
+<div hidden>
+    <div id="styleline-industrial">
+        {{ page.step_1_choice_1_subtitle }}
+    </div><div id="styleline-vintage">
+        {{ page.step_1_choice_2_subtitle }}
+    </div><div id="styleline-glamour">
+        {{ page.step_1_choice_3_subtitle }}
+    </div><div id="profile-cold">
+        {{ page.step_2_choice_1_subtitle }}
+    </div><div id="profile-hot">
+        {{ page.step_2_choice_2_subtitle }}
+    </div><div id="type-sliding">
+        {{ page.step_3_choice_1_title }}
+    </div><div id="type-hinged">
+        {{ page.step_3_choice_2_title }}
+    </div><div id="type-pivot">
+        {{ page.step_3_choice_3_title }}
+    </div><div id="type-folding">
+        {{ page.step_3_choice_4_title }}
+    </div><div id="type-fixed">
+        {{ page.step_3_choice_5_title }}
+    </div><div id="handle-1">
+        {{ page.step_5_choice_1_subtitle }}
+    </div><div id="handle-2">
+        {{ page.step_5_choice_2_subtitle }}
+    </div><div id="handle-3">
+        {{ page.step_5_choice_3_subtitle }}
+    </div>
+</div>
 
 {% endblock content %}
 

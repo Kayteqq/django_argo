@@ -15,37 +15,36 @@
         <section class="section-contact" id="contact">
             <div class="section-contact__inner-divider right">
                 <p class="section-contact__motto motto">
-                    Jestesmy do twojej dyspozycji
+                    {{ page.motto_contact }}
                 </p>
                 <h1 class="section-contact__title title">
-                    Skontaktuj sie z nami
+                    {{ page.title_contact }}
                 </h1>
                 <p class="section-contact__text text">
-                    Chętnie odpowiemy na wszystkie Twoje pytania dotyczące naszych produktów i usług. Wypełnij formularz lub skorzystaj z podanych danych kontaktowych, aby szybko nawiązać rozmowę. Jesteśmy gotowi, by doradzić i znaleźć najlepsze rozwiązania dla Twojej inwestycji.
+                    {{ page.text_contact }}
                 </p>
                 <div class="section-contact__grid">
                     <div class="section-contact__grid__item element-1">
                         <p class="section-contact__grid__text bold text">
-                            ARGO sp. z o.o.
+                            {{ settings.home.CompanyParametersSetting.company_name }}
                         </p>
                         <p class="section-contact__grid__text bold text">
-                            ul. Tokarska 21
+                            {{ settings.home.CompanyParametersSetting.address_line_1 }}
                         </p>
                         <p class="section-contact__grid__text bold text">
-                            20-210 Lublin
+                            {{ settings.home.CompanyParametersSetting.address_line_2 }}
                         </p>
                         <br class="text">
                         <p class="section-contact__grid__text text">
-                            NIP: 712-229-35-43
+                            NIP: {{ settings.home.CompanyParametersSetting.nip }}
                         </p>
                         <p class="section-contact__grid__text text">
-                            REGON: 214125125
+                            REGON: {{ settings.home.CompanyParametersSetting.regon }}
                         </p>
                     </div>
                     <div class="section-contact__grid__item element-3">
                         <p class="section-contact__grid__text bold text">
-{#                            {{ page.title_phone }}#}
-                            {{ page.config_data.summary }}
+                            {{ page.title_phone }}
                         </p>
                         {% for item in page.title_phones.all %}
                             <br class="text">
@@ -68,9 +67,9 @@
                                 {{ field.label_tag }}
                                 {{ field }}
                             {{ field.errors }}
-                            <template x-for="error in errors['{{ field.name }}']">
-                                <p x-text="error.message"></p>
-                            </template>
+                                <template x-for="error in errors['{{ field.name }}']">
+                                    <p x-text="error.message"></p>
+                                </template>
                             </div>
                         {% endfor %}
                     </div>
@@ -82,6 +81,11 @@
                             {{ page.label_sending }}
                         </span>
                     </button>
+                    {% if config_data %}
+                        <div class="section-contact__attachment">
+                            {{ config_data }}
+                        </div>
+                    {% endif %}
                 </form>
             </div>
         </section>
@@ -107,6 +111,7 @@
                 submitData() {
                     this.loading = true;
                     const formData = new FormData(this.$refs.formElement);
+
 
                     fetch(window.location.href, {
                         method: 'POST',

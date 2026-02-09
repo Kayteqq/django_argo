@@ -19,17 +19,45 @@ from .blocks import NavbarBlockContainer, FooterBlockContainer
 from .forms import ContactForm
 
 
-# @register_setting
-# class CompanyParametersSetting(BaseSiteSetting):
-#     company_name = models.CharField("company_name", max_length=255, blank=True)
-#
-#     content_panels = Page.content_panels + [
-#
-#     ]
-#
-#     class Meta:
-#         verbose_name = "Company Parameters"
-#         verbose_name_plural = "Company Parameters"
+@register_setting
+class SocialMediaSettings(BaseSiteSetting):
+    url_x           = models.URLField("URL X",          blank=True, null=True)
+    url_youtube     = models.URLField("URL YouTube",    blank=True, null=True)
+    url_instagram   = models.URLField("URL Instagram",  blank=True, null=True)
+    url_linkedin    = models.URLField("URL Linkedin",   blank=True, null=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('url_x'),
+        FieldPanel('url_facebook'),
+        FieldPanel('url_instagram'),
+        FieldPanel('url_linkedin'),
+    ]
+
+    class Meta:
+        verbose_name = 'Social Media - Linki'
+        verbose_name_plural = 'Social Media - Linki'
+
+@register_setting
+class CompanyParametersSetting(BaseSiteSetting):
+    company_name = models.CharField("company name", max_length=255, blank=True)
+    address_line_1 = models.CharField("address line 1", max_length=255, blank=True)
+    address_line_2 = models.CharField("address line 2", max_length=255, blank=True)
+    nip = models.CharField('nip', max_length=255, blank=True)
+    regon = models.CharField("regon", max_length=255, blank=True)
+    stamp = models.CharField("stamp", max_length=255, blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('company_name'),
+        FieldPanel('address_line_1'),
+        FieldPanel('address_line_2'),
+        FieldPanel('nip'),
+        FieldPanel('regon'),
+        FieldPanel('stamp'),
+    ]
+
+    class Meta:
+        verbose_name = "Company Parameters"
+        verbose_name_plural = "Company Parameters"
 
 class NavbarLinksPage(Page):
     parent_page_types = ['RootRedirectPage']
@@ -905,6 +933,13 @@ class ConfiguratorPage(Page):
     button_download_summary = models.CharField("Summary - Button Download", max_length=255, blank=True)
     button_mail_summary = models.CharField("Summary - Button Mail", max_length=255, blank=True)
     button_back_summary = models.CharField("Summary - Back", max_length=255, blank=True)
+    button_redirection_summary = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
@@ -1036,12 +1071,26 @@ class ConfiguratorPage(Page):
                 FieldPanel("button_download_summary"),
                 FieldPanel("button_mail_summary"),
                 FieldPanel("button_back_summary"),
+                FieldPanel("button_redirection_summary"),
             ],
             heading='Configurator Summary',
         )
     ]
 
+    def serve(self, request, *args, **kwargs):
+        if request.method == "POST":
+            data = json.loads(request.body)
 
+            request.session['config_data'] = data
+
+            return JsonResponse(
+                {
+                    "status": "success",
+                },
+                status=200,
+            )
+
+        return super().serve(request, *args, **kwargs)
 class ServicesPage(Page):
     max_count = 1
     template = 'home/services_page.html'
@@ -1151,7 +1200,9 @@ class ContactPage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         config_data = request.session.get('config_data')
-        context['config_data'] = config_data
+        context.update({
+            'config_data': config_data,
+        })
         return context
 
     def serve(self, request, *args, **kwargs):
@@ -1201,11 +1252,13 @@ class ContactPage(Page):
                     }, status=400)
         else:
             form = ContactForm(custom_labels=custom_labels)
-        return render(request, self.template, {
-            'page': self,
+
+        context = self.get_context(request, *args, **kwargs)
+        context.update({
             'form': form,
             'submitted': False,
         })
+        return render(request, self.template, context)
 
 class PrivacyPoliticsPage(Page):
     max_count = 1

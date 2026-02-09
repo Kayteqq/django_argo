@@ -134,6 +134,13 @@ const FIXED_DEFAULTS = {
 
 };
 
+function getCSRFToken() {
+    return document.cookie
+        .split('; ')
+        .find(row => row.startsWith('csrftoken='))
+        ?.split('=')[1];
+}
+
 function globalData() {
     const defaults = {
         initialActiveSteps: [false, false, false, false, false, false, false],
@@ -175,6 +182,7 @@ function globalData() {
     }
     return {
         finalized: false,
+        loading: false,
 
         selectedStyleLine: defaults.styleLine,
         selectedProductUsecase: defaults.productUsecase,
@@ -263,7 +271,6 @@ function globalData() {
             source = document.getElementById('handle-3')
             if (source) this.names.handle3 = source.textContent
 
-            console.log(this.names)
         },
 
         activeSteps: defaults.initialActiveSteps,
@@ -437,8 +444,7 @@ function globalData() {
         },
 
         //shape
-        updateShape()
-        {
+        updateShape() {
 
             if (Number(this.input.totalHeight) === DOOR_MIN)
             {
@@ -1331,8 +1337,7 @@ function globalData() {
                 `
         },
 
-        updateLimitations()
-        {
+        updateLimitations() {
             if (this.shapeValues.isSkylightEnabled && !this.shapeLimitations.allowTop) {
                 this.shapeValues.isSkylightEnabled = false;
                 this.shapeValues.doorCells.y = Number(this.input.totalHeight);
@@ -1365,5 +1370,32 @@ function globalData() {
             this.input.leftWidth = this.shapeValues.leftCells.x;
             this.input.rightWidth = this.shapeValues.rightCells.x;
         },
+
+        async sendData(el) {
+            this.loading=true;
+            try {
+                const r = await fetch('', {
+                    method: 'POST',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': getCSRFToken(),
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        'styleLine': this.styleLineDesc,
+                        'usecase': this.productUsecaseDesc,
+                        'type': this.productTypeDesc,
+                        'additivies': this.additivesDesc,
+                        'color': this.colorDesc,
+                        'smart': this.smartHomeDesc,
+                    })
+                })
+                if (!r.ok) throw r;
+                return await r.json();
+            } finally {
+                this.loading=false;
+                window.location.href = el.dataset.url;
+            }
+        }
     }
 }
