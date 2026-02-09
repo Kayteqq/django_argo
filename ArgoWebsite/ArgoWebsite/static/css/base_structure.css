@@ -92,6 +92,7 @@
         list-style: none;
         width: 100%;
 
+
     }
 
     .navbar__links__expandable__item {
@@ -186,7 +187,9 @@
     }
 
     .navbar__links__expandable {
-        border: 1px solid var(--argo-stal);
+        border-right: 1px solid var(--argo-stal);
+        border-left: 1px solid var(--argo-stal);
+        border-bottom: 1px solid var(--argo-stal);
         z-index: -5;
         margin: 0;
         padding: 0;
@@ -201,9 +204,11 @@
         align-items: center;
         justify-content: space-evenly;
         background-color: var(--argo-biel);
-        transform: translateY(-5rem) translateZ(-10px);
-        transition: ease 0.5s;
+        transform:  translateY(2px) translateZ(-10px);
+        transition: ease 0.25s;
         opacity: 0;
+        pointer-events: none;
+
     }
 
     .navbar__links__expandable::after {
@@ -213,8 +218,9 @@
     }
 
     .navbar__links__expandable.visible {
-        transform: translateY(2px);
         opacity: 1;
+        pointer-events: all;
+
     }
 
     .navbar__links__expandable.visible::after {
@@ -242,20 +248,9 @@
     }
 
 
-
-    .navbar__search-button {
-        position: absolute;
-        right: 1.25rem;
-        top: 1.5625rem;
-        bottom: 1.5625rem;
-        height: 1.875rem;
-        width: 1.875rem;
-        --color-stroke: var(--argo-czarny);
-    }
-
     .navbar__language-button {
         position: absolute;
-        right: 6.25rem;
+        right: 1.875rem;
         bottom: 2.25rem;
         top: 2rem;
         width: 1.5625rem;
@@ -270,22 +265,25 @@
     }
 
     .navbar__language-box {
+        border-right: 1px solid var(--argo-stal);
+        border-left: 1px solid var(--argo-stal);
+        border-bottom: 1px solid var(--argo-stal);
         position: absolute;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         padding: 0.72rem 1.75rem 0.78rem 1.75rem;
-        top: 5rem;
-        right: 7rem;
+        top: calc(5rem + 1px);
+        right: 2.65rem;
         background-color: var(--argo-biel);
         color: var(--argo-czarny);
-        transition: ease 0.5s;
+        transition: ease 0.25s;
+        opacity: 0;
     }
 
-    .navbar__language-box.hidden {
-        transform: translateY(-3rem);
-        opacity: 0;
+    .navbar__language-box.shown {
+        opacity: 1;
     }
 
     .navbar__language-box__name {
@@ -312,7 +310,7 @@
 
         top: 2rem;
         bottom: 2rem;
-        right: 8.75rem;
+        right: 4.375rem;
 
         width: 1.5rem;
         text-align: center;
@@ -323,7 +321,7 @@
         position: absolute;
         top: 1rem;
         bottom: 1rem;
-        right: 6rem;
+        right: 1rem;
         width: 6rem;
         cursor: pointer;
     }

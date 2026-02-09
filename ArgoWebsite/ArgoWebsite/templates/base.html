@@ -68,7 +68,9 @@
                                     </a>
                                 {% endif %}
                             {% endfor %}
-                            <ul :class="`navbar__links__expandable ${active ? 'visible' : ''}`">
+                            <ul :class="`navbar__links__expandable ${active ? 'visible' : ''}`"
+                                class="navbar__links__expandable"
+                            >
                                 {% for subblock in block.value %}
                                     {% if not forloop.first %}
                                         <li class="navbar__links__expandable__item">
@@ -94,7 +96,8 @@
                 </svg>
             </div>
 
-            <div :class="`navbar__language-box ${langMenuOpen ?'':'hidden'}`">
+            <div class="navbar__language-box"
+                 :class="`navbar__language-box ${langMenuOpen ?'shown':''}`">
                 {% with translations=page.get_translations %}
                     {% for translation in translations %}
                         {% if translation.locale.language_code != request.LANGUAGE_CODE %}
@@ -124,9 +127,6 @@
 
             </div>
 
-            <svg class="navbar__search-button">
-                <use xlink:href="#search"></use>
-            </svg>
 
             <div
                     class="navbar__burger"
@@ -147,16 +147,16 @@
                 </svg>
 
                 <p class="footer__address">
-                    ARGO sp. z o.o.<br>
-                    ul. Tokarska 21<br>
-                    20-210 Lublin<br>
+                    {{ settings.home.CompanyParametersSetting.company_name }}<br>
+                    {{ settings.home.CompanyParametersSetting.address_line_1 }}<br>
+                    {{ settings.home.CompanyParametersSetting.address_line_2 }}<br>
                     <br>
-                    NIP: 712-299-35-43<br>
-                    REGON: 060108877
+                    NIP: {{ settings.home.CompanyParametersSetting.nip }}<br>
+                    REGON: {{ settings.home.CompanyParametersSetting.regon }}
                 </p>
 
                 <p class="footer__mark">
-                    © ARGO 2025
+                    © {{ settings.home.CompanyParametersSetting.stamp }}
                 </p>
             </div>
             <div class="footer__divider right">

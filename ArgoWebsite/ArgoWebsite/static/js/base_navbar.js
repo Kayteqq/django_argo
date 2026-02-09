@@ -18,7 +18,8 @@ function base_navbar() {
         langMenuOpen: false,
         mobileMenuOpen: false,
         mobileMenuDisabled: true,
-        tl: null,
+        mobileTl: null,
+        langTl: null,
         proxy: { p: 0 },
         schemeData: {
             line_1_y1: Y_TOP_CLOSED,
@@ -46,7 +47,7 @@ function base_navbar() {
         },
 
         init() {
-            this.tl = gsap.timeline({ paused: true }).to(this.proxy,
+            this.mobileTl = gsap.timeline({ paused: true }).to(this.proxy,
                 {
                     p: 1,
                     duration: 0.3,
@@ -56,13 +57,23 @@ function base_navbar() {
                     }
                 }
             );
+            // this.langTl = gsap.timeline({ paused: true }).fromTo($refs.languageBox,
+            //     {
+            //         opacity: 0,
+            //     },
+            //     {
+            //         opacity: 1,
+            //         duration: 0.3,
+            //         ease: 'power3.inOut',
+            //     }
+            // );
 
         },
 
         async burgerToggle() {
             // console.log(this.tl.progress())
-            if (this.tl.progress() === 1) this.tl.reverse();
-            else if (this.tl.progress() === 0) this.tl.play();
+            if (this.mobileTl.progress() === 1) this.mobileTl.reverse();
+            else if (this.mobileTl.progress() === 0) this.mobileTl.play();
 
             if (this.mobileMenuDisabled)
             {
