@@ -504,14 +504,46 @@
                                 @click="chooseHandleType('handle-1')" @keydown.space.prevent="chooseHandleType('handle-1')" @keydown.enter.prevent="chooseHandleType('handle-1')"
                         >
                             <div class="selection__frame">
-                                {% image page.step_5_choice_1_img original class='selection__description__vis' %}
+                                <template x-if="selectedStyleLine === 'industrial'">
+                                    {% image page.step_5_industrial_choice_1_img original class='selection__description__vis' %}
+                                </template>
+                                <template x-if="selectedStyleLine === 'glamour'">
+                                    {% image page.step_5_glamour_choice_1_img original class='selection__description__vis' %}
+                                </template>
+                                <template x-if="selectedStyleLine === 'vintage'">
+                                    {% image page.step_5_vintage_choice_1_img original class='selection__description__vis' %}
+                                </template>
                             </div>
-                            <div class="selection__description">
-                                <h2 class="selection__description__subtitle subtitle">{{ page.step_5_choice_1_subtitle }}</h2>
-                                <p class="selection__description__text text">
-                                    {{ page.step_5_choice_1_text }}
-                                </p>
-                            </div>
+                            <template x-if="selectedStyleLine === 'industrial'">
+                                <div class="selection__description">
+                                    <h2 class="selection__description__subtitle subtitle">
+                                        {{ page.step_5_industrial_choice_1_subtitle }}
+                                    </h2>
+                                    <p class="selection__description__text text">
+                                        {{ page.step_5_industrial_choice_1_text }}
+                                    </p>
+                                </div>
+                            </template>
+                            <template x-if="selectedStyleLine === 'glamour'">
+                                <div class="selection__description">
+                                    <h2 class="selection__description__subtitle subtitle">
+                                        {{ page.step_5_glamour_choice_1_subtitle }}
+                                    </h2>
+                                    <p class="selection__description__text text">
+                                        {{ page.step_5_glamour_choice_1_text }}
+                                    </p>
+                                </div>
+                            </template>
+                            <template x-if="selectedStyleLine === 'vintage'">
+                                <div class="selection__description">
+                                    <h2 class="selection__description__subtitle subtitle">
+                                        {{ page.step_5_vintage_choice_1_subtitle }}
+                                    </h2>
+                                    <p class="selection__description__text text">
+                                        {{ page.step_5_vintage_choice_1_text }}
+                                    </p>
+                                </div>
+                            </template>
                             <button class="selection__button variant_a" @click="chooseHandleType('handle-1')">
                                 <span>{{ page.button_word }}</span>
                             </button>
@@ -521,14 +553,46 @@
                                 @click="chooseHandleType('handle-2')" @keydown.space.prevent="chooseHandleType('handle-2')" @keydown.enter.prevent="chooseHandleType('handle-2')"
                         >
                             <div class="selection__frame">
-                                {% image page.step_5_choice_2_img original class='selection__description__vis' %}
+                                <template x-if="selectedStyleLine === 'industrial'">
+                                    {% image page.step_5_industrial_choice_2_img original class='selection__description__vis' %}
+                                </template>
+                                <template x-if="selectedStyleLine === 'glamour'">
+                                    {% image page.step_5_glamour_choice_2_img original class='selection__description__vis' %}
+                                </template>
+                                <template x-if="selectedStyleLine === 'vintage'">
+                                    {% image page.step_5_vintage_choice_2_img original class='selection__description__vis' %}
+                                </template>
                             </div>
-                            <div class="selection__description">
-                                <h2 class="selection__description__subtitle subtitle">{{ page.step_5_choice_2_subtitle }}</h2>
-                                <p class="selection__description__text text">
-                                    {{ page.step_5_choice_2_text }}
-                                </p>
-                            </div>
+                            <template x-if="selectedStyleLine === 'industrial'">
+                                <div class="selection__description">
+                                    <h2 class="selection__description__subtitle subtitle">
+                                        {{ page.step_5_industrial_choice_2_subtitle }}
+                                    </h2>
+                                    <p class="selection__description__text text">
+                                        {{ page.step_5_industrial_choice_2_text }}
+                                    </p>
+                                </div>
+                            </template>
+                            <template x-if="selectedStyleLine === 'glamour'">
+                                <div class="selection__description">
+                                    <h2 class="selection__description__subtitle subtitle">
+                                        {{ page.step_5_glamour_choice_2_subtitle }}
+                                    </h2>
+                                    <p class="selection__description__text text">
+                                        {{ page.step_5_glamour_choice_2_text }}
+                                    </p>
+                                </div>
+                            </template>
+                            <template x-if="selectedStyleLine === 'vintage'">
+                                <div class="selection__description">
+                                    <h2 class="selection__description__subtitle subtitle">
+                                        {{ page.step_5_vintage_choice_2_subtitle }}
+                                    </h2>
+                                    <p class="selection__description__text text">
+                                        {{ page.step_5_vintage_choice_2_text }}
+                                    </p>
+                                </div>
+                            </template>
                             <button class="selection__button variant_a" @click="chooseHandleType('handle-2')">
                                 <span>{{ page.button_word }}</span>
                             </button>
@@ -538,14 +602,46 @@
                                 @click="chooseHandleType('handle-3')" @keydown.space.prevent="chooseHandleType('handle-3')" @keydown.enter.prevent="chooseHandleType('handle-3')"
                         >
                             <div class="selection__frame">
-                                {% image page.step_5_choice_3_img original class='selection__description__vis' %}
+                                <template x-if="selectedStyleLine === 'industrial'">
+                                    {% image page.step_5_industrial_choice_3_img original class='selection__description__vis' %}
+                                </template>
+                                <template x-if="selectedStyleLine === 'glamour'">
+                                    {% image page.step_5_glamour_choice_3_img original class='selection__description__vis' %}
+                                </template>
+                                <template x-if="selectedStyleLine === 'vintage'">
+                                    {% image page.step_5_vintage_choice_3_img original class='selection__description__vis' %}
+                                </template>
                             </div>
-                            <div class="selection__description">
-                                <h2 class="selection__description__subtitle subtitle">{{ page.step_5_choice_3_subtitle }}</h2>
-                                <p class="selection__description__text text">
-                                    {{ page.step_5_choice_3_text }}
-                                </p>
-                            </div>
+                            <template x-if="selectedStyleLine === 'industrial'">
+                                <div class="selection__description">
+                                    <h2 class="selection__description__subtitle subtitle">
+                                        {{ page.step_5_industrial_choice_3_subtitle }}
+                                    </h2>
+                                    <p class="selection__description__text text">
+                                        {{ page.step_5_industrial_choice_3_text }}
+                                    </p>
+                                </div>
+                            </template>
+                            <template x-if="selectedStyleLine === 'glamour'">
+                                <div class="selection__description">
+                                    <h2 class="selection__description__subtitle subtitle">
+                                        {{ page.step_5_glamour_choice_3_subtitle }}
+                                    </h2>
+                                    <p class="selection__description__text text">
+                                        {{ page.step_5_glamour_choice_3_text }}
+                                    </p>
+                                </div>
+                            </template>
+                            <template x-if="selectedStyleLine === 'vintage'">
+                                <div class="selection__description">
+                                    <h2 class="selection__description__subtitle subtitle">
+                                        {{ page.step_5_vintage_choice_3_subtitle }}
+                                    </h2>
+                                    <p class="selection__description__text text">
+                                        {{ page.step_5_vintage_choice_3_text }}
+                                    </p>
+                                </div>
+                            </template>
                             <button class="selection__button variant_a" @click="chooseHandleType('handle-2')">
                                 <span>{{ page.button_word }}</span>
                             </button>
@@ -614,6 +710,9 @@
                     </p>
                     <div class="selection step-6">
                         <div class="selection__element step-6">
+                            <div class="selection__frame">
+                                {% image page.step_6_choice_1_img original class='selection__description__vis' %}
+                            </div>
                             <div class="selection__description">
                                 <h2 class="selection__description__subtitle subtitle">
                                     {{ page.step_6_choice_1_subtitle }}
@@ -622,13 +721,15 @@
                                     {{ page.step_6_choice_1_text }}
                                 </p>
                             </div>
-                            <input type="checkbox" id="option-1" class="btn-checkbox"  x-model="smartHome.multiPointLock"/>
-                            <label for="option-1" class="btn-checkbox-label">
+                            <input type="checkbox" id="option-2" class="btn-checkbox" x-model="smartHome.contactron"/>
+                            <label for="option-2" class="btn-checkbox-label">
                                 <span>{{ page.button_word }}</span>
                             </label>
                         </div>
                         <div class="selection__element step-6">
-
+                            <div class="selection__frame">
+                                {% image page.step_6_choice_2_img original class='selection__description__vis' %}
+                            </div>
                             <div class="selection__description">
                                 <h2 class="selection__description__subtitle subtitle">
                                     {{ page.step_6_choice_2_subtitle }}
@@ -637,13 +738,15 @@
                                     {{ page.step_6_choice_2_text }}
                                 </p>
                             </div>
-                            <input type="checkbox" id="option-2" class="btn-checkbox" x-model="smartHome.contractor"/>
-                            <label for="option-2" class="btn-checkbox-label">
+                            <input type="checkbox" id="option-1" class="btn-checkbox"  x-model="smartHome.multiPointLock"/>
+                            <label for="option-1" class="btn-checkbox-label">
                                 <span>{{ page.button_word }}</span>
                             </label>
                         </div>
                         <div class="selection__element step-6">
-
+                            <div class="selection__frame">
+                                {% image page.step_6_choice_3_img original class='selection__description__vis' %}
+                            </div>
                             <div class="selection__description">
                                 <h2 class="selection__description__subtitle subtitle">
                                     {{ page.step_6_choice_3_subtitle }}
@@ -754,13 +857,32 @@
         {{ page.step_3_choice_4_title }}
     </div><div id="type-fixed">
         {{ page.step_3_choice_5_title }}
-    </div><div id="handle-1">
-        {{ page.step_5_choice_1_subtitle }}
-    </div><div id="handle-2">
-        {{ page.step_5_choice_2_subtitle }}
-    </div><div id="handle-3">
-        {{ page.step_5_choice_3_subtitle }}
+    </div><div id="industrial-handle-1">
+        {{ page.step_5_industrial_choice_1_subtitle }}
+    </div><div id="industrial-handle-2">
+        {{ page.step_5_industrial_choice_2_subtitle }}
+    </div><div id="industrial-handle-3">
+        {{ page.step_5_industrial_choice_3_subtitle }}
+    </div><div id="glamour-handle-1">
+        {{ page.step_5_glamour_choice_1_subtitle }}
+    </div><div id="glamour-handle-2">
+        {{ page.step_5_glamour_choice_2_subtitle }}
+    </div><div id="glamour-handle-3">
+        {{ page.step_5_glamour_choice_3_subtitle }}
+    </div><div id="vintage-handle-1">
+        {{ page.step_5_vintage_choice_1_subtitle }}
+    </div><div id="vintage-handle-2">
+        {{ page.step_5_vintage_choice_2_subtitle }}
+    </div><div id="vintage-handle-3">
+        {{ page.step_5_vintage_choice_3_subtitle }}
+    </div><div id="contactron">
+        {{ page.step_6_choice_1_subtitle }}
+    </div><div id="multi-point-lock">
+        {{ page.step_6_choice_2_subtitle }}
+    </div><div id="actuator">
+        {{ page.step_6_choice_3_subtitle }}
     </div>
+
 </div>
 
 {% endblock content %}

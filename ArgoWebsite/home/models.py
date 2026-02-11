@@ -901,25 +901,49 @@ class ConfiguratorPage(Page):
     step_4_input_8 = models.CharField("Step 4 - Input 8", max_length=255, blank=True)
     step_4_input_9 = models.CharField("Step 4 - Input 9", max_length=255, blank=True)
 
-    # step 5
-    step_5_choice_1_subtitle = models.CharField("Step 5 - Choice 1 Subtitle", max_length=255, blank=True)
-    step_5_choice_2_subtitle = models.CharField("Step 5 - Choice 2 Subtitle", max_length=255, blank=True)
-    step_5_choice_3_subtitle = models.CharField("Step 5 - Choice 3 Subtitle", max_length=255, blank=True)
-    step_5_choice_1_text = models.TextField("Step 5 - Choice 1 Text", blank=True)
-    step_5_choice_2_text = models.TextField("Step 5 - Choice 2 Text", blank=True)
-    step_5_choice_3_text = models.TextField("Step 5 - Choice 3 Text", blank=True)
-    step_5_choice_1_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
-    step_5_choice_2_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
-    step_5_choice_3_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    # step 5 industrial
+    step_5_industrial_choice_1_subtitle = models.CharField("Step 5 - Industrial - Choice 1 Subtitle", max_length=255, blank=True)
+    step_5_industrial_choice_2_subtitle = models.CharField("Step 5 - Industrial - Choice 2 Subtitle", max_length=255, blank=True)
+    step_5_industrial_choice_3_subtitle = models.CharField("Step 5 - Industrial - Choice 3 Subtitle", max_length=255, blank=True)
+    step_5_industrial_choice_1_text = models.TextField("Step 5 - Industrial - Choice 1 Text", blank=True)
+    step_5_industrial_choice_2_text = models.TextField("Step 5 - Industrial - Choice 2 Text", blank=True)
+    step_5_industrial_choice_3_text = models.TextField("Step 5 - Industrial - Choice 3 Text", blank=True)
+    step_5_industrial_choice_1_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    step_5_industrial_choice_2_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    step_5_industrial_choice_3_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+
+    # step 5 vintage
+    step_5_vintage_choice_1_subtitle = models.CharField("Step 5 - Vintage - Choice 1 Subtitle", max_length=255, blank=True)
+    step_5_vintage_choice_2_subtitle = models.CharField("Step 5 - Vintage - Choice 2 Subtitle", max_length=255, blank=True)
+    step_5_vintage_choice_3_subtitle = models.CharField("Step 5 - Vintage - Choice 3 Subtitle", max_length=255, blank=True)
+    step_5_vintage_choice_1_text = models.TextField("Step 5 - Vintage - Choice 1 Text", blank=True)
+    step_5_vintage_choice_2_text = models.TextField("Step 5 - Vintage - Choice 2 Text", blank=True)
+    step_5_vintage_choice_3_text = models.TextField("Step 5 - Vintage - Choice 3 Text", blank=True)
+    step_5_vintage_choice_1_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    step_5_vintage_choice_2_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    step_5_vintage_choice_3_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+
+    # step 5 glamour
+    step_5_glamour_choice_1_subtitle = models.CharField("Step 5 - Glamour - Choice 1 Subtitle", max_length=255, blank=True)
+    step_5_glamour_choice_2_subtitle = models.CharField("Step 5 - Glamour - Choice 2 Subtitle", max_length=255, blank=True)
+    step_5_glamour_choice_3_subtitle = models.CharField("Step 5 - Glamour - Choice 3 Subtitle", max_length=255, blank=True)
+    step_5_glamour_choice_1_text = models.TextField("Step 5 - Glamour - Choice 1 Text", blank=True)
+    step_5_glamour_choice_2_text = models.TextField("Step 5 - Glamour - Choice 2 Text", blank=True)
+    step_5_glamour_choice_3_text = models.TextField("Step 5 - Glamour - Choice 3 Text", blank=True)
+    step_5_glamour_choice_1_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    step_5_glamour_choice_2_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    step_5_glamour_choice_3_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
 
     # step 6
-    step_6_choice_1_subtitle = models.CharField("Step 6 - Choice 1 Subtitle", max_length=255, blank=True)
-    step_6_choice_2_subtitle = models.CharField("Step 6 - Choice 2 Subtitle", max_length=255, blank=True)
-    step_6_choice_3_subtitle = models.CharField("Step 6 - Choice 3 Subtitle", max_length=255, blank=True)
-
-    step_6_choice_1_text = models.TextField("Step 6 - Choice 1 Text", blank=True)
-    step_6_choice_2_text = models.TextField("Step 6 - Choice 2 Text", blank=True)
-    step_6_choice_3_text = models.TextField("Step 6 - Choice 3 Text", blank=True)
+    step_6_choice_1_subtitle = models.CharField("Step 6 - Contactron Subtitle", max_length=255, blank=True)
+    step_6_choice_2_subtitle = models.CharField("Step 6 - Multi Point Lock Subtitle", max_length=255, blank=True)
+    step_6_choice_3_subtitle = models.CharField("Step 6 - Actuator Subtitle", max_length=255, blank=True)
+    step_6_choice_1_text = models.TextField("Step 6 - Contactron Text", blank=True)
+    step_6_choice_2_text = models.TextField("Step 6 - Multi Point Lock Text", blank=True)
+    step_6_choice_3_text = models.TextField("Step 6 - Actuator Text", blank=True)
+    step_6_choice_1_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    step_6_choice_2_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    step_6_choice_3_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
 
     title_summary = models.CharField("Summary - Title", max_length=255, blank=True)
     text_summary = models.CharField("Summary - Text", max_length=255, blank=True)
@@ -1035,26 +1059,57 @@ class ConfiguratorPage(Page):
         ),
         MultiFieldPanel(
             [
-                FieldPanel("step_5_choice_1_subtitle"),
-                FieldPanel("step_5_choice_1_text"),
-                FieldPanel("step_5_choice_1_img"),
-                FieldPanel("step_5_choice_2_subtitle"),
-                FieldPanel("step_5_choice_2_text"),
-                FieldPanel("step_5_choice_2_img"),
-                FieldPanel("step_5_choice_3_subtitle"),
-                FieldPanel("step_5_choice_3_text"),
-                FieldPanel("step_5_choice_3_img"),
+                FieldPanel("step_5_industrial_choice_1_subtitle"),
+                FieldPanel("step_5_industrial_choice_1_text"),
+                FieldPanel("step_5_industrial_choice_1_img"),
+                FieldPanel("step_5_industrial_choice_2_subtitle"),
+                FieldPanel("step_5_industrial_choice_2_text"),
+                FieldPanel("step_5_industrial_choice_2_img"),
+                FieldPanel("step_5_industrial_choice_3_subtitle"),
+                FieldPanel("step_5_industrial_choice_3_text"),
+                FieldPanel("step_5_industrial_choice_3_img"),
             ],
-            heading='Configurator Step 5'
+            heading='Configurator Step 5 Industrial'
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("step_5_glamour_choice_1_subtitle"),
+                FieldPanel("step_5_glamour_choice_1_text"),
+                FieldPanel("step_5_glamour_choice_1_img"),
+                FieldPanel("step_5_glamour_choice_2_subtitle"),
+                FieldPanel("step_5_glamour_choice_2_text"),
+                FieldPanel("step_5_glamour_choice_2_img"),
+                FieldPanel("step_5_glamour_choice_3_subtitle"),
+                FieldPanel("step_5_glamour_choice_3_text"),
+                FieldPanel("step_5_glamour_choice_3_img"),
+            ],
+            heading='Configurator Step 5 Glamour'
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("step_5_vintage_choice_1_subtitle"),
+                FieldPanel("step_5_vintage_choice_1_text"),
+                FieldPanel("step_5_vintage_choice_1_img"),
+                FieldPanel("step_5_vintage_choice_2_subtitle"),
+                FieldPanel("step_5_vintage_choice_2_text"),
+                FieldPanel("step_5_vintage_choice_2_img"),
+                FieldPanel("step_5_vintage_choice_3_subtitle"),
+                FieldPanel("step_5_vintage_choice_3_text"),
+                FieldPanel("step_5_vintage_choice_3_img"),
+            ],
+            heading='Configurator Step 5 Vintage'
         ),
         MultiFieldPanel(
             [
                 FieldPanel("step_6_choice_1_subtitle"),
                 FieldPanel("step_6_choice_1_text"),
+                FieldPanel("step_6_choice_1_img"),
                 FieldPanel("step_6_choice_2_subtitle"),
                 FieldPanel("step_6_choice_2_text"),
+                FieldPanel("step_6_choice_2_img"),
                 FieldPanel("step_6_choice_3_subtitle"),
                 FieldPanel("step_6_choice_3_text"),
+                FieldPanel("step_6_choice_3_img"),
             ],
             heading='Configurator Step 6'
         ),

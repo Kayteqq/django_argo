@@ -159,7 +159,7 @@ function globalData() {
         isSmartHomeConfirmed: false,
 
         multiPointLock: false,
-        contractor: false,
+        contactron: false,
         actuator: false,
 
         isSkylightEnabled: true,
@@ -204,7 +204,7 @@ function globalData() {
 
         smartHome: {
             multiPointLock: defaults.multiPointLock,
-            contractor: defaults.contractor,
+            contactron: defaults.contactron,
             actuator: defaults.actuator,
         },
 
@@ -238,9 +238,19 @@ function globalData() {
             pivot: '',
             folding: '',
             fixed: '',
-            handle1: '',
-            handle2: '',
-            handle3: '',
+            industrial_handle1: '',
+            industrial_handle2: '',
+            industrial_handle3: '',
+            vintage_handle1: '',
+            vintage_handle2: '',
+            vintage_handle3: '',
+            glamour_handle1: '',
+            glamour_handle2: '',
+            glamour_handle3: '',
+            contactron: '',
+            multi_point_lock: '',
+            actuator: '',
+
         },
 
         init() {
@@ -264,20 +274,41 @@ function globalData() {
             if (source) this.names.folding = source.textContent
             source = document.getElementById('type-fixed')
             if (source) this.names.fixed = source.textContent
-            source = document.getElementById('handle-1')
-            if (source) this.names.handle1 = source.textContent
-            source = document.getElementById('handle-2')
-            if (source) this.names.handle2 = source.textContent
-            source = document.getElementById('handle-3')
-            if (source) this.names.handle3 = source.textContent
+            source = document.getElementById('industrial-handle-1')
+            if (source) this.names.industrial_handle1 = source.textContent
+            source = document.getElementById('industrial-handle-2')
+            if (source) this.names.industrial_handle2 = source.textContent
+            source = document.getElementById('industrial-handle-3')
+            if (source) this.names.industrial_handle3 = source.textContent
+            source = document.getElementById('vintage-handle-1')
+            if (source) this.names.vintage_handle1 = source.textContent
+            source = document.getElementById('vintage-handle-2')
+            if (source) this.names.vintage_handle2 = source.textContent
+            source = document.getElementById('vintage-handle-3')
+            if (source) this.names.vintage_handle3 = source.textContent
+            source = document.getElementById('glamour-handle-1')
+            if (source) this.names.glamour_handle1 = source.textContent
+            source = document.getElementById('glamour-handle-2')
+            if (source) this.names.glamour_handle2 = source.textContent
+            source = document.getElementById('glamour-handle-3')
+            if (source) this.names.glamour_handle3 = source.textContent
+            source = document.getElementById('contactron')
+            if (source) this.names.contactron = source.textContent
+            source = document.getElementById('multi-point-lock')
+            if (source) this.names.multi_point_lock = source.textContent
+            source = document.getElementById('actuator')
+            if (source) this.names.actuator = source.textContent
 
         },
 
         activeSteps: defaults.initialActiveSteps,
         get smartHomeDesc() {
-            return `${this.smartHome.multiPointLock ? 'Zamek Wieloryglowy, ' : ''}` +
-                `${this.smartHome.contractor ? 'Kontraktor, ' : ''}` +
-                `${this.smartHome.actuator ? 'Siłownik' : ''}`;
+            let text = ''
+            if (this.smartHome.multiPointLock) text += this.names.multi_point_lock;
+            if (this.smartHome.contactron) text+= this.names.contactron;
+            if (this.smartHome.actuator) text += this.names.actuator;
+
+            return text;
         },
         get styleLineDesc() {
             let text = '';
@@ -303,9 +334,21 @@ function globalData() {
         },
         get additivesDesc() {
             let text = '';
-            if (this.selectedHandleType === 'handle-1') text = this.names.handle1;
-            if (this.selectedHandleType === 'handle-2') text = this.names.handle2;
-            if (this.selectedHandleType === 'handle-3') text = this.names.handle3;
+            if (this.selectedStyleLine === 'industrial') {
+                if (this.selectedHandleType === 'handle-1') text = this.names.industrial_handle1;
+                if (this.selectedHandleType === 'handle-2') text = this.names.industrial_handle2;
+                if (this.selectedHandleType === 'handle-3') text = this.names.industrial_handle3;
+            }
+            if (this.selectedStyleLine === 'glamour') {
+                if (this.selectedHandleType === 'handle-1') text = this.names.glamour_handle1;
+                if (this.selectedHandleType === 'handle-2') text = this.names.glamour_handle2;
+                if (this.selectedHandleType === 'handle-3') text = this.names.glamour_handle3;
+            }
+            if (this.selectedStyleLine === 'vintage') {
+                if (this.selectedHandleType === 'handle-1') text = this.names.vintage_handle1;
+                if (this.selectedHandleType === 'handle-2') text = this.names.vintage_handle2;
+                if (this.selectedHandleType === 'handle-3') text = this.names.vintage_handle3;
+            }
             return text;
         },
         get colorDesc() {
