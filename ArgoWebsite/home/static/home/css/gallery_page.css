@@ -1,7 +1,60 @@
-
-
 @media(max-width: 767px) {
+    .section-galleries {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3.75rem;
+        margin: 3.75rem 2rem 3.75rem 2rem;
+    }
+    .section-gallery__item {
+        display: grid;
+        overflow: hidden;
+        position: relative;
+        grid-template-rows: 31.25rem 7.25rem;
+    }
+    .section-gallery__item__image {
+        grid-column: 1;
+        grid-row: 1;
+        cursor: pointer;
+    }
+    .section-gallery__item__button {
+        position: absolute;
+        width: 10rem;
+        cursor: pointer;
+        top: 0;
+        height: 31.25rem;
+        border: none;
+        background: none;
+        color: transparent;
+    }
+    .section-gallery__item__button.right {
+        right: 0;
+    }
+    .section-gallery__item__button.left {
+        left: 0;
+    }
+    .section-gallery__item__description__points {
+        position: absolute;
+        right: 0;
+        top: 32.5rem;
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+    .section-gallery__item__description__points__svg {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+    .section-gallery__item__description__points__svg.static {
+        --stroke-width: 2px;
+        --color-stroke: var(--argo-czarny);
+        --color-fill: transparent;
 
+    }
+    .section-gallery__item__description__points__svg.dynamic {
+        --color-stroke: transparent;
+        --color-fill: var(--argo-czarny);
+
+    }
 }
 @media(min-width: 768px) {
     .section-galleries {
@@ -10,7 +63,6 @@
         gap: 1.875rem;
         margin: 0 1.875rem 3.125rem 1.875rem;
     }
-
     .section-gallery__item {
         height: 43.75rem;
         display: grid;
@@ -28,7 +80,6 @@
         transform: scale(1.02);
         transition: 0.5s;
     }
-
     .section-gallery__item__button {
         position: absolute;
         width: 4rem;
@@ -45,17 +96,14 @@
     .section-gallery__item__button.left {
         left: 0;
     }
-
     .section-gallery__item__description {
         position: relative;
     }
-
     .section-gallery__item__description__subtitle {
         margin-top: 2.5rem;
         font-size: 1.25rem;
         line-height: 1.25;
     }
-
     .section-gallery__item__description__points {
         position: absolute;
         right: 0;
@@ -68,7 +116,6 @@
         width: 1rem;
         height: 1rem;
     }
-
     .section-gallery__item__description__points__svg.static {
         --stroke-width: 2px;
         --color-stroke: var(--argo-czarny);
@@ -80,7 +127,6 @@
         --color-fill: var(--argo-czarny);
 
     }
-
     .section-galleries__full {
         position: fixed;
         z-index: 100;
@@ -107,7 +153,6 @@
         right: 0;
         bottom: 0;
     }
-
     .section-galleries__full__content__block {
         color: var(--argo-biel);
         display: grid;
