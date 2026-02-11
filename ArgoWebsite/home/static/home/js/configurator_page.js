@@ -329,7 +329,7 @@ function globalData() {
             if (this.selectedProductType === 'hinged') text = this.names.hinged;
             if (this.selectedProductType === 'pivot') text = this.names.pivot;
             if (this.selectedProductType === 'folding') text = this.names.folding;
-            if (this.selectedProductType === 'fixed') text = this.names.fixed;
+            if (this.selectedProductType === 'fixied') text = this.names.fixed;
             return text;
         },
         get additivesDesc() {
