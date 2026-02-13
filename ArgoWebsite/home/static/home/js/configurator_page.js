@@ -1,7 +1,5 @@
 
 // constants!
-
-
 const BIGGEST_STROKE = 6;
 const BIG_STROKE = 4;
 const SMALL_STROKE = 2;
@@ -134,13 +132,14 @@ const FIXED_DEFAULTS = {
 
 };
 
+//functions
 function getCSRFToken() {
     return document.cookie
         .split('; ')
         .find(row => row.startsWith('csrftoken='))
         ?.split('=')[1];
 }
-
+//alpine.js
 function globalData() {
     const defaults = {
         initialActiveSteps: [false, false, false, false, false, false, false],
@@ -1439,6 +1438,67 @@ function globalData() {
                 this.loading=false;
                 window.location.href = el.dataset.url;
             }
+        },
+
+        initStep3() {
+            const step_3_slides = document.querySelectorAll('.selection__element.step-3')
+            const step_3_dots = document.querySelectorAll('.dots.step-3 > .dynamic > .dot')
+            const step_3_observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        const index = [...step_3_slides].indexOf(entry.target);
+                        step_3_dots.forEach(dot => dot.classList.remove('active'));
+                        step_3_dots[index].classList.add('active');
+                    }
+                });
+            },{
+                root: document.querySelector('.selection.step-3'),
+                threshold: 0.6,
+            });
+
+            console.log(step_3_slides);
+            console.log(step_3_dots);
+            console.log(step_3_observer);
+
+            step_3_slides.forEach(slide => step_3_observer.observe(slide));
+
+        },
+        initSlider(range)
+        {
+            requestAnimationFrame(() => this.updateSlider(range));
+        },
+        updateSlider(range)
+        {
+            const min = parseFloat(range.min);
+            const max = parseFloat(range.max);
+            const val = parseFloat(range.value);
+
+            const percent = ((val - min) * 100) / (max - min);
+            range.style.setProperty('--range-value', `${percent}%`);
+        },
+
+        initStep5() {
+            const step_5_slides = document.querySelectorAll('.selection__element.step-5')
+            const step_5_dots = document.querySelectorAll('.dots.step-5 > .dynamic > .dot')
+            const step_5_observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        const index = [...step_5_slides].indexOf(entry.target);
+                        step_5_dots.forEach(dot => dot.classList.remove('active'));
+                        step_5_dots[index].classList.add('active');
+                    }
+                });
+            },{
+                root: document.querySelector('.selection.step-5'),
+                threshold: 0.6,
+            });
+
+            console.log(step_5_slides);
+            console.log(step_5_dots);
+            console.log(step_5_observer);
+
+            step_5_slides.forEach(slide => step_5_observer.observe(slide));
+
         }
     }
 }

@@ -93,6 +93,15 @@ h1, h2, h3, h4, h5, h6 {
 a:hover {
 }
 
+button {
+    all: unset;
+    cursor: pointer;
+    display: inline-block;
+    box-sizing: border-box;
+    text-align: center;
+    user-select: none;
+}
+
 
 :root {
     --argo-biel: #FFFFFF;
