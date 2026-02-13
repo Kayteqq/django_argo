@@ -1456,10 +1456,6 @@ function globalData() {
                 threshold: 0.6,
             });
 
-            console.log(step_3_slides);
-            console.log(step_3_dots);
-            console.log(step_3_observer);
-
             step_3_slides.forEach(slide => step_3_observer.observe(slide));
 
         },
@@ -1493,9 +1489,6 @@ function globalData() {
                 threshold: 0.6,
             });
 
-            console.log(step_5_slides);
-            console.log(step_5_dots);
-            console.log(step_5_observer);
 
             step_5_slides.forEach(slide => step_5_observer.observe(slide));
 
