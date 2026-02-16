@@ -97,7 +97,7 @@
             </div>
 
             <div class="navbar__language-box"
-                 :class="`navbar__language-box ${langMenuOpen ?'shown':''}`">
+                 :class="`navbar__language-box ${langMenuOpen ?'shown':''} `">
                 {% with translations=page.get_translations %}
                     {% for translation in translations %}
                         {% if translation.locale.language_code != request.LANGUAGE_CODE %}
@@ -111,6 +111,22 @@
                                     {{ translation.locale.language_code }}
                                 </p>
                             </template>
+                        {% endif %}
+                    {% endfor %}
+                {% endwith %}
+            </div>
+
+            <div class="navbar__languages"
+                 :class="`navbar__languages ${mobileMenuOpen? 'shown' : ''}`">
+                {% with translations=page.get_translations %}
+                    <p class="navbar__languags__name text">
+                        {{ request.LANGUAGE_CODE }}
+                    </p>
+                    {% for translation in translations %}
+                        {% if translation.locale.language_code != request.LANGUAGE_CODE %}
+                            <a href="{{ translation.url }}" class="navbar__languags__link text">
+                                {{ translation.locale.language_code }}
+                            </a>
                         {% endif %}
                     {% endfor %}
                 {% endwith %}

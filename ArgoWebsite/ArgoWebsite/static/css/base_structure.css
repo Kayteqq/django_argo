@@ -1,11 +1,11 @@
 .navbar {
     padding: 0;
     margin: 0;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 10;
+    z-index: 20;
     background-color: var(--argo-biel);
 }
 
@@ -19,6 +19,8 @@
 
     .navbar {
         height: 8.75rem;
+        border-bottom: 1px solid  var(--argo-stal);
+
     }
 
     .navbar__logo {
@@ -43,9 +45,11 @@
         margin: 0;
         padding: 0;
         list-style: none;
-        border-bottom: var(--argo-stal) solid 1px;
-        transition: opacity 300ms ease, transform 300ms ease;
+        transition: opacity 300ms ease;
+    }
 
+    .navbar__links__item:first-child {
+        border-top: var(--argo-stal) solid 1px;
     }
 
     .navbar__links.disabled {
@@ -53,13 +57,13 @@
     }
 
     .navbar__links.hidden {
-        transform: translateY(-10rem);
+        /*transform: translateY(-10rem);*/
         opacity: 0;
         pointer-events: none;
     }
 
     .navbar__links.visible {
-        transform: translateY(0);
+        /*transform: translateY(0);*/
         opacity: 1;
     }
 
@@ -69,7 +73,7 @@
         align-items: flex-start;
         justify-content: center;
         background-color: var(--argo-biel);
-        border-top: var(--argo-stal) solid 1px;
+        border-bottom: var(--argo-stal) solid 1px;
     }
 
     .navbar__links__item a {
@@ -119,8 +123,49 @@
         display: none;
     }
 
+    .navbar__links__language {
+        display: none;
+    }
+
     .navbar__language-box {
         display: none;
+    }
+
+    .navbar__languages {
+        position: fixed;
+        z-index: -10;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        opacity: 0;
+        right: 0;
+        background-color: var(--argo-biel);
+        transition: opacity 300ms ease;
+        pointer-events: none;
+        padding: 2rem;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: flex-end;
+        gap: 2rem;
+
+    }
+    .navbar__languages.shown {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .navbar__languags__link,
+    .navbar__languags__name {
+        width: 3rem;
+        text-transform: uppercase;
+        letter-spacing: 0.09375rem;
+        line-height: 2rem;
+        font-size: 1.875rem;
+    }
+
+    .navbar__languags__link {
+        opacity: 25%;
     }
 
     .navbar__burger {
@@ -280,10 +325,17 @@
         color: var(--argo-czarny);
         transition: ease 0.25s;
         opacity: 0;
+
     }
 
     .navbar__language-box.shown {
         opacity: 1;
+    }
+
+
+
+    .navbar__languages {
+        display: none;
     }
 
     .navbar__language-box__name {
