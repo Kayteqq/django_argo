@@ -386,15 +386,21 @@ html {
 
     .section-project__business__grid {
         display: grid;
-        grid-template-columns: 11.25rem 1fr;
-        row-gap: 1.875rem;
-        column-gap: 3.125rem;
+        grid-template-columns: 1fr 1fr 1fr;
+        row-gap: 1rem;
         margin: 5rem 0 5rem 0;
-        align-items: center;
+        align-items: flex-start;
+    }
+
+
+    .section-project__business__grid__flex {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
     }
 
     .section-project__business__img {
-        width: 11.25rem;
+        width: 10rem;
         height: auto;
     }
 

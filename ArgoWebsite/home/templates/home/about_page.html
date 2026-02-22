@@ -59,10 +59,24 @@
                     {{ page.text_project }}
                 </p>
                 <div class="section-project__business__grid">
-                    <img class="section-project__business__img" src="{% static 'home/images/about_project_business_1.webp' %}" alt=""/>
-                    <p class="section-project__business__name text">dostawca profili stalowych</p>
-                    <img class="section-project__business__img" src="{% static 'home/images/about_project_business_2.webp' %}" alt=""/>
-                    <p class="section-project__business__name text">dostawca profili aluminiowych</p>
+                    <div class="section-project__business__grid__flex">
+                        <p class="section-project__business__grid__flex__text text">Dostawca profili:</p>
+                        <img class="section-project__business__img" src="{% static 'home/images/logo/JANSEN_logo.png' %}" alt=""/>
+                        <img class="section-project__business__img" src="{% static 'home/images/logo/Schuco-Logo.png' %}" alt=""/>
+                        <img class="section-project__business__img" src="{% static 'home/images/logo/Cortizo_Logo.png' %}" alt=""/>
+                        <img class="section-project__business__img" src="{% static 'home/images/logo/OTTOSTUM_Logo.png' %}" alt=""/>
+                        <img class="section-project__business__img" src="{% static 'home/images/logo/RA_Logo.png' %}" alt=""/>
+                        <img class="section-project__business__img" src="{% static 'home/images/logo/YAWAL_Logo.png' %}" alt=""/>
+                    </div>
+                    <div class="section-project__business__grid__flex">
+                        <p class="section-project__business__grid__flex__text text">Dostawca szkła:</p>
+                        <img class="section-project__business__img" src="{% static 'home/images/logo/GLASSSOLUTIONS_Logo.png' %}" alt=""/>
+                        <img class="section-project__business__img" src="{% static 'home/images/logo/PRESSGLASS_Logo.png' %}" alt=""/>
+                    </div>
+                    <div class="section-project__business__grid__flex">
+                        <p class="section-project__business__grid__flex__text text">Dostawca oprogramowania:</p>
+                        <img class="section-project__business__img" src="{% static 'home/images/logo/LOGIKAL-Logo+Forterro.png' %}" alt=""/>
+                    </div>
                 </div>
 
                 <a class="section-project__button button--variant_a" href="{{ page.redirect_project.url }}">
@@ -76,11 +90,10 @@
             </div>
             <div class="section-team__inner-divider bottom">
                 <h1 class="section-team__title title">
-                    Nasza największa wartość
-                    – profesjonalny zespół ludzi
+                    {{ page.title_team }}
                 </h1>
                 <p class="section-team__text text">
-                    W ARGO wierzymy, że prawdziwa siła firmy tkwi w ludziach, którzy ją tworzą. To nasz zespół – kompetentny, zaangażowany i odpowiedzialny – jest kluczowym elementem każdej realizacji i gwarancją wysokiej jakości. Wspólnie budujemy środowisko oparte na współpracy, zaufaniu i nieustannym rozwoju, co pozwala nam dostarczać rozwiązania, z których jesteśmy dumni.
+                    {{ page.text_team }}
                 </p>
             </div>
         </section>

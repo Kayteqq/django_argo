@@ -2,11 +2,13 @@ import json
 
 from django.core.exceptions import PermissionDenied
 from django.db import models
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, render
 from django.core.mail import send_mail
 from django.contrib import messages
+from django.template.loader import render_to_string
 from wagtail.admin.panels import PageChooserPanel, FieldPanel, MultiFieldPanel, InlinePanel
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.contrib.settings.models import BaseSiteSetting
 from wagtail.contrib.settings.registry import register_setting
 from wagtail.images.blocks import ImageChooserBlock
@@ -268,8 +270,15 @@ class MainPage(Page):
         related_name='+'
     )
 
-    image_divider = models.ForeignKey(
+    video_poster = models.ForeignKey(
         Image,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    video = models.ForeignKey(
+        "wagtaildocs.Document",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -341,9 +350,10 @@ class MainPage(Page):
         ),
         MultiFieldPanel(
             [
-                FieldPanel('image_divider'),
+                FieldPanel('video_poster'),
+                FieldPanel('video'),
             ],
-            heading="Section Image Divider",
+            heading="Section Video",
         )
     ]
 
@@ -716,8 +726,8 @@ class CollectionPage(Page):
     motto_display_2 = models.CharField("Description 2/2 - Lead", max_length=255, blank=True)
     title_display_2 = models.CharField("Description 2/2 - Title", max_length=255, blank=True)
     text_display_2 = models.TextField("Description 2/2 - Text", blank=True)
-    image_display_2 = models.ForeignKey(
-        Image,
+    video_display_2 = models.ForeignKey(
+        "wagtaildocs.Document",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -782,7 +792,7 @@ class CollectionPage(Page):
                 FieldPanel('motto_display_2'),
                 FieldPanel('title_display_2'),
                 FieldPanel('text_display_2'),
-                FieldPanel('image_display_2'),
+                FieldPanel('video_display_2'),
             ],
             heading='Section Description - Second Half',
         ),
@@ -820,7 +830,7 @@ class CollectionPage(Page):
         )
     ]
 
-class ConfiguratorPage(Page):
+class ConfiguratorPage(RoutablePageMixin, Page):
     max_count = 1
     template = 'home/configurator_page.html'
     parent_page_types = ['RootRedirectPage']
@@ -1132,6 +1142,11 @@ class ConfiguratorPage(Page):
         )
     ]
 
+    @route(r'^pdf/$')
+    def pdf_view(self, request):
+
+        return response
+
     def serve(self, request, *args, **kwargs):
         if request.method == "POST":
             data = json.loads(request.body)
@@ -1146,6 +1161,7 @@ class ConfiguratorPage(Page):
             )
 
         return super().serve(request, *args, **kwargs)
+
 class ServicesPage(Page):
     max_count = 1
     template = 'home/services_page.html'
@@ -1190,7 +1206,6 @@ class ContactPagePhone(Orderable):
         FieldPanel('description'),
         FieldPanel('telephone'),
     ]
-
 
 class ContactPage(Page):
     max_count = 1

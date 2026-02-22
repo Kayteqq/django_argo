@@ -94,6 +94,13 @@
 
     .section-display-2__inner-divider.left {
         min-height: 45rem;
+        max-height: 45rem;
+    }
+
+    .section-display-2__vid {
+        height: 100%;
+        width: 100%;
+        object-fit: fill;
     }
 
     .section-details {
@@ -268,6 +275,12 @@
         column-gap: 10.215%;
     }
 
+    .section-display-2__vid {
+        height: 100%;
+        width: 100%;
+        object-fit: fill;
+    }
+
 
 
     .section-display-2__inner-divider.left {
@@ -282,62 +295,124 @@
     }
 
     .section-details {
-        display: grid;
-        grid-template-columns: 1fr 10.215% 1fr;
-        margin: 9.375rem 1.875rem 9.375rem 1.875rem;
-
-    }
-
-    .section-details__inner-divider {
-
-    }
-
-    .section-details__inner-divider.right {
-        grid-column: 2 / span 2;
-        grid-row: 1;
-    }
-
-    .section-details__inner-divider.left {
-        grid-column: 1;
-        grid-row: 1;
-        max-height: 48.125rem;
-        max-width: 43.4895vw;
         display: flex;
+        margin: 9.375rem 1.875rem 9.375rem 1.875rem;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .section-details__img {
-        height: 100%;
-        width: auto;
-    }
-
-    .section-details__title {
-        margin-bottom: 4.75rem;
-        margin-right: 8.3vw;
     }
 
     .section-details__grid {
-        margin-right: 8.3vw;
         display: grid;
-        grid-template-columns: 3.125rem 15.83vw 22.92vw;
-        grid-template-rows: repeat(5, 1fr);
-        column-gap: 1.875vw;
-        row-gap: 2.604vw;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 10.215%;
+
     }
 
-    .section-details__grid__item {
-        min-height: 3.75rem;
+
+
+    .section-details__title {
+
+    }
+
+    .section-details__detail {
+        display: grid;
+        grid-template-columns: 1fr 29.5rem 16.4375rem;
+        height: 5rem;
+        margin-bottom: 0.3125rem;
+        outline: solid 2px var(--argo-stal);
+        outline-offset: -1px;
+        align-content: center;
+        gap: 0.625rem;
+    }
+
+    .section-details__img {
+        height: 1.875rem;
+        width: auto;
+    }
+    .section-details__desc-img {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: 3.125rem;
+    }
+    .section-details__desc-steel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 3.375rem;
+        background: var(--argo-stal);
+        margin-right: 0.8125rem;
+
+        clip-path: polygon(
+            0 0,
+            100% 0,
+            100% calc(100% - 1.6875rem),
+            calc(100% - 1.6875rem) 100%,
+            0 100%
+        );
+        filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+
+    }
+
+    .section-details__desc-bronze {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 3.375rem;
+        background: var(--argo-braz);
+        margin-right: 0.8125rem;
+
+        clip-path: polygon(
+            0 0,
+            100% 0,
+            100% calc(100% - 1.6875rem),
+            calc(100% - 1.6875rem) 100%,
+            0 100%
+        );
+        filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+    }
+
+    .section-details__desc-hot {
+        height: 3.375rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        background: var(--argo-cieplo);
+        padding-left: 2.625rem;
+
+        clip-path: polygon(
+            0 0,
+            100% 0,
+            100% calc(100% - 1.6875rem),
+            calc(100% - 1.6875rem) 100%,
+            0 100%
+        );
+        filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
     }
 
-    .section-details__grid__svg {
-        aspect-ratio: 1 / 1;
+    .section-details__desc-cold {
+        height: 3.375rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: var(--argo-zimno);
+        padding-left: 2.625rem;
+
+        clip-path: polygon(
+            0 0,
+            100% 0,
+            100% calc(100% - 1.6875rem),
+            calc(100% - 1.6875rem) 100%,
+            0 100%
+        );
+        filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
     }
 
+    .section-details__keyword {
+        margin-top: 4.0625rem;
+        margin-bottom: 1.25rem;
+    }
 
     .section-configurator {
         background: var(--argo-błękit);

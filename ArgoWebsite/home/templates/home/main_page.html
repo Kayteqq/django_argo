@@ -124,6 +124,31 @@
                 </a>
             </div>
         </section>
+        <section class="section-image-divider">
+            {% if page.video %}
+                <div class="section-image-divider__video-block" data-video>
+                    <video
+                        class="section-image-divider__video-block__player"
+                        playsinline
+                        preload="none"
+                        muted
+                        loop
+                        poster="{{ page.video_poster.url }}"
+                    >
+                        <source src="{{ page.video.url }}" type="video/mp4">
+                    </video>
+                    {% image page.video_poster original class='section-image-divider__video-block__poster' %}
+
+                    <button class="section-image-divider__video-block__play" aria-label="Play video">
+                        <svg width="80" height="80" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="48" fill="rgba(0,0,0,0.6)">
+                            <polygon points="40,30 75,50 40,70" fill="white">
+                        </svg>
+                    </button>
+
+                </div>
+            {% endif %}
+        </section>
         <section class="section-configurator">
             <div class="section-configurator__inner-divider left">
                 <svg class="section-configurator__svg"><use xlink:href="#argoArrow"></use></svg>
@@ -139,9 +164,6 @@
                     <span>{{ page.button_configurator }}</span>
                 </a>
             </div>
-        </section>
-        <section class="section-image-divider image-wrapper">
-            {% image page.image_divider original class='section-image-divider__img' %}
         </section>
     </main>
 {% endblock content %}
@@ -222,6 +244,35 @@
         // start
         setTimeout(runSlider, interval);
 
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+        const blocks = document.querySelectorAll('[data-video]');
+
+        blocks.forEach(block => {
+            const video = block.querySelector('video');
+            const playBtn = block.querySelector('button');
+            const img = block.querySelector('img');
+
+            playBtn.addEventListener('click', () => {
+                video.play();
+                block.classList.add('is-playing');
+            });
+            img.addEventListener('click', () => {
+                video.play();
+                block.classList.add('is-playing');
+            });
+
+            video.addEventListener('playing', () => {
+                requestAnimationFrame(() => {
+                    img.classList.add('hidden');
+                })
+            });
+
+            video.addEventListener('click', () => {
+                block.classList.remove('is-playing');
+                video.pause();
+            });
+        });
     });
 </script>
 {% endblock extra_js %}

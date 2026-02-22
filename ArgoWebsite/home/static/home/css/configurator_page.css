@@ -700,7 +700,9 @@ input[type="range"][disabled]
         max-width: 100%;
     }
 
-
+    .dots {
+        display: none;
+    }
 
     .selection__frame__vis {
         max-height: 80%;

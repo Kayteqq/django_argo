@@ -596,7 +596,7 @@
     .section-configurator {
         background: var(--argo-biel);
 
-        padding: 12.5rem 5vw 9.375rem 5.67vw;
+        padding: 8.75rem 5vw 9.375rem 5.67vw;
         display: flex;
         flex-direction: row;
         gap: 7.5rem;
@@ -638,14 +638,58 @@
     }
 
     .section-image-divider {
-        height: 46.875rem;
         display: flex;
         align-items: center;
         justify-content: center;
         overflow: hidden;
     }
 
-    .section-image-divider__img {
+    .section-image-divider__video-block {
+        position: relative;
+        padding: 7.5rem;
+        width: auto;
+        height: auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+    }
+
+    .section-image-divider__video-block__play {
+        position: absolute;
+        inset: 0;
+        z-index: 10;
+        margin: auto;
+        width: 80px;
+        height: 80px;
+        border: 0;
+        background: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .section-image-divider__video-block__player {
         width: 100%;
+        height: 100%;
+        grid-row: 1;
+        grid-column: 1;
+        cursor: pointer;
+    }
+
+    .section-image-divider__video-block__poster {
+        width: 100%;
+        height: 100%;
+        grid-row: 1;
+        grid-column: 1;
+        cursor: pointer;
+    }
+
+    .section-image-divider__video-block__poster.hidden {
+        display: none;
+    }
+
+    .section-image-divider__video-block.is-playing .section-image-divider__video-block__play {
+        display: none;
     }
 }

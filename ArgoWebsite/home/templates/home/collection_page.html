@@ -50,7 +50,15 @@
     </section>
     <section class="section-display-2">
         <div class="section-display-2__inner-divider left image-wrapper">
-            {% image page.image_display_2 original class='section-display-2__img' %}
+            <video
+                        class="section-display-2__vid"
+                        preload="none"
+                        autoplay
+                        loop
+                        muted
+                    >
+                        <source src="{{ page.video_display_2.url }}" type="video/mp4">
+                    </video>
         </div>
         <div class="section-display-2__inner-divider right">
             <p class="section-display-2__motto motto">
@@ -65,95 +73,66 @@
         </div>
     </section>
     <section class="section-details">
-        <div class="section-details__inner-divider left">
-            {% image page.image_details original class='section-details__img' %}
-        </div>
-        <div class="section-details__inner-divider right">
-            <p class="section-details__motto motto">
-                {{ page.motto_details }}
-            </p>
+        <p class="section-details__motto motto">
+            {{ page.motto_details }}
+        </p>
+        <div class="section-details__grid">
             <h1 class="section-details__title title">
                 {{ page.title_details }}
             </h1>
-            <div class="section-details__grid">
-                <div class="section-details__grid__item svg-container">
-                    <svg class="section-details__grid__svg">
-                        <use xlink:href="#argoArrow"></use>
-                    </svg>
-                </div>
-                <div class="section-details__grid__item">
-                    <h2 class="section-details__grid__keyword keyword">
-                        {{ page.title_1_details }}
-                    </h2>
-                </div>
-                <div class="section-details__grid__item">
-                    <p class="section-details__grid__list-text list-text">
-                        {{ page.desc_1_details }}
-                    </p>
-                </div>
-                <div class="section-details__grid__item svg-container">
-                    <svg class="section-details__grid__svg">
-                        <use xlink:href="#argoArrow"></use>
-                    </svg>
-                </div>
-                <div class="section-details__grid__item">
-                    <h2 class="section-details__grid__keyword keyword">
-                        {{ page.title_2_details }}
-                    </h2>
-                </div>
-                <div class="section-details__grid__item">
-                    <p class="section-details__grid__list-text list-text">
-                        {{ page.desc_2_details }}
-                    </p>
-                </div>
-                <div class="section-details__grid__item svg-container">
-                    <svg class="section-details__grid__svg">
-                        <use xlink:href="#argoArrow"></use>
-                    </svg>
-                </div>
-                <div class="section-details__grid__item">
-                    <h2 class="section-details__grid__keyword keyword">
-                        {{ page.title_3_details }}
-                    </h2>
-                </div>
-                <div class="section-details__grid__item">
-                    <p class="section-details__grid__list-text list-text">
-                        {{ page.desc_3_details }}
-                    </p>
-                </div>
+            <p class="section-details__text text">
+                {{ page.title_details }}
+            </p>
+        </div>
 
-                <div class="section-details__grid__item svg-container">
-                    <svg class="section-details__grid__svg">
-                        <use xlink:href="#argoArrow"></use>
-                    </svg>
+        <div class="section-details__details">
+            <p class="section-details__keyword text">
+                Systemy do wnętrz
+            </p>
+            <div class="section-details__detail">
+                <div class="section-details__desc-img">
+                    <img class="section-details__img" src="{% static 'home/images/logo/OTTOSTUM_Logo.png' %}" alt=""/>
                 </div>
-                <div class="section-details__grid__item">
-                    <h2 class="section-details__grid__keyword keyword">
-                        {{ page.title_4_details }}
-                    </h2>
+                <div class="section-details__desc-cold text">FerroFinestra W20</div>
+                <div class="section-details__desc-steel text">STAL</div>
+            </div>
+            <div class="section-details__detail">
+                <div class="section-details__desc-img">
+                    <img class="section-details__img" src="{% static 'home/images/logo/OTTOSTUM_Logo.png' %}" alt=""/>
                 </div>
-                <div class="section-details__grid__item">
-                    <p class="section-details__grid__list-text list-text">
-                        {{ page.desc_4_details }}
-                    </p>
+                <div class="section-details__desc-cold text">FerroFinestra W40</div>
+                <div class="section-details__desc-steel text">STAL</div>
+            </div>
+            <div class="section-details__detail">
+                <div class="section-details__desc-img">
+                    <img class="section-details__img" src="{% static 'home/images/logo/OTTOSTUM_Logo.png' %}" alt=""/>
                 </div>
-
-                <div class="section-details__grid__item svg-container">
-                    <svg class="section-details__grid__svg">
-                        <use xlink:href="#argoArrow"></use>
-                    </svg>
+                <div class="section-details__desc-cold text">FerroFinestra B40</div>
+                <div class="section-details__desc-bronze text">BRĄZ</div>
+            </div>
+            <p class="section-details__keyword text">
+                Systemy termoizolowane
+            </p>
+            <div class="section-details__detail">
+                <div class="section-details__desc-img">
+                    <img class="section-details__img" src="{% static 'home/images/logo/OTTOSTUM_Logo.png' %}" alt=""/>
                 </div>
-                <div class="section-details__grid__item">
-                    <h2 class="section-details__grid__keyword keyword">
-                        {{ page.title_5_details }}
-                    </h2>
+                <div class="section-details__desc-hot text">FerroFinestra W75 TB</div>
+                <div class="section-details__desc-steel text">STAL</div>
+            </div>
+            <div class="section-details__detail">
+                <div class="section-details__desc-img">
+                    <img class="section-details__img" src="{% static 'home/images/logo/OTTOSTUM_Logo.png' %}" alt=""/>
                 </div>
-                <div class="section-details__grid__item">
-                    <p class="section-details__grid__list-text list-text">
-                        {{ page.desc_5_details }}
-                    </p>
+                <div class="section-details__desc-hot text">BronzoFinestra B75 TB</div>
+                <div class="section-details__desc-bronze text">BRAZ</div>
+            </div>
+            <div class="section-details__detail">
+                <div class="section-details__desc-img">
+                    <img class="section-details__img" src="{% static 'home/images/logo/JANSEN_Logo.png' %}" alt=""/>
                 </div>
-
+                <div class="section-details__desc-hot text">JANISOL ARTE 2.0</div>
+                <div class="section-details__desc-steel text">STAL</div>
             </div>
         </div>
     </section>
