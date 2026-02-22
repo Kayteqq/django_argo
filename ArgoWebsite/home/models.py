@@ -1142,11 +1142,6 @@ class ConfiguratorPage(RoutablePageMixin, Page):
         )
     ]
 
-    @route(r'^pdf/$')
-    def pdf_view(self, request):
-
-        return response
-
     def serve(self, request, *args, **kwargs):
         if request.method == "POST":
             data = json.loads(request.body)
