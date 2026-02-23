@@ -103,6 +103,7 @@ input[type="range"][disabled]
         width: 7.5rem;
         --color-stroke: var(--argo-granat);
         --stroke-width: 0.5rem;
+        flex-shrink: 0;
     }
 
 
@@ -610,6 +611,7 @@ input[type="range"][disabled]
         width: 5rem;
         --color-stroke: var(--argo-granat);
         --stroke-width: 0.5rem;
+        flex-shrink: 0;
     }
 
 
