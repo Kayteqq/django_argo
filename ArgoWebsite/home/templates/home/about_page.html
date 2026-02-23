@@ -60,22 +60,22 @@
                 </p>
                 <div class="section-project__business__grid">
                     <div class="section-project__business__grid__flex">
-                        <p class="section-project__business__grid__flex__text text">Dostawca profili:</p>
-                        <img class="section-project__business__img" src="{% static 'home/images/logo/JANSEN_logo.png' %}" alt=""/>
-                        <img class="section-project__business__img" src="{% static 'home/images/logo/Schuco-Logo.png' %}" alt=""/>
-                        <img class="section-project__business__img" src="{% static 'home/images/logo/Cortizo_Logo.png' %}" alt=""/>
-                        <img class="section-project__business__img" src="{% static 'home/images/logo/OTTOSTUM_Logo.png' %}" alt=""/>
-                        <img class="section-project__business__img" src="{% static 'home/images/logo/RA_Logo.png' %}" alt=""/>
-                        <img class="section-project__business__img" src="{% static 'home/images/logo/YAWAL_Logo.png' %}" alt=""/>
+                        <p class="section-project__business__grid__flex__text text">{{ page.provider_profiles_project }}</p>
+                        {% for image in page.logos_profiles_project %}
+                            {% image image.value original class='section-project__business__img' %}
+                        {% endfor %}
                     </div>
                     <div class="section-project__business__grid__flex">
-                        <p class="section-project__business__grid__flex__text text">Dostawca szkła:</p>
-                        <img class="section-project__business__img" src="{% static 'home/images/logo/GLASSSOLUTIONS_Logo.png' %}" alt=""/>
-                        <img class="section-project__business__img" src="{% static 'home/images/logo/PRESSGLASS_Logo.png' %}" alt=""/>
+                        <p class="section-project__business__grid__flex__text text">{{ page.provider_glass_project }}</p>
+                        {% for image in page.logos_glass_project %}
+                            {% image image.value original class='section-project__business__img' %}
+                        {% endfor %}
                     </div>
                     <div class="section-project__business__grid__flex">
-                        <p class="section-project__business__grid__flex__text text">Dostawca oprogramowania:</p>
-                        <img class="section-project__business__img" src="{% static 'home/images/logo/LOGIKAL-Logo+Forterro.png' %}" alt=""/>
+                        <p class="section-project__business__grid__flex__text text">{{ page.provider_software_project }}</p>
+                        {% for image in page.logos_software_project %}
+                            {% image image.value original class='section-project__business__img' %}
+                        {% endfor %}
                     </div>
                 </div>
 
@@ -86,7 +86,7 @@
         </section>
         <section class="section-team">
             <div class="section-team__inner-divider top image-wrapper">
-                <img class="section-team__img" src="{% static 'home/images/about_team.webp' %}" alt=""/>
+                {% image page.image_team original class='section-team__img' %}
             </div>
             <div class="section-team__inner-divider bottom">
                 <h1 class="section-team__title title">
@@ -115,22 +115,44 @@
                     </div>
                 {% endfor %}
             </div>
-            <div class="section-certificates__points">
+            <div class="section-certificates__certificates-mobile">
+                {% for item in page.certificates.all %}
+                    <div class="section-certificates__segment__certificate" data-index="{{ forloop.counter0 }}">
+                        {% image item.image original class='section-certificates__segment__img' %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="section-certificates__descriptions-mobile">
+                {% for item in page.certificates.all %}
+                    <h1 class="section-certificates__segment__subtitle subtitle">
+                        {{ item.title }}
+                    </h1>
+                    <p class="section-certificates__segment__text text">
+                        {{ item.text }}
+                    </p>
+                {% endfor %}
+            </div>
+            <div class="section-certificates__points mobile-dynamic">
+                {% for item in page.certificates.all %}
+                    <svg class="section-certificates__points__svg mobile-dynamic"><use xlink:href="#dot"></use></svg>
+                {% endfor %}
+            </div>
+            <div class="section-certificates__points static">
                 {% for item in page.certificates.all %}
                     <svg class="section-certificates__points__svg static"><use xlink:href="#dot"></use></svg>
                 {% endfor %}
             </div>
-            <div class="section-certificates__points">
+            <div class="section-certificates__points dynamic">
                 {% for item in page.certificates.all %}
                     <svg class="section-certificates__points__svg dynamic"><use xlink:href="#dot"></use></svg>
                 {% endfor %}
             </div>
+
         </section>
         <section class="section-references">
             <div class="section-references__inner-divider left">
                 <svg class="section-references__svg"><use xlink:href="#argoArrow"></use></svg>
                 {% image page.image_references original class='section-references__img' %}
-                <img class="section-references__img" src="{% static 'home/images/about_references.webp' %}" alt=""/>
             </div>
             <div class="section-references__inner-divider right" data-slider="references">
                 <p class="section-references__motto motto">
@@ -170,12 +192,54 @@
 {% block extra_js %}
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        const slider = document.querySelector('.section-certificates__certificates-mobile');
+        const slides = document.querySelectorAll('.section-certificates__certificates-mobile > *');
+        const titles = document.querySelectorAll('.section-certificates__descriptions-mobile > .section-certificates__segment__text');
+        const dots = document.querySelectorAll('.section-certificates__points__svg.mobile-dynamic')
+        const descriptions = document.querySelectorAll('.section-certificates__descriptions-mobile > .section-certificates__segment__subtitle');
+
+        function updateActiveDescription() {
+            const sliderRect = slider.getBoundingClientRect();
+            const sliderCenter = sliderRect.left + sliderRect.width / 2;
+
+            let closestIndex = 0;
+            let closestDistance = Infinity;
+
+            slides.forEach((slide, index) => {
+                const rect = slide.getBoundingClientRect();
+                const slideCenter = rect.left + rect.width / 2;
+                const distance = Math.abs(sliderCenter - slideCenter);
+
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestIndex = index;
+                }
+            });
+
+            descriptions.forEach(desc => desc.classList.remove('active'));
+            titles.forEach(title => title.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            descriptions[closestIndex].classList.add('active');
+            titles[closestIndex].classList.add('active');
+            dots[closestIndex].classList.add('active');
+        }
+
+        slider.addEventListener('scroll', () => {
+            requestAnimationFrame(updateActiveDescription);
+        });
+
+        updateActiveDescription();
+    })
+
+    document.addEventListener('DOMContentLoaded', () => {
         const slider = document.querySelector('[data-slider="certificates"]');
 
         if (!slider) return;
 
         const slides = Array.from(slider.querySelectorAll('.section-certificates__segment'));
+        if (!slides[0]) return;
         const dots = Array.from(document.querySelectorAll('.section-certificates__points__svg.dynamic'))
+
         let prev = 0;
         let current = 1 % slides.length;
         let next = 2 % slides.length;
@@ -315,6 +379,8 @@
         if (!slider) return;
 
         const slides = Array.from(slider.querySelectorAll('.section-references__reference'));
+        if (!slides[0]) return;
+
         const dots = Array.from(slider.querySelectorAll('.section-references__points__svg.dynamic'));
 
         {#const dots = Array.from(document.querySelectorAll('.section-certificates__points__svg.dynamic'))#}
