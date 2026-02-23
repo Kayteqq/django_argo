@@ -10,6 +10,12 @@
 
 {% block content %}
 <main>
+    <section class="section-tags">
+        {% for tag in page.top_tags %}
+            <p class="section-tags__tag">{{ tag }}</p>
+        {% endfor %}
+    </section>
+
     <section class="section-galleries" x-data="gallery()">
         {% for item in page.gallery_items.all %}
             <template x-if="active[{{ forloop.counter0 }}]">
@@ -43,16 +49,16 @@
                     </div>
                     <div class="section-galleries__full__content">
                         <div class="section-galleries__full__content__block">
-                            <p class="text">Doors & Windows</p>
-                            <p class="text">G1</p>
+                            <p class="text">{{ page.external_keyword }}</p>
+                            <p class="text">{{ item.external }}</p>
                         </div>
                         <div class="section-galleries__full__content__block">
-                            <p class="text">Year</p>
-                            <p class="text">2025</p>
+                            <p class="text">{{ page.internal_keyword }}</p>
+                            <p class="text">{{ item.internal }}</p>
                         </div>
                         <div class="section-galleries__full__content__block">
-                            <p class="text">Location</p>
-                            <p class="text">San Diego, CA</p>
+                            <p class="text">{{ page.finishes_keyword }}</p>
+                            <p class="text">{{ item.finishes }}</p>
                         </div>
                     </div>
                 </div>
@@ -78,7 +84,12 @@
                     Click
                 </button>
                 <div class="section-gallery__item__description">
-                    <h1 class="section-gallery__item__description__subtitle subtitle">Project Name</h1>
+                    <div class="section-gallery__item__description__tags">
+                        {% for tag in item.tags %}
+                            <span class="section-gallery__item__description__tags__tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    <h1 class="section-gallery__item__description__subtitle subtitle">{{ item.title }}</h1>
                     <div class="section-gallery__item__description__points">
                         {% for block in item.images %}
                             <svg class="section-gallery__item__description__points__svg static"><use xlink:href="#dot"></use></svg>
