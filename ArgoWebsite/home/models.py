@@ -5,9 +5,9 @@ from django.db import models
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, render
 from django.core.mail import send_mail
-from django.contrib import messages
-from django.template.loader import render_to_string
+from django import forms
 from wagtail.admin.panels import PageChooserPanel, FieldPanel, MultiFieldPanel, InlinePanel
+from wagtail.blocks import CharBlock
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.contrib.settings.models import BaseSiteSetting
 from wagtail.contrib.settings.registry import register_setting
@@ -416,6 +416,31 @@ class AboutPage(Page):
         related_name='+'
     )
 
+    provider_profiles_project  = models.CharField("Profiles Provider Desc - Partners", max_length=255, blank=True)
+    logos_profiles_project = StreamField(
+        [
+            ('image', ImageChooserBlock()),
+        ],
+        blank=True,
+        use_json_field=True,
+    )
+    provider_glass_project  = models.CharField("Glass Provider Desc - Partners", max_length=255, blank=True)
+    logos_glass_project = StreamField(
+        [
+            ('image', ImageChooserBlock()),
+        ],
+        blank=True,
+        use_json_field=True,
+    )
+    provider_software_project  = models.CharField("Software Provider Desc - Partners", max_length=255, blank=True)
+    logos_software_project = StreamField(
+        [
+            ('image', ImageChooserBlock()),
+        ],
+        blank=True,
+        use_json_field=True,
+    )
+
     image_team = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
     title_team = models.CharField("Title - Team", max_length=255, blank=True)
     text_team = models.TextField("Text - Team", blank=True)
@@ -452,6 +477,12 @@ class AboutPage(Page):
                 FieldPanel('text_project'),
                 FieldPanel('button_project'),
                 FieldPanel('redirect_project'),
+                FieldPanel('provider_profiles_project'),
+                FieldPanel('logos_profiles_project'),
+                FieldPanel('provider_glass_project'),
+                FieldPanel('logos_glass_project'),
+                FieldPanel('provider_software_project'),
+                FieldPanel('logos_software_project'),
             ],
             heading="Section Partners",
         ),
@@ -688,6 +719,40 @@ class CarpentryAluminiumPage(Page):
         )
     ]
 
+class CollectionPageColdSystems(Orderable):
+    page = ParentalKey('CollectionPage', related_name='cold_systems')
+    METAL_TYPES = [
+        ('b', 'Bronze'),
+        ('s', 'Steel'),
+    ]
+
+    logo = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    name = models.CharField("Name", max_length=255, blank=True)
+    metal = models.CharField("Metal", max_length=1, choices=METAL_TYPES, default='s')
+
+    content_panels = [
+        FieldPanel('logo'),
+        FieldPanel('name'),
+        FieldPanel('metal', widget=forms.RadioSelect),
+    ]
+
+class CollectionPageHotSystems(Orderable):
+    page = ParentalKey('CollectionPage', related_name='hot_systems')
+    METAL_TYPES = [
+        ('b', 'Bronze'),
+        ('s', 'Steel'),
+    ]
+
+    logo = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    name = models.CharField("Name", max_length=255, blank=True)
+    metal = models.CharField("Metal", max_length=1, choices=METAL_TYPES, default='s')
+
+    content_panels = [
+        FieldPanel('logo'),
+        FieldPanel('name'),
+        FieldPanel('metal', widget=forms.RadioSelect),
+    ]
+
 class CollectionPage(Page):
     template = 'home/collection_page.html'
     parent_page_types = ['RootRedirectPage']
@@ -736,24 +801,13 @@ class CollectionPage(Page):
 
     motto_details = models.CharField("Details Summary - Lead", max_length=255, blank=True)
     title_details = models.CharField("Details Summary - Title", max_length=255, blank=True)
-    image_details = models.ForeignKey(
-        Image,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
+    text_details = models.TextField("Details Summary - Text", blank=True)
 
-    title_1_details = models.CharField("Details Summary - Point 1 - Title", max_length=255, blank=True)
-    desc_1_details = models.TextField("Details Summary - Point 1 - Description", blank=True)
-    title_2_details = models.CharField("Details Summary - Point 1 - Title", max_length=255, blank=True)
-    desc_2_details = models.TextField("Details Summary - Point 1 - Description", blank=True)
-    title_3_details = models.CharField("Details Summary - Point 1 - Title", max_length=255, blank=True)
-    desc_3_details = models.TextField("Details Summary - Point 1 - Description", blank=True)
-    title_4_details = models.CharField("Details Summary - Point 1 - Title", max_length=255, blank=True)
-    desc_4_details = models.TextField("Details Summary - Point 1 - Description", blank=True)
-    title_5_details = models.CharField("Details Summary - Point 1 - Title", max_length=255, blank=True)
-    desc_5_details = models.TextField("Details Summary - Point 1 - Description", blank=True)
+    hot_details = models.CharField("Details Summary - Hot Profile Subtitle", max_length=255, blank=True)
+    cold_details = models.CharField("Details Summary - Cold Profile Subtitle", max_length=255, blank=True)
+
+    bronze_details = models.CharField("Details Summary - Bronze Name", max_length=255, blank=True)
+    steel_details = models.CharField("Details Summary - Steel Name", max_length=255, blank=True)
 
     motto_configurator = models.CharField("Configurator - Lead", max_length=255, blank=True)
     title_configurator = models.CharField("Configurator - Title", max_length=255, blank=True)
@@ -800,22 +854,14 @@ class CollectionPage(Page):
             [
                 FieldPanel('motto_details'),
                 FieldPanel('title_details'),
-                FieldPanel('image_details'),
-                MultiFieldPanel(
-                    [
-                        FieldPanel('title_1_details'),
-                        FieldPanel('desc_1_details'),
-                        FieldPanel('title_2_details'),
-                        FieldPanel('desc_2_details'),
-                        FieldPanel('title_3_details'),
-                        FieldPanel('desc_3_details'),
-                        FieldPanel('title_4_details'),
-                        FieldPanel('desc_4_details'),
-                        FieldPanel('title_5_details'),
-                        FieldPanel('desc_5_details'),
-                    ],
-                    heading='Section Details - List',
-                )
+                FieldPanel('text_details'),
+                FieldPanel('steel_details'),
+                FieldPanel('bronze_details'),
+                FieldPanel('cold_details'),
+                InlinePanel('cold_systems'),
+                FieldPanel('hot_details'),
+                InlinePanel('hot_systems'),
+
             ],
             heading='Section Details',
         ),
@@ -1165,6 +1211,8 @@ class ServicesPage(Page):
 
 class GalleryPageItem(Orderable):
     page = ParentalKey('GalleryPage', related_name='gallery_items', on_delete=models.CASCADE)
+
+    title = models.CharField("Collection Title", max_length=255, blank=True)
     images = StreamField(
         [
             ('image', ImageChooserBlock()),
@@ -1172,9 +1220,24 @@ class GalleryPageItem(Orderable):
         blank=True,
         use_json_field=True,
     )
+    tags = StreamField(
+        [
+            ('tag', CharBlock(required=False, max_length=255)),
+        ],
+        blank=True,
+        use_json_field=True,
+    )
+    external = models.CharField("External Description", max_length=255, blank=True)
+    internal = models.CharField("Internal Description", max_length=255, blank=True)
+    finishes = models.CharField("Finishes Description", max_length=255, blank=True)
 
     panels = [
+        FieldPanel('title'),
         FieldPanel('images'),
+        FieldPanel('tags'),
+        FieldPanel('external'),
+        FieldPanel('internal'),
+        FieldPanel('finishes')
     ]
 
 class GalleryPage(Page):
@@ -1183,7 +1246,29 @@ class GalleryPage(Page):
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
 
+
+    top_tags = StreamField(
+        [
+            ('tag', CharBlock(required=False, max_length=255)),
+        ],
+        blank=True,
+        use_json_field=True,
+    )
+
+    external_keyword = models.CharField("External Keyword", max_length=80, blank=True)
+    internal_keyword = models.CharField("Internal Keyword", max_length=80, blank=True)
+    finishes_keyword = models.CharField("Finishes Keyword", max_length=80, blank=True)
+
     content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel("top_tags"),
+                FieldPanel("internal_keyword"),
+                FieldPanel("external_keyword"),
+                FieldPanel("finishes_keyword"),
+            ],
+            heading='General'
+        ),
         MultiFieldPanel(
             [
                 InlinePanel('gallery_items'),
