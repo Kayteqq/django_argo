@@ -81,59 +81,43 @@
                 {{ page.title_details }}
             </h1>
             <p class="section-details__text text">
-                {{ page.title_details }}
+                {{ page.text_details }}
             </p>
         </div>
 
         <div class="section-details__details">
             <p class="section-details__keyword text">
-                Systemy do wnętrz
+                {{ page.cold_details }}
             </p>
-            <div class="section-details__detail">
-                <div class="section-details__desc-img">
-                    <img class="section-details__img" src="{% static 'home/images/logo/OTTOSTUM_Logo.png' %}" alt=""/>
+            {% for detail in page.cold_systems.all %}
+                <div class="section-details__detail">
+                    <div class="section-details__desc-img">
+                        {% image detail.logo original class='section-details__img' %}
+                    </div>
+                    <div class="section-details__desc-cold text">{{ detail.name }}</div>
+                    {% if detail.metal == 's' %}
+                        <div class="section-details__desc-steel text">{{ page.steel_details }}</div>
+                    {% elif detail.metal == 'b' %}
+                        <div class="section-details__desc-bronze text">{{ page.bronze_details }}</div>
+                    {% endif %}
                 </div>
-                <div class="section-details__desc-cold text">FerroFinestra W20</div>
-                <div class="section-details__desc-steel text">STAL</div>
-            </div>
-            <div class="section-details__detail">
-                <div class="section-details__desc-img">
-                    <img class="section-details__img" src="{% static 'home/images/logo/OTTOSTUM_Logo.png' %}" alt=""/>
-                </div>
-                <div class="section-details__desc-cold text">FerroFinestra W40</div>
-                <div class="section-details__desc-steel text">STAL</div>
-            </div>
-            <div class="section-details__detail">
-                <div class="section-details__desc-img">
-                    <img class="section-details__img" src="{% static 'home/images/logo/OTTOSTUM_Logo.png' %}" alt=""/>
-                </div>
-                <div class="section-details__desc-cold text">FerroFinestra B40</div>
-                <div class="section-details__desc-bronze text">BRĄZ</div>
-            </div>
+            {% endfor %}
             <p class="section-details__keyword text">
-                Systemy termoizolowane
+                {{ page.hot_details }}
             </p>
-            <div class="section-details__detail">
-                <div class="section-details__desc-img">
-                    <img class="section-details__img" src="{% static 'home/images/logo/OTTOSTUM_Logo.png' %}" alt=""/>
+            {% for detail in page.hot_systems.all %}
+                <div class="section-details__detail">
+                    <div class="section-details__desc-img">
+                        {% image detail.logo original class='section-details__img' %}
+                    </div>
+                    <div class="section-details__desc-hot text">{{ detail.name }}</div>
+                    {% if detail.metal == 's' %}
+                        <div class="section-details__desc-steel text">{{ page.steel_details }}</div>
+                    {% elif detail.metal == 'b' %}
+                        <div class="section-details__desc-bronze text">{{ page.bronze_details }}</div>
+                    {% endif %}
                 </div>
-                <div class="section-details__desc-hot text">FerroFinestra W75 TB</div>
-                <div class="section-details__desc-steel text">STAL</div>
-            </div>
-            <div class="section-details__detail">
-                <div class="section-details__desc-img">
-                    <img class="section-details__img" src="{% static 'home/images/logo/OTTOSTUM_Logo.png' %}" alt=""/>
-                </div>
-                <div class="section-details__desc-hot text">BronzoFinestra B75 TB</div>
-                <div class="section-details__desc-bronze text">BRAZ</div>
-            </div>
-            <div class="section-details__detail">
-                <div class="section-details__desc-img">
-                    <img class="section-details__img" src="{% static 'home/images/logo/JANSEN_Logo.png' %}" alt=""/>
-                </div>
-                <div class="section-details__desc-hot text">JANISOL ARTE 2.0</div>
-                <div class="section-details__desc-steel text">STAL</div>
-            </div>
+            {% endfor %}
         </div>
     </section>
     <section class="section-configurator">
