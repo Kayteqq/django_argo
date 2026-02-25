@@ -1,122 +1,22 @@
 {% extends "base.html" %}
 {% load static %}
-{% load wagtailimages_tags %}
+{% load wagtailcore_tags %}
 
 {% block body_class %}{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'home/css/gallery_page.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/privacy_politics_page.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
 <main>
-    <section class="section-title">
-        <h1 class="section-title__title title">{{ page.title }}</h1>
-    </section>
-    <section class="section-tags">
-        {% for tag in page.top_tags %}
-            <p class="section-tags__tag">{{ tag }}</p>
-        {% endfor %}
+    <section class="section-policy">
+        <h1 class="section-policy-title title">
+            {{ page.policy_title }}
+        </h1>
+        {{ page.policy_body|richtext }}
     </section>
 
-    <section class="section-galleries" x-data="gallery()">
-        {% for item in page.gallery_items.all %}
-            <template x-if="active[{{ forloop.counter0 }}]">
-                <div class="section-galleries__full" data-slider="big" x-init="galleryInit()" style="opacity: 0">
-                    <div class="section-galleries__full__slider">
-                        {% for block in item.images %}
-                            <div class="section-galleries__full__image image-wrapper" style="{% if not forloop.first %} transform: translate(100%) {% endif %}">
-                                {% image block.value original class="section-gallery__full__image__img"  %}
-                            </div>
-                        {% endfor %}
-                        <button
-                            type="button"
-                            class="section-gallery__full__button right"
-                            data-action="slide">
-                            Slide Right / Przesuń w Prawo
-                        </button>
-                        <button
-                            type="button"
-                            class="section-gallery__full__button left"
-                            data-action="slide">
-                            Slide Left / Przesuń w Lewo
-                        </button>
-                        <button
-                            type="button"
-                            class="section-gallery__full__button top"
-                            data-action="exit"
-                            @click="galleryLeave({{ forloop.counter0 }})">
-                            Exit / Wyjdź
-                        </button>
-                        <div class="section-gallery__full__arrow left">
-                            <svg><use xlink:href="#arrow"></use></svg>
-                        </div>
-                        <div class="section-gallery__full__arrow right">
-                            <svg><use xlink:href="#arrow"></use></svg>
-                        </div>
-                        <div class="section-gallery__full__x">
-                            <svg><use xlink:href="#x"></use></svg>
-                        </div>
-
-                    </div>
-                    <div class="section-galleries__full__content">
-                        <div class="section-galleries__full__content__block">
-                            <p class="text">{{ page.external_keyword }}</p>
-                            <p class="text">{{ item.external }}</p>
-                        </div>
-                        <div class="section-galleries__full__content__block">
-                            <p class="text">{{ page.internal_keyword }}</p>
-                            <p class="text">{{ item.internal }}</p>
-                        </div>
-                        <div class="section-galleries__full__content__block">
-                            <p class="text">{{ page.finishes_keyword }}</p>
-                            <p class="text">{{ item.finishes }}</p>
-                        </div>
-                    </div>
-                </div>
-            </template>
-            <div class="section-gallery__item" data-slider="small">
-                {% for block in item.images %}
-                    <div class="section-gallery__item__image image-wrapper"
-                         style="{% if not forloop.first %} transform: translate(100%) {% endif %}"
-                         @click="galleryEnter({{ forloop.parentloop.counter0 }})"
-                         aria-label="Open Gallery Button">
-                        {% image block.value original class="section-gallery__item__image__img" %}
-                    </div>
-                {% endfor %}
-                <button
-                    type="button"
-                    class="section-gallery__item__button right"
-                    data-action="slide">
-                    Slide Right / Przesuń w Prawo
-                </button>
-                <button
-                    type="button"
-                    class="section-gallery__item__button left"
-                    data-action="slide">
-                    Slide Left / Przesuń w Lewo
-                </button>
-                <div class="section-gallery__item__description">
-                    <div class="section-gallery__item__description__tags">
-                        {% for tag in item.tags %}
-                            <span class="section-gallery__item__description__tags__tag">{{ tag }}</span>
-                        {% endfor %}
-                    </div>
-                    <h1 class="section-gallery__item__description__subtitle subtitle">{{ item.title }}</h1>
-                    <div class="section-gallery__item__description__points">
-                        {% for block in item.images %}
-                            <svg class="section-gallery__item__description__points__svg static"><use xlink:href="#dot"></use></svg>
-                        {% endfor %}
-                    </div>
-                    <div class="section-gallery__item__description__points">
-                        {% for block in item.images %}
-                            <svg class="section-gallery__item__description__points__svg dynamic" style="{% if not forloop.first %} opacity: 0 {% endif %}"><use xlink:href="#dot"></use></svg>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </section>
 </main>
 
 {% endblock content %}

@@ -114,11 +114,10 @@
             <circle cx="10" cy="10" r="8"/>
         </g>
     </symbol>
-    <symbol id="arrow" viewbox="0 0 10 20" fill="var(--color-fill)" stroke="var(--color-stroke)" stroke-width="var(--stroke-width)">
+    <symbol id="arrow" viewbox="0 0 10 20" stroke="var(--color-stroke)" stroke-width="var(--stroke-width)">
         <g>
-            <line x1="0" y1="0" x1="10" y="10" />
-            <line x1="0" y1="20" x1="10" y="10" />
-
+            <line x1="0" y1="0" x2="10" y2="10" />
+            <line x1="0" y1="20" x2="10" y2="10" />
         </g>
 
     </symbol>
@@ -129,6 +128,11 @@
             <line id="Line_7" data-name="Line 7" x2="14.945" transform="translate(11.106 20) rotate(-138)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="2"/>
         </g>
     </symbol>
+    <symbol id="x" viewBox="0 0 32.121 32.121"  stroke="var(--color-stroke)" stroke-width="var(--stroke-width)">
+            <line id="Line_41" data-name="Line 41" x1="30" y2="30" fill="none" stroke-linecap="round" />
+            <line id="Line_42" data-name="Line 42" x2="30" y2="30"fill="none" stroke-linecap="round" />
+    </symbol>
+
 </svg>
 
 

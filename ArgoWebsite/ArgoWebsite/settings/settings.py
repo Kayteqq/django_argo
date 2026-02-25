@@ -1,4 +1,4 @@
-import os, dj_database_url
+import os
 from decouple import config, Csv
 
 """
@@ -103,10 +103,34 @@ WSGI_APPLICATION = "ArgoWebsite.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'HOST': config('DB_HOST'),
+#         'PORT': config('DB_PORT'),
+#         'OPTIONS': {
+#             'charset': 'utf8mb4',
+#             'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"',
+#         }
+#     }
+# }
+
 DATABASES = {
-    "default": dj_database_url.parse(config("DATABASE_URL"))
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "argowebsite",
+        "USER": "djangoweb",
+        "PASSWORD": "localpassword",
+        "HOST": "localhost",
+        "PORT": "5432",
+    }
 }
 
+SESSION_COOKIE_AGE = 60 * 60
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

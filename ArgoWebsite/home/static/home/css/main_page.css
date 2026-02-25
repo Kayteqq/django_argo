@@ -44,7 +44,7 @@
         z-index: -1;
     }
 
-        .section-hero__gallery_points {
+    .section-hero__gallery_points {
         position: absolute;
         left: 0;
         right: 0;

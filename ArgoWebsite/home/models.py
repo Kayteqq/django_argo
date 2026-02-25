@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 from django.core.exceptions import PermissionDenied
 from django.db import models
@@ -14,12 +15,12 @@ from wagtail.contrib.settings.registry import register_setting
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.models import Image
 from wagtail.models import Page, Orderable
-from wagtail.fields import StreamField
+from wagtail.fields import StreamField, RichTextField
 from modelcluster.fields import ParentalKey
 
 from .blocks import NavbarBlockContainer, FooterBlockContainer
 from .forms import ContactForm
-
+from .reports import generate_pdf
 
 @register_setting
 class SocialMediaSettings(BaseSiteSetting):
@@ -1188,6 +1189,11 @@ class ConfiguratorPage(RoutablePageMixin, Page):
         )
     ]
 
+    @route(r'download-pdf/$')
+    def serve_pdf(self, request, *args, **kwargs):
+        pdf_file = generate_pdf(request.session['config_data'], '')
+        return HttpResponse(pdf_file, content_type='application/pdf')
+
     def serve(self, request, *args, **kwargs):
         if request.method == "POST":
             data = json.loads(request.body)
@@ -1208,6 +1214,55 @@ class ServicesPage(Page):
     template = 'home/services_page.html'
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
+
+    image_hero = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    title_hero = models.CharField('Hero - Title', max_length=255, blank=True)
+    text_hero = models.TextField('Hero - Text', blank=True)
+
+    image_display = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    title_display = models.CharField('Display - Title', max_length=255, blank=True)
+    text_display = models.TextField('Display - Text', blank=True)
+    button_display = models.CharField("Display - Button Text", max_length=255, blank=True)
+    redirect_display = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    lead_display_2 = models.CharField('Display 2 - Lead', max_length=255, blank=True)
+    title_display_2 = models.CharField('Display 2 - Title', max_length=255, blank=True)
+    text_display_2 = models.TextField('Display 2 - Text', blank=True)
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel("image_hero"),
+                FieldPanel('title_hero'),
+                FieldPanel('text_hero'),
+            ],
+            heading='Section Hero',
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("image_display"),
+                FieldPanel("title_display"),
+                FieldPanel("text_display"),
+                FieldPanel("button_display"),
+                FieldPanel("redirect_display"),
+            ],
+            heading='Section Display 1',
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("lead_display_2"),
+                FieldPanel("title_display_2"),
+                FieldPanel("text_display_2"),
+            ],
+            heading='Section Display 2',
+        ),
+    ]
+
 
 class GalleryPageItem(Orderable):
     page = ParentalKey('GalleryPage', related_name='gallery_items', on_delete=models.CASCADE)
@@ -1279,12 +1334,14 @@ class GalleryPage(Page):
 
 class ContactPagePhone(Orderable):
     page = ParentalKey('ContactPage', related_name='contact_phones', on_delete=models.CASCADE)
-    description = models.CharField("Description", max_length=100, blank=True)
+    description = models.CharField("Description", max_length=255, blank=True)
     telephone = models.CharField("Telephone", max_length=100, blank=True)
+    mail = models.CharField("Mail", max_length=100, blank=True)
 
     panels = [
         FieldPanel('description'),
         FieldPanel('telephone'),
+        FieldPanel('mail'),
     ]
 
 class ContactPage(Page):
@@ -1309,6 +1366,7 @@ class ContactPage(Page):
     label_message = models.CharField(max_length=100, default="Twoja wiadomosc")
     label_send = models.CharField(max_length=100, default="Prześlij wiadomość")
     label_sending = models.CharField(max_length=100, default="Wysyłanie...")
+    label_attachment = models.CharField(max_length=100, default="Załącznik")
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
@@ -1352,6 +1410,7 @@ class ContactPage(Page):
         config_data = request.session.get('config_data')
         context.update({
             'config_data': config_data,
+            'date': datetime.now().strftime("%Y-%m-%d"),
         })
         return context
 
@@ -1416,5 +1475,12 @@ class PrivacyPoliticsPage(Page):
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
 
+    policy_title = models.CharField("Title", max_length=255, blank=True)
+    policy_body = RichTextField(blank=True, features=['h2'])
+
+    content_panels = Page.content_panels + [
+        FieldPanel('policy_title'),
+        FieldPanel('policy_body'),
+    ]
 
 

@@ -46,14 +46,21 @@
                         <p class="section-contact__grid__text bold text">
                             {{ page.title_phone }}
                         </p>
-                        {% for item in page.title_phones.all %}
+                        {% for item in page.contact_phones.all %}
                             <br class="text">
                             <p class="section-contact__grid__text text">
                                 {{ item.description }}
                             </p>
-                            <p class="section-contact__grid__text text">
-                                {{ item.telephone }}
-                            </p>
+                            {% if item.telephone %}
+                                <p class="section-contact__grid__text text">
+                                    {{ item.telephone }}
+                                </p>
+                            {% endif %}
+                            {% if item.mail %}
+                                <p class="section-contact__grid__text text">
+                                    {{ item.mail }}
+                                </p>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
@@ -83,7 +90,7 @@
                     </button>
                     {% if config_data %}
                         <div class="section-contact__attachment">
-                            {{ config_data }}
+                            {{ page.label_attachment }} - {{ config_data.styleLine }} {{ date }}
                         </div>
                     {% endif %}
                 </form>

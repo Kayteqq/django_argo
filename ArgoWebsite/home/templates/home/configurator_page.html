@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load wagtailcore_tags %}
 {% load static %}
 {% load wagtailimages_tags %}
 
@@ -859,9 +860,9 @@
                     <p class="section-summary__parameter parameter">{{ page.smarthome_summary }}: <span class="text" x-text="smartHomeDesc"></span></p>
                 </div>
                 <div class="section-summary__buttons" x-ref="buttons">
-                    <button class="confirm-button variant_a">
+                    <a href='{% pageurl page %}download-pdf/' target="_blank" class="confirm-button variant_a">
                         <span>{{ page.button_download_summary }}</span>
-                    </button>
+                    </a>
                     <button class="confirm-button variant_b"
                             data-url="{{ page.button_redirection_summary.url }}"
                             @click.prevent="sendData($el).then().catch(e => console.log(e))">

@@ -79,7 +79,7 @@
     }
     
 
-    .section-smart-home {
+    .section-display-2 {
         order: 7;
         background: var(--argo-błękit);
 
@@ -89,12 +89,12 @@
         gap: 5rem;
     }
 
-    .section-smart-home__inner-divider.left {
+    .section-display-2__inner-divider.left {
         position: relative;
         height: 28.8vw;
     }
 
-    .section-smart-home__svg {
+    .section-display-2__svg {
         max-height: 28.8vw;
         position: absolute;
         aspect-ratio: 1;
@@ -107,24 +107,24 @@
         transform: translateX(-0.48rem)
     }
 
-    .section-smart-home__inner-divider.right {
+    .section-display-2__inner-divider.right {
         display: flex;
         flex-direction: column;
     }
 
-    .section-smart-home__motto {
+    .section-display-2__motto {
         display: none;
     }
 
-    .section-smart-home__grid {
+    .section-display-2__grid {
         display: contents;
     }
 
-    .section-smart-home__title {
+    .section-display-2__title {
         margin-bottom: 5rem;
     }
 
-    .section-smart-home__button {
+    .section-display-2__button {
         margin-top: auto;
     }
 }
@@ -213,7 +213,7 @@
     }
 
 
-    .section-smart-home {
+    .section-display-2 {
         background: var(--argo-błękit);
 
         padding: 8.625rem 6.25rem 9.375rem 5.67vw;
@@ -223,14 +223,14 @@
         align-items: stretch;
     }
 
-    .section-smart-home__inner-divider.left {
+    .section-display-2__inner-divider.left {
         position: relative;
         min-width: 15.3125vw;
         width: auto;
         aspect-ratio: 1;
     }
 
-    .section-smart-home__svg {
+    .section-display-2__svg {
         min-width: 100%;
         aspect-ratio: 1;
         position: absolute;
@@ -243,13 +243,13 @@
         --stroke-width: 3px;
     }
 
-    .section-smart-home__inner-divider.right {
+    .section-display-2__inner-divider.right {
         margin-top: 1.125rem;
         display: flex;
         flex-direction: column;
     }
 
-    .section-smart-home__grid {
+    .section-display-2__grid {
         display: grid;
         grid-template-columns: 1fr 33.59375vw;
         gap: 6.25vw;
@@ -257,11 +257,11 @@
     }
 
 
-    .section-smart-home__title {
+    .section-display-2__title {
 
     }
 
-    .section-smart-home__button {
+    .section-display-2__button {
         margin-top: auto;
     }
 

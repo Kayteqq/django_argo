@@ -44,7 +44,8 @@
                     <use xlink:href="#argoLogo"></use>
                 </svg>
             </a>
-            <ul :class="`navbar__links ${mobileMenuDisabled ? 'disabled': ''} ${mobileMenuOpen ? 'visible' : 'hidden'}`">
+            <ul class="navbar__links"
+                :class="`navbar__links ${mobileMenuDisabled ? 'disabled': ''} ${mobileMenuOpen ? 'visible' : 'hidden'}`">
                 {% for block in navbar_links %}
                     {% if block.block_type == 'page_link' %}
                         <li class="navbar__links__item">

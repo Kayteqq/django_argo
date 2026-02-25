@@ -1130,6 +1130,9 @@ input[type="range"][disabled]
         font-family: 'Archivo-SemiBold', sans-serif;
         letter-spacing: 0.0875rem;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .confirm-button.variant_a {

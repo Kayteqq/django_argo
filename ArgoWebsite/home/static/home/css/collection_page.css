@@ -34,8 +34,11 @@
     }
 
     .section-hero__img {
-        height: 80%;
+        max-height: 76%;
         width: auto;
+        max-width: 76%;
+        height: auto;
+
     }
 
     .section-hero__inner-divider.right {
@@ -320,8 +323,10 @@
         align-items: center;
     }
     .section-hero__img {
-        height: 86.8%;
+        max-height: 80%;
         width: auto;
+        max-width: 80%;
+        height: auto;
     }
 
     .section-hero__inner-divider.right {

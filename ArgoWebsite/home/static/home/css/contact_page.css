@@ -1,5 +1,108 @@
 @media(max-width: 767px) {
+    .section-hero {
+        position: relative;
+        height: 60rem;
+        margin: 0 2rem 0 2rem;
+    }
+    .section-hero__svg {
+        width: calc(5rem + 1px);
+        height: calc(5rem + 1px);
+        position: absolute;
+        right: -1px;
+        bottom: -1px;
+        z-index: 2;
+        --color-fill: var(--argo-biel);
+    }
+    .section-contact {
+        margin: 5rem 2rem 6.25rem 2rem;
+        display: flex;
+        flex-direction: column;
+    }
+    .section-contact__motto {
+        margin-bottom: 1.875rem;
+    }
+    .section-contact__title {
+        margin-bottom: 3.75rem;
+    }
+    .section-contact__text {
+        margin-bottom: 10rem;
+    }
+    .section-contact__grid {
+        display: contents;
+    }
+    .section-contact__grid__item.element-1 {
+        margin-bottom: 10rem;
+    }
+    .section-contact__grid__item.element-3 {
+        margin-bottom: 8.5rem;
+    }
 
+    .section-contact__field {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .section-contact__field label {
+        font-family: 'Archivo-Regular', sans-serif;
+        text-transform: uppercase;
+        font-size: 1.25rem;
+        line-height: 1.25rem;
+        letter-spacing: 0.0625rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .section-contact__field input {
+        outline: solid 1px var(--argo-czarny);
+        outline-offset: -1px;
+        border: none;
+        border-radius: 0;
+        line-height: 3.125rem;
+        font-family: 'Archivo-Regular', sans-serif;
+        font-size: 1.5rem;
+        padding: 0 0.5rem 0 0.5rem;
+        margin-bottom: 1.25rem;
+
+
+    }
+
+    .section-contact__field textarea {
+        outline: solid 1px var(--argo-czarny);
+        outline-offset: -1px;
+        border: none;
+        border-radius: 0;
+        line-height: 1.5rem;
+        font-family: 'Archivo-Regular', sans-serif;
+        font-size: 1.5rem;
+        padding: 0.5rem;
+        margin: 0 0 3.75rem 0;
+        height: 15.125rem;
+        resize: none;
+    }
+
+    .section-contact__attachment {
+        margin-top: 3rem;
+        outline: solid 2px var(--argo-czarny);
+        outline-offset: -1px;
+        border: none;
+        border-radius: 0;
+        font-family: 'Archivo-Regular', sans-serif;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 1.25rem;
+        font-size: 1.75rem;
+    }
+
+
+    .section-map {
+        height: 31.25rem;
+    }
+
+    .section-map__map {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
 }
 
 @media(min-width: 768px) {
@@ -48,15 +151,6 @@
     .section-contact__field {
         display: flex;
         flex-direction: column;
-    }
-    .section-map {
-        height: 40.625rem;
-    }
-
-    .section-map__map {
-        width: 100%;
-        height: 100%;
-        border: none;
     }
 
     .section-contact__field label {
@@ -113,5 +207,15 @@
         align-items: center;
         padding-left: 0.625rem;
         font-size: 1.1875rem;
+    }
+
+    .section-map {
+        height: 40.625rem;
+    }
+
+    .section-map__map {
+        width: 100%;
+        height: 100%;
+        border: none;
     }
 }
