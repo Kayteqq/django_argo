@@ -1,4 +1,6 @@
 import os
+import ssl
+
 from decouple import config, Csv
 
 """
@@ -105,16 +107,12 @@ WSGI_APPLICATION = "ArgoWebsite.wsgi.application"
 
 # DATABASES = {
 #     "default": {
-#         'ENGINE': 'django.db.backends.mysql',
+#         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': config('DB_NAME'),
 #         'USER': config('DB_USER'),
 #         'PASSWORD': config('DB_PASSWORD'),
 #         'HOST': config('DB_HOST'),
 #         'PORT': config('DB_PORT'),
-#         'OPTIONS': {
-#             'charset': 'utf8mb4',
-#             'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"',
-#         }
 #     }
 # }
 
@@ -206,7 +204,7 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = 10_000
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "ArgoWebsite"
+WAGTAIL_SITE_NAME = "Argo Website"
 
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html
@@ -218,7 +216,7 @@ WAGTAILSEARCH_BACKENDS = {
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = "http://example.com"
+WAGTAILADMIN_BASE_URL = config('WAGTAILADMIN_BASE_URL', default='https://argosteelline.pl')
 
 # Allowed file extensions for documents in the document library.
 # This can be omitted to allow all files, but note that this may present a security risk
@@ -228,8 +226,19 @@ WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'tx
 
 
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-DEFAULT_FROM_EMAIL = 'no-reply@localhost.com'
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = 'ArgoWebsite.settings.email_backend.UnsafeEmailBackend'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT')
+
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+EMAIL_USE_SSL = False
+EMAIL_USE_TLS = True
+
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+SERVER_EMAIL = config('SERVER_EMAIL')
 
 
 try:

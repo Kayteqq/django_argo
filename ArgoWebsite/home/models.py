@@ -5,7 +5,7 @@ from django.core.exceptions import PermissionDenied
 from django.db import models
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, render
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django import forms
 from wagtail.admin.panels import PageChooserPanel, FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.blocks import CharBlock
@@ -1217,10 +1217,8 @@ class ConfiguratorPage(RoutablePageMixin, Page):
                 return JsonResponse({"errors": "Invalid JSON"}, status=400)
 
             form = ConfigForm(data)
-            print(data)
             if not form.is_valid():
                 return JsonResponse({"errors": form.errors}, status=400)
-            print(form.cleaned_data)
             request.session['config_data'] = form.cleaned_data
 
             return JsonResponse(
@@ -1466,12 +1464,22 @@ class ContactPage(Page):
                 {data['message']}
                 """
 
-                send_mail(
-                    subject=f"Kontakt ze strony: {data['name']}",
-                    message=full_message,
+                email = EmailMessage(
+                    subject=f'Kontakt ze strony: {data["name"]}',
+                    body=full_message,
                     from_email=None,
-                    recipient_list=[self.recipient_mail],
+                    to=[self.recipient_mail],
                 )
+
+                if request.session.get('config_data'):
+                    pdf_buffer = generate_pdf(request.session.get('config_data'), data['email'])
+                    email.attach(
+                        filename='produkt.pdf',
+                        content=pdf_buffer.getvalue(),
+                        mimetype='application/pdf',
+                    )
+
+                email.send(fail_silently=False)
 
                 if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                     return JsonResponse({
