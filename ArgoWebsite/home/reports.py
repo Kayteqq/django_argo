@@ -109,27 +109,33 @@ def generate_pdf(data, mail):
 
     details_data = [
         ["Wybrana linia stylu:", f'{data["styleLine"]}'],
+        ['Wybrany kolor ram:', f'{data["color1"]}'],
         ["Wybrane użycie produktu:", f'{data["usecase"]}'],
         ["Wybrany rodzaj produktu:", f'{data["type"]}'],
         ["Wybrane dodatki:", f'{data["additivies"]}'],
-        ["Wybrany kolor:", f'{data["color"]}'],
+        ["Wybrany kolor klamek:", f'{data["color2"]}'],
+        ["Naświetla:", f"{'Lewe, ' if data.get('leftWindowEnabled') else '' } "
+                       f"{'Prawe, ' if data.get('rightWindowEnabled') else '' } "
+                       f"{'Górne' if data.get('topWindowEnabled') else '' } "
+                       f"{'Brak' if not data.get('leftWindowEnabled') and not data.get('rightWindowEnabled') and not data.get('topWindowEnabled') else '' } "],
+        ["Wysokość:", f'{data['productHeight']*45}cm'],
+        ['Szerokość:', f'{data['productWidth']*45}cm'],
+        ["Szerokość Drzwi:", f'{data['doorWidth']*45}cm'],
+        ["Szerokość Prawego Naświetla:", f'{data['rightWidth']*45}cm'],
+        ["Szerokość Lewego Naświetla:", f'{data['leftWidth']*45}cm'],
+        ["Wysokość Górnego Naświetla:", f'{'45' if data.get('topWindowEnabled') else '0'}cm'],
+
+
     ]
 
-    if tab[0]:
-        details_data.append(["wybrane elementy smart home:", f'{tab[0]}'])
-    else:
-        details_data.append(["", ""])
-        details_data.append(["", ""])
-        details_data.append(["", ""])
-    if tab[1]:
-        details_data.append(["", f'{tab[1]}'])
-    else:
-        details_data.append(["", ""])
-        details_data.append(["", ""])
-    if tab[2]:
-        details_data.append(["", f'{tab[2]}'])
-    else:
-        details_data.append(["", ""])
+    for i in range(3):
+        if i < len(tab):
+            if i == 0:
+                details_data.append(["Wybrane elementy smart home:", tab[i]])
+            else:
+                details_data.append(["", tab[i]])
+        else:
+            details_data.append(["", ""])
 
     formatted_details = []
     for label, value in details_data:
@@ -149,7 +155,7 @@ def generate_pdf(data, mail):
     ]))
 
     elements.append(details_table),
-    elements.append(Spacer(1,340))
+    elements.append(Spacer(1,240))
 
     keyword = Paragraph('Comments', keyword)
     elements.append(keyword)
@@ -157,20 +163,24 @@ def generate_pdf(data, mail):
 
 
 
-    left_comment = """
-        VAT is not added to the above prices.<br/>
-        The offer does not include transport.<br/>
-        The offer does not include assembly.<br/>
-        Expiry date: 30 days<br/>
-        Payment terms: to be agreed<br/>
-        Completion date: to be agreed<br/><br/>
-        Powyższe przykładowe z aktualnej „Oferty” -<br/>
-        potencjalnie do dodania komentarze w pdf jeżeli dotyczy<br/>
+    left_temp = """Czas wygaśnięcia zgłoszenia: 30 dni
+        Cena: do ustalenia
+        Sposób płatności: do ustalenia
+        Data skompletowania: do ustalenia
+        Transport: do ustalenia
+        
+       
+       
+       
+       
+        
     """
+    left_comment = "<br/>".join(left_temp.splitlines())
+
 
     if mail== '':
         right_comment = """
-            05.02.2026 
+            Data zgłoszenia: 05.02.2026 
         """
     else:
         right_comment = f"""

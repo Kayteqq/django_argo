@@ -149,22 +149,24 @@
                 </div>
             {% endif %}
         </section>
-        <section class="section-configurator">
-            <div class="section-configurator__inner-divider left">
-                <svg class="section-configurator__svg"><use xlink:href="#argoArrow"></use></svg>
-            </div>
-            <div class="section-configurator__inner-divider right">
-                <p class="section-configurator__motto motto">
-                    {{ page.motto_configurator }}
-                </p>
-                <h1 class="section-configurator__title title">
-                    {{ page.title_configurator }}
-                </h1>
-                <a class="section-configurator__button button--variant_a" href="{{ page.redirect_configurator.url }}">
-                    <span>{{ page.button_configurator }}</span>
-                </a>
-            </div>
-        </section>
+        {% if page.motto_configurator and page.title_configurator and page.button_configurator and page.redirect_configurator and page.motto_configurator != "" and page.title_configurator != "" and page.button_configurator != "" and page.redirecr_configurator.url != "" %}
+            <section class="section-configurator">
+                <div class="section-configurator__inner-divider left">
+                    <svg class="section-configurator__svg"><use xlink:href="#argoArrow"></use></svg>
+                </div>
+                <div class="section-configurator__inner-divider right">
+                    <p class="section-configurator__motto motto">
+                        {{ page.motto_configurator }}
+                    </p>
+                    <h1 class="section-configurator__title title">
+                        {{ page.title_configurator }}
+                    </h1>
+                    <a class="section-configurator__button button--variant_a" href="{{ page.redirect_configurator.url }}">
+                        <span>{{ page.button_configurator }}</span>
+                    </a>
+                </div>
+            </section>
+        {% endif %}
     </main>
 {% endblock content %}
 

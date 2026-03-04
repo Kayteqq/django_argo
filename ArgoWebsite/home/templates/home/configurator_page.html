@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+  {% extends "base.html" %}
 {% load wagtailcore_tags %}
 {% load static %}
 {% load wagtailimages_tags %}
@@ -50,7 +50,7 @@
                         x-init="$refs.step_1.scrollIntoView({ behavior: 'instant', block: 'start' });"
                 >
                     <p class="description text">
-                        {{ page.description_step_1 }}
+                        {{ page.description_step_1a }}
                     </p>
 
                     <div class="selection step-1">
@@ -98,6 +98,7 @@
                                     {{ page.step_1_choice_3_text }}
                                 </p>
                             </div>
+
                             <button class="selection__button variant_a" @click="chooseStyleLine('glamour')">
                                 <span>{{ page.button_word }}</span>
                             </button>
@@ -112,6 +113,87 @@
                             <svg class="section-configuration__dot empty"><use xlink:href="#dot"></use></svg>
                         </div>
                     </div>
+
+
+                    <p class="description text">
+                        {{ page.description_step_1b }}
+                    </p>
+
+                    <div class="selection-title">
+                        {{ page.subtitle_step_1b }}
+                    </div>
+                    <div class="selection color-selection">
+                        <template x-if="selectedStyleLine === 'industrial'">
+                            <div :class="`color-selection__element ${selectedColor1 === '7016' ? 'color-selection__element--selected' : ''}`" @click="chooseColor1('7016')">
+                                <button @click="chooseColor1('7016')" class="color-selection__button color-selection__button--7016"></button>
+                                <h3 class="color-selection__subtitle subtitle">Anthracite Grey</h3>
+                                <p class="color-selection__text text">RAL 7016</p>
+                            </div>
+                        </template>
+                        <template x-if="selectedStyleLine === 'industrial'">
+                            <div :class="`color-selection__element ${selectedColor1 === '7021' ? 'color-selection__element--selected' : ''}`" @click="chooseColor1('7021')">
+                                <button @click="chooseColor1('7021')" class="color-selection__button color-selection__button--7021"></button>
+                                <h3 class="color-selection__subtitle subtitle">Black Grey</h3>
+                                <p class="color-selection__text text">RAL 7021</p>
+                            </div>
+                        </template>
+                        <template x-if="selectedStyleLine === 'industrial'">
+                            <div :class="`color-selection__element ${selectedColor1 === '7048' ? 'color-selection__element--selected' : ''}`" @click="chooseColor1('7048')">
+                                <button @click="chooseColor1('7048')" class="color-selection__button color-selection__button--7048"></button>
+                                <h3 class="color-selection__subtitle subtitle">Pearl Mouse Grey</h3>
+                                <p class="color-selection__text text">RAL 7048</p>
+                            </div>
+                        </template>
+                        <template x-if="selectedStyleLine === 'vintage'">
+                            <div :class="`color-selection__element ${selectedColor1 === '1012' ? 'color-selection__element--selected' : ''}`" @click="chooseColor1('1012')">
+                                <button @click="chooseColor1('1012')" class="color-selection__button color-selection__button--1012"></button>
+                                <h3 class="color-selection__subtitle subtitle">Lemon Yellow</h3>
+                                <p class="color-selection__text text">RAL 1012</p>
+                            </div>
+                        </template>
+                        <template x-if="selectedStyleLine === 'vintage'">
+                            <div :class="`color-selection__element ${selectedColor1 === '1013' ? 'color-selection__element--selected' : ''}`" @click="chooseColor1('1013')">
+                                <button @click="chooseColor1('1013')" class="color-selection__button color-selection__button--1013"></button>
+                                <h3 class="color-selection__subtitle subtitle">Oyster White</h3>
+                                <p class="color-selection__text text">RAL 1013</p>
+                            </div>
+                        </template>
+                        <template x-if="selectedStyleLine === 'vintage'">
+                            <div :class="`color-selection__element ${selectedColor1 === '6021' ? 'color-selection__element--selected' : ''}`" @click="chooseColor1('6021')">
+                                <button @click="chooseColor1('6021')" class="color-selection__button color-selection__button--6021"></button>
+                                <h3 class="color-selection__subtitle subtitle">Pale Green</h3>
+                                <p class="color-selection__text text">RAL 6021</p>
+                            </div>
+                        </template>
+                        <template x-if="selectedStyleLine === 'glamour'">
+                            <div :class="`color-selection__element ${selectedColor1 === '1036' ? 'color-selection__element--selected' : ''}`" @click="chooseColor1('1036')">
+                                <button @click="chooseColor1('1036')" class="color-selection__button color-selection__button--1036"></button>
+                                <h3 class="color-selection__subtitle subtitle">Pearl Gold</h3>
+                                <p class="color-selection__text text">RAL 1036</p>
+                            </div>
+                        </template>
+                        <template x-if="selectedStyleLine === 'glamour'">
+                            <div :class="`color-selection__element ${selectedColor1 === '5003' ? 'color-selection__element--selected' : ''}`" @click="chooseColor1('5003')">
+                                <button @click="chooseColor1('5003')" class="color-selection__button color-selection__button--5003"></button>
+                                <h3 class="color-selection__subtitle subtitle">Sapphire Blue</h3>
+                                <p class="color-selection__text text">RAL 5003</p>
+                            </div>
+                        </template>
+                        <template x-if="selectedStyleLine === 'glamour'">
+                            <div :class="`color-selection__element ${selectedColor1 === '6005' ? 'color-selection__element--selected' : ''}`" @click="chooseColor1('6005')">
+                                <button @click="chooseColor1('6005')" class="color-selection__button color-selection__button--6005"></button>
+                                <h3 class="color-selection__subtitle subtitle">Moss Green</h3>
+                                <p class="color-selection__text text">RAL 6005</p>
+                            </div>
+                        </template>
+                    </div>
+                    <div class="color-selection__text-input">
+                        <button class="color-selection__text-input__button" :class="`color-selection__text-input__button ${customColor1Enabled ? 'filled' : ''}`" @click="customColor1Enabled = !customColor1Enabled"></button>
+                        <p class="text color-selection__text-input__text">Inne</p>
+                        <input id="step-1-color" type="text" class="color-selection__text-input__textbox" x-model="customColor1" placeholder="{{ page.step_5_color_placeholder }}" :disabled="!customColor1Enabled">
+                        <label for="step-1-color" class="sr-only">{{ page.step_5_color_placeholder }}</label>
+                    </div>
+
                     <button class="selection__button variant_b" :disabled="!isStyleLineSelected" @click="confirmStep(0)">
                         <span>{{ page.confirm_word }}</span>
                     </button>
@@ -503,7 +585,6 @@
     <!--                <button class="selection__button" @click="updateProductData(exportData())">-->
                         <span>{{ page.confirm_word }}</span>
                     </button>
-
                 </div>
             </template>
         </div>
@@ -530,7 +611,9 @@
                         {{ page.description_step_5a }}
                     </p>
 
-                    <!--            MOŻE BYĆ WIECEJ, DODAĆ DYNAMIKE-->
+                    <div class="selection-title">
+                        {{ page.subtitle_step_5a }}
+                    </div>
                     <div class="selection step-5">
                         <div
                                 :class="`selection__element step-5 ${selectedHandleType === 'handle-1' ? 'selection__element--selected' : ''}`" role="button" tabindex="0" aria-label="handle-1"
@@ -692,7 +775,6 @@
                             <svg class="section-configuration__dot empty"><use xlink:href="#dot"></use></svg>
                         </div>
                     </div>
-
                     <div class="dots step-5">
                         <div class="static">
                             <svg class="dot"><use xlink:href="#dot"></use></svg>
@@ -705,31 +787,85 @@
                             <svg class="dot"><use xlink:href="#dot"></use></svg>
                         </div>
                     </div>
-
-
                     <p class="description text">
                         {{ page.description_step_5b }}
                     </p>
-
+                    <div class="selection-title">
+                        {{ page.subtitle_step_5b }}
+                    </div>
                     <div class="selection color-selection">
-                        <div :class="`color-selection__element ${selectedColor === 'gold' ? 'color-selection__element--selected' : ''}`" @click="chooseColor('gold')" aria-label="golden color">
-                            <button class="color-selection__button color-selection__button--golden"></button>
-                            <h3 class="color-selection__subtitle subtitle">zlotoabc</h3>
-                            <p class="color-selection__text text">RAL 7235</p>
-                        </div>
-                        <div :class="`color-selection__element ${selectedColor === 'silver' ? 'color-selection__element--selected' : ''}`" @click="chooseColor('silver')" aria-label="silver color">
-                            <button class="color-selection__button color-selection__button--silver"></button>
-                            <h3 class="color-selection__subtitle subtitle">srebroabcd</h3>
-                            <p class="color-selection__text text">RAL 7235</p>
-                        </div>
-                        <div :class="`color-selection__element ${selectedColor === 'bronze' ? 'color-selection__element--selected' : ''}`" @click="chooseColor('bronze')" aria-label="bronze color">
-                            <button class="color-selection__button color-selection__button--bronze"></button>
-                            <h3 class="color-selection__subtitle subtitle">brązabcde</h3>
-                            <p class="color-selection__text text">RAL 7235</p>
-                        </div>
+                        <template x-if="selectedStyleLine === 'industrial'">
+                            <div :class="`color-selection__element ${selectedColor2 === '7016' ? 'color-selection__element--selected' : ''}`" @click="chooseColor2('7016')">
+                                <button @click="chooseColor2('7016')" class="color-selection__button color-selection__button--7016"></button>
+                                <h3 class="color-selection__subtitle subtitle">Anthracite Grey</h3>
+                                <p class="color-selection__text text">RAL 7016</p>
+                            </div>
+                        </template>
+                        <template x-if="selectedStyleLine === 'industrial'">
+                            <div :class="`color-selection__element ${selectedColor2 === '7021' ? 'color-selection__element--selected' : ''}`" @click="chooseColor2('7021')">
+                                <button @click="chooseColor2('7021')" class="color-selection__button color-selection__button--7021"></button>
+                                <h3 class="color-selection__subtitle subtitle">Black Grey</h3>
+                                <p class="color-selection__text text">RAL 7021</p>
+                            </div>
+                        </template>
+                        <template x-if="selectedStyleLine === 'industrial'">
+                            <div :class="`color-selection__element ${selectedColor2 === '7048' ? 'color-selection__element--selected' : ''}`" @click="chooseColor2('7048')">
+                                <button @click="chooseColor2('7048')" class="color-selection__button color-selection__button--7048"></button>
+                                <h3 class="color-selection__subtitle subtitle">Pearl Mouse Grey</h3>
+                                <p class="color-selection__text text">RAL 7048</p>
+                            </div>
+                        </template>
+                        <template x-if="selectedStyleLine === 'vintage'">
+                            <div :class="`color-selection__element ${selectedColor2 === '1012' ? 'color-selection__element--selected' : ''}`" @click="chooseColor2('1012')">
+                                <button @click="chooseColor2('1012')" class="color-selection__button color-selection__button--1012"></button>
+                                <h3 class="color-selection__subtitle subtitle">Lemon Yellow</h3>
+                                <p class="color-selection__text text">RAL 1012</p>
+                            </div>
+                        </template>
+                        <template x-if="selectedStyleLine === 'vintage'">
+                            <div :class="`color-selection__element ${selectedColor2 === '1013' ? 'color-selection__element--selected' : ''}`" @click="chooseColor2('1013')">
+                                <button @click="chooseColor2('1013')" class="color-selection__button color-selection__button--1013"></button>
+                                <h3 class="color-selection__subtitle subtitle">Oyster White</h3>
+                                <p class="color-selection__text text">RAL 1013</p>
+                            </div>
+                        </template>
+                        <template x-if="selectedStyleLine === 'vintage'">
+                            <div :class="`color-selection__element ${selectedColor2 === '6021' ? 'color-selection__element--selected' : ''}`" @click="chooseColor2('6021')">
+                                <button @click="chooseColor2('6021')" class="color-selection__button color-selection__button--6021"></button>
+                                <h3 class="color-selection__subtitle subtitle">Pale Green</h3>
+                                <p class="color-selection__text text">RAL 6021</p>
+                            </div>
+                        </template>
+                        <template x-if="selectedStyleLine === 'glamour'">
+                            <div :class="`color-selection__element ${selectedColor2 === '1036' ? 'color-selection__element--selected' : ''}`" @click="chooseColor2('1036')">
+                                <button @click="chooseColor2('1036')" class="color-selection__button color-selection__button--1036"></button>
+                                <h3 class="color-selection__subtitle subtitle">Pearl Gold</h3>
+                                <p class="color-selection__text text">RAL 1036</p>
+                            </div>
+                        </template>
+                        <template x-if="selectedStyleLine === 'glamour'">
+                            <div :class="`color-selection__element ${selectedColor2 === '5003' ? 'color-selection__element--selected' : ''}`" @click="chooseColor2('5003')">
+                                <button @click="chooseColor2('5003')" class="color-selection__button color-selection__button--5003"></button>
+                                <h3 class="color-selection__subtitle subtitle">Sapphire Blue</h3>
+                                <p class="color-selection__text text">RAL 5003</p>
+                            </div>
+                        </template>
+                        <template x-if="selectedStyleLine === 'glamour'">
+                            <div :class="`color-selection__element ${selectedColor2 === '6005' ? 'color-selection__element--selected' : ''}`" @click="chooseColor2('6005')">
+                                <button @click="chooseColor2('6005')" class="color-selection__button color-selection__button--6005"></button>
+                                <h3 class="color-selection__subtitle subtitle">Moss Green</h3>
+                                <p class="color-selection__text text">RAL 6005</p>
+                            </div>
+                        </template>
+                    </div>
+                    <div class="color-selection__text-input">
+                        <button class="color-selection__text-input__button" @click="customColor2Enabled = !customColor2Enabled"></button>
+                        <p class="text color-selection__text-input__text">Inne</p>
+                        <input id="step-5-color" type="text" class="color-selection__text-input__textbox" x-model="customColor2" placeholder="{{ page.step_5_color_placeholder }}" :disabled="!customColor2Enabled">
+                        <label for="step-5-color" class="sr-only">{{ page.step_5_color_placeholder }}</label>
                     </div>
 
-                    <button class="selection__button variant_b" :disabled="!isAccessorySelected" @click="confirmStep(4)">
+                    <button class="selection__button variant_b" :disabled="!isAccessorySelected" @click="confirmStep(4); confirmCustomColor2()">
                         <span>{{ page.confirm_word }}</span>
                     </button>
                 </div>
@@ -828,11 +964,12 @@
     </section>
 </template>
 <template x-if="finalized">
-    <section class="section-summary">
+    <section class="section-summary"
+             x-init="sendData($el, false).then().catch(e => console.log(e))"
+    >
         <h1 class="section-summary__motto motto">{{ page.step_word }} 7</h1>
         <h2 class="section-summary__subtitle subtitle">{{ page.title_summary }}</h2>
         <h2 class="section-summary__text text">{{ page.text_summary }}</h2>
-
         <div class="section-summary__container">
             <div class="section-configuration__dots">
                 <svg class="section-configuration__dot filled"><use xlink:href="#dot"></use></svg>
@@ -853,10 +990,11 @@
             <div class="section-summary__container__column right">
                 <div class="section-summary__container__row top">
                     <p class="section-summary__parameter parameter">{{ page.styleline_summary }}: <span class="text" x-text="styleLineDesc"></span></p>
+                    <p class="section-summary__parameter parameter">{{ page.color_summary }}: <span class="text" x-text="color1Desc"></span></p>
                     <p class="section-summary__parameter parameter">{{ page.usecase_summary }}: <span class="text"  x-text="productUsecaseDesc"></span></p>
                     <p class="section-summary__parameter parameter">{{ page.type_summary }}: <span class="text" x-text="productTypeDesc"></span></p>
                     <p class="section-summary__parameter parameter">{{ page.additions_summary }}: <span class="text" x-text="additivesDesc"></span></p>
-                    <p class="section-summary__parameter parameter">{{ page.color_summary }}: <span class="text"  x-text="colorDesc"></span></p>
+                    <p class="section-summary__parameter parameter">{{ page.color_second_summary }}: <span class="text" x-text="color2Desc"></span></p>
                     <p class="section-summary__parameter parameter">{{ page.smarthome_summary }}: <span class="text" x-text="smartHomeDesc"></span></p>
                 </div>
                 <div class="section-summary__buttons" x-ref="buttons">
@@ -865,13 +1003,12 @@
                     </a>
                     <button class="confirm-button variant_b"
                             data-url="{{ page.button_redirection_summary.url }}"
-                            @click.prevent="sendData($el).then().catch(e => console.log(e))">
+                            @click.prevent="sendData($el, true).then().catch(e => console.log(e))">
                         <span>{{ page.button_mail_summary }}</span>
                     </button>
                 </div>
             </div>
         </div>
-
         <button class="section-summary__return-button" @click="finalized = false" >
             <svg class="section-summary__return-button__svg">
                 <use xlink:href="#sharpArrow"></use>
@@ -931,7 +1068,6 @@
     </div><div id="actuator">
         {{ page.step_6_choice_3_subtitle }}
     </div>
-
 </div>
 
 {% endblock content %}

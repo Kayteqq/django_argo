@@ -14,12 +14,12 @@ from wagtail.contrib.settings.models import BaseSiteSetting
 from wagtail.contrib.settings.registry import register_setting
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.models import Image
-from wagtail.models import Page, Orderable
+from wagtail.models import Page, Orderable, Locale
 from wagtail.fields import StreamField, RichTextField
 from modelcluster.fields import ParentalKey
 
 from .blocks import NavbarBlockContainer, FooterBlockContainer
-from .forms import ContactForm
+from .forms import ContactForm, ConfigForm
 from .reports import generate_pdf
 
 @register_setting
@@ -900,12 +900,16 @@ class ConfiguratorPage(RoutablePageMixin, Page):
     title_step_5 = models.CharField("Step 5 - Title", max_length=255, blank=True)
     title_step_6 = models.CharField("Step 6 - Title", max_length=255, blank=True)
 
-    description_step_1 = models.CharField("Step 1 - Description", max_length=255, blank=True)
+    description_step_1a = models.CharField("Step 1a - Description", max_length=255, blank=True)
+    description_step_1b = models.CharField("Step 1b - Description", max_length=255, blank=True)
+    subtitle_step_1b = models.CharField("Step 1b - Subtitle", max_length=255, blank=True)
     description_step_2 = models.CharField("Step 2 - Description", max_length=255, blank=True)
     description_step_3 = models.CharField("Step 3 - Description", max_length=255, blank=True)
     description_step_4 = models.CharField("Step 4 - Description", max_length=255, blank=True)
     description_step_5a = models.CharField("Step 5a - Description", max_length=255, blank=True)
+    subtitle_step_5a = models.CharField("Step 5a - Subtitle", max_length=255, blank=True)
     description_step_5b = models.CharField("Step 5b - Description", max_length=255, blank=True)
+    subtitle_step_5b = models.CharField("Step 5b - Subtitle", max_length=255, blank=True)
     description_step_6 = models.CharField("Step 6 - Description", max_length=255, blank=True)
 
     # step 1
@@ -991,6 +995,9 @@ class ConfiguratorPage(RoutablePageMixin, Page):
     step_5_glamour_choice_2_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
     step_5_glamour_choice_3_img = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
 
+    # step 5 color
+    step_5_color_placeholder = models.CharField("Step 5 - Color - Placeholder", max_length=255, blank=True)
+
     # step 6
     step_6_choice_1_subtitle = models.CharField("Step 6 - Contactron Subtitle", max_length=255, blank=True)
     step_6_choice_2_subtitle = models.CharField("Step 6 - Multi Point Lock Subtitle", max_length=255, blank=True)
@@ -1008,7 +1015,8 @@ class ConfiguratorPage(RoutablePageMixin, Page):
     usecase_summary = models.CharField("Summary - Use Case", max_length=255, blank=True)
     type_summary = models.CharField("Summary - Type", max_length=255, blank=True)
     additions_summary = models.CharField("Summary - Additions", max_length=255, blank=True)
-    color_summary = models.CharField("Summary - Color", max_length=255, blank=True)
+    color_summary = models.CharField("Summary - Color Base", max_length=255, blank=True)
+    color_second_summary = models.CharField("Summary - Color Second", max_length=255, blank=True)
     smarthome_summary = models.CharField("Summary - Smart Home", max_length=255, blank=True)
 
     button_download_summary = models.CharField("Summary - Button Download", max_length=255, blank=True)
@@ -1021,6 +1029,9 @@ class ConfiguratorPage(RoutablePageMixin, Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+
+
+
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
@@ -1043,7 +1054,9 @@ class ConfiguratorPage(RoutablePageMixin, Page):
         MultiFieldPanel(
             [
                 FieldPanel("title_step_1"),
-                FieldPanel("description_step_1"),
+                FieldPanel("description_step_1a"),
+                FieldPanel("description_step_1b"),
+                FieldPanel("subtitle_step_1b"),
                 FieldPanel("title_step_2"),
                 FieldPanel("description_step_2"),
                 FieldPanel("title_step_3"),
@@ -1052,7 +1065,9 @@ class ConfiguratorPage(RoutablePageMixin, Page):
                 FieldPanel("description_step_4"),
                 FieldPanel("title_step_5"),
                 FieldPanel("description_step_5a"),
+                FieldPanel("subtitle_step_5a"),
                 FieldPanel("description_step_5b"),
+                FieldPanel("subtitle_step_5b"),
                 FieldPanel("title_step_6"),
                 FieldPanel("description_step_6"),
             ],
@@ -1191,14 +1206,22 @@ class ConfiguratorPage(RoutablePageMixin, Page):
 
     @route(r'download-pdf/$')
     def serve_pdf(self, request, *args, **kwargs):
-        pdf_file = generate_pdf(request.session['config_data'], '')
+        pdf_file = generate_pdf(request.session.get('config_data'), '')
         return HttpResponse(pdf_file, content_type='application/pdf')
 
     def serve(self, request, *args, **kwargs):
         if request.method == "POST":
-            data = json.loads(request.body)
+            try:
+                data = json.loads(request.body)
+            except json.JSONDecodeError:
+                return JsonResponse({"errors": "Invalid JSON"}, status=400)
 
-            request.session['config_data'] = data
+            form = ConfigForm(data)
+            print(data)
+            if not form.is_valid():
+                return JsonResponse({"errors": form.errors}, status=400)
+            print(form.cleaned_data)
+            request.session['config_data'] = form.cleaned_data
 
             return JsonResponse(
                 {
@@ -1206,6 +1229,14 @@ class ConfiguratorPage(RoutablePageMixin, Page):
                 },
                 status=200,
             )
+        if request.LANGUAGE_CODE != 'pl':
+            locale = Locale.objects.get(language_code=request.LANGUAGE_CODE)
+            root = Page.objects.filter(
+                locale=locale,
+                depth=2
+            ).first()
+            if root:
+                return redirect(root.url)
 
         return super().serve(request, *args, **kwargs)
 

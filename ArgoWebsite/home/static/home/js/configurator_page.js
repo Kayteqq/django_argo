@@ -143,17 +143,22 @@ function getCSRFToken() {
 function globalData() {
     const defaults = {
         initialActiveSteps: [false, false, false, false, false, false, false],
-        styleLine: '', //industrial, vintage, glamour
+        styleLine: 'industrial', //industrial, vintage, glamour
         productUsecase: '',
         productType: '', //hinged, sliding, pivot, folding, fixed
         handleType: '',
-        color: '',
+        color1: '',
+        color2: '',
 
-        isStyleLineConfirmed: false,
+        customColor1Enabled: false,
+        customColor2Enabled: false,
+
+        isStyleLineConfirmed: true,
         isProductUsecaseConfirmed: false,
         isProductTypeConfirmed: false,
         isHandleConfirmed: false,
-        isColorConfirmed: false,
+        isColor1Confirmed: false,
+        isColor2Confirmed: false,
         isShapeConfirmed: false,
         isSmartHomeConfirmed: false,
 
@@ -187,19 +192,25 @@ function globalData() {
         selectedProductUsecase: defaults.productUsecase,
         selectedProductType: defaults.productType,
         selectedHandleType: defaults.handleType,
-        selectedColor: defaults.color,
+        selectedColor1: defaults.color1,
+        customColor1: defaults.color1,
+        customColor1Enabled: defaults.customColor1Enabled,
+        selectedColor2: defaults.color2,
+        customColor2: defaults.color2,
+        customColor2Enabled: defaults.customColor2Enabled,
 
         isStyleLineConfirmed: defaults.isStyleLineConfirmed,
         isProductUsecaseConfirmed: defaults.isProductUsecaseConfirmed,
         isProductTypeConfirmed: defaults.isProductTypeConfirmed,
         isHandleConfirmed: defaults.isHandleConfirmed,
-        isColorConfirmed: defaults.isColorConfirmed,
+        isColor1Confirmed: defaults.isColor1Confirmed,
+        isColor2Confirmed: defaults.isColor2Confirmed,
         isShapeConfirmed: defaults.isShapeConfirmed,
         isSmartHomeConfirmed: defaults.isSmartHomeConfirmed,
         get isStyleLineSelected() {return this.selectedStyleLine !== ''},
         get isProductUsecaseSelected() {return this.selectedProductUsecase !== ''},
         get isProductTypeSelected() {return this.selectedProductType !== ''},
-        get isAccessorySelected() {return (this.selectedHandleType !== '' && this.selectedColor !== '')},
+        get isAccessorySelected() {return (this.selectedHandleType !== '' && this.selectedColor2 !== '')},
 
         smartHome: {
             multiPointLock: defaults.multiPointLock,
@@ -350,11 +361,36 @@ function globalData() {
             }
             return text;
         },
-        get colorDesc() {
+        get color1Desc() {
             let text = '';
-            if (this.selectedColor === 'gold') text = 'Złoto';
-            if (this.selectedColor === 'silver') text = 'Srebro';
-            if (this.selectedColor === 'bronze') text = 'Brąz';
+            if (this.customColor1Enabled) text = this.customColor1;
+            else if (this.selectedColor1 === '7016') text = 'Anthracite Grey';
+            else if (this.selectedColor1 === '7021') text = 'Black Grey';
+            else if (this.selectedColor1 === '7048') text = 'Pearl Mouse Grey';
+            else if (this.selectedColor1 === '1012') text = 'Lemon Yellow';
+            else if (this.selectedColor1 === '1013') text = 'Oyster White';
+            else if (this.selectedColor1 === '6021') text = 'Pale Green';
+            else if (this.selectedColor1 === '1036') text = 'Pearl Gold';
+            else if (this.selectedColor1 === '5003') text = 'Sapphire Blue';
+            else if (this.selectedColor1 === '6005') text = 'Moss Green';
+            else text = this.selectedColor1;
+
+            return text;
+        },
+        get color2Desc() {
+            let text = '';
+            if (this.customColor2Enabled) text = this.customColor2;
+            else if (this.selectedColor2 === '7016') text = 'Anthracite Grey';
+            else if (this.selectedColor2 === '7021') text = 'Black Grey';
+            else if (this.selectedColor2 === '7048') text = 'Pearl Mouse Grey';
+            else if (this.selectedColor2 === '1012') text = 'Lemon Yellow';
+            else if (this.selectedColor2 === '1013') text = 'Oyster White';
+            else if (this.selectedColor2 === '6021') text = 'Pale Green';
+            else if (this.selectedColor2 === '1036') text = 'Pearl Gold';
+            else if (this.selectedColor2 === '5003') text = 'Sapphire Blue';
+            else if (this.selectedColor2 === '6005') text = 'Moss Green';
+            else text = this.selectedColor2;
+
             return text;
         },
 
@@ -411,15 +447,33 @@ function globalData() {
             if(name) this.selectedHandleType = name;
             this.isHandleConfirmed = true;
         },
-        chooseColor(name) {
-            if(name) this.selectedColor = name;
-            this.isColorConfirmed = true;
+        chooseColor1(name) {
+            if(name) this.selectedColor1 = name;
+            this.isColor1Confirmed = true;
+        },
+        chooseColor2(name) {
+            if(name) this.selectedColor2 = name;
+            this.isColor2Confirmed = true;
         },
         confirmShape() {
             this.isShapeConfirmed = true;
         },
         confirmSmartHome() {
             this.isSmartHomeConfirmed = true;
+        },
+
+        confirmCustomColor1() {
+            if(this.customColor1Enabled)
+            {
+                this.selectedColor1 = this.customColor1;
+            }
+        },
+        confirmCustomColor2() {
+            if(this.customColor2Enabled)
+            {
+                this.selectedColor2 = this.customColor2;
+            }
+
         },
 
 
@@ -430,42 +484,66 @@ function globalData() {
         confirmStep(step) {
             switch(step) {
                 case 0:
-                    this.activeSteps[0] = false;
+                    // if (this.selectedStyleLine !== '' && this.selectedColor1 !== '') {
+                    if (this.selectedStyleLine !== '') {
+
+                        this.activeSteps[0] = false;
+                    }
+                    else break;
                     if (this.selectedProductUsecase === '')
                     {
                         this.activeSteps[1] = true
                         break;
                     }
                 case 1:
-                    this.activeSteps[1] = false;
+                    if (this.selectedProductUsecase !== '')
+                    {
+                        this.activeSteps[1] = false;
+                    }
+                    else break;
                     if (this.selectedProductType === '')
                     {
                         this.activeSteps[2] = true;
                         break;
                     }
                 case 2:
-                    this.activeSteps[2] = false;
+                    if (this.selectedProductType !== '')
+                    {
+                        this.activeSteps[2] = false;
+                    }
+                    else break;
                     if (!this.isShapeConfirmed)
                     {
                         this.activeSteps[3] = true;
                         break;
                     }
                 case 3:
-                    this.activeSteps[3] = false;
-                    if (this.selectedHandleType === '' || this.selectedColor === '' )
+                    if (this.isShapeConfirmed)
+                    {
+                        this.activeSteps[3] = false;
+                    }
+                    else break;
+                    if (this.selectedHandleType === '' || this.selectedColor2 === '' )
                     {
                         this.activeSteps[4] = true;
                         break;
                     }
                 case 4:
-                    this.activeSteps[4] = false;
+                    if (this.selectedHandleType !== '' || this.selectedColor2 !== '' )
+                    {
+                        this.activeSteps[4] = false;
+                    }
+                    else break;
                     if (!this.isSmartHomeConfirmed)
                     {
                         this.activeSteps[5] = true;
                         break;
                     }
                 case 5:
-                    this.activeSteps[5] = false;
+                    if (this.isSmartHomeConfirmed) {
+                        this.activeSteps[5] = false;
+                    }
+                    else break;
                     this.activeSteps[6] = true;
                     window.scrollTo(0, 0)
                     break;
@@ -476,7 +554,7 @@ function globalData() {
                 this.isProductUsecaseConfirmed &&
                 this.isProductTypeConfirmed &&
                 this.isHandleConfirmed &&
-                this.isColorConfirmed &&
+                this.isColor2Confirmed &&
                 this.isShapeConfirmed &&
                 this.isSmartHomeConfirmed
             )
@@ -1413,7 +1491,7 @@ function globalData() {
             this.input.rightWidth = this.shapeValues.rightCells.x;
         },
 
-        async sendData(el) {
+        async sendData(el, redirect) {
             this.loading=true;
             try {
                 const r = await fetch('', {
@@ -1425,18 +1503,29 @@ function globalData() {
                     },
                     body: JSON.stringify({
                         'styleLine': this.styleLineDesc,
+                        'color1': this.color1Desc,
                         'usecase': this.productUsecaseDesc,
                         'type': this.productTypeDesc,
                         'additivies': this.additivesDesc,
-                        'color': this.colorDesc,
+                        'color2': this.color2Desc,
                         'smart': this.smartHomeDesc,
+                        'sideLimitation': this.shapeLimitations.sides[0],
+                        'doorSide': this.shapeValues.doorSide,
+                        'leftWindowEnabled': this.shapeValues.isWindowsLeftEnabled,
+                        'rightWindowEnabled': this.shapeValues.isWindowsRightEnabled,
+                        'topWindowEnabled': this.shapeValues.isSkylightEnabled,
+                        'productWidth': this.input.totalWidth,
+                        'productHeight': this.input.totalHeight,
+                        'doorWidth': this.input.doorWidth,
+                        'rightWidth': this.input.rightWidth,
+                        'leftWidth': this.input.leftWidth,
                     })
                 })
                 if (!r.ok) throw r;
                 return await r.json();
             } finally {
                 this.loading=false;
-                window.location.href = el.dataset.url;
+                if (redirect) window.location.href = el.dataset.url;
             }
         },
 
