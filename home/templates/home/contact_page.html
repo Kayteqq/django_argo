@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailimages_tags %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'home/css/contact_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+    <main>
+        <section class="section-hero image-wrapper">
+            {% image page.image_hero original class="section-hero__img" %}
+            <svg class="section-hero__svg"><use xlink:href="#rightTriangle"></use></svg>
+        </section>
+        <section class="section-contact" id="contact">
+            <div class="section-contact__inner-divider right">
+                <p class="section-contact__motto motto">{{ page.motto_contact }}</p>
+                <h1 class="section-contact__title title">{{ page.title_contact }}</h1>
+                <p class="section-contact__text text">{{ page.text_contact }}</p>
+                <div class="section-contact__grid">
+                    <div class="section-contact__grid__item element-1">
+                        <p class="section-contact__grid__text bold text">{{ settings.home.CompanyParametersSetting.company_name }}</p>
+                        <p class="section-contact__grid__text bold text">{{ settings.home.CompanyParametersSetting.address_line_1 }}</p>
+                        <p class="section-contact__grid__text bold text">{{ settings.home.CompanyParametersSetting.address_line_2 }}</p>
+                        <br class="text">
+                        <p class="section-contact__grid__text text">NIP: {{ settings.home.CompanyParametersSetting.nip }}</p>
+                        <p class="section-contact__grid__text text">REGON: {{ settings.home.CompanyParametersSetting.regon }}</p>
+                    </div>
+                    <div class="section-contact__grid__item element-3">
+                        <p class="section-contact__grid__text bold text">{{ page.title_phone }}</p>
+                        {% for item in page.contact_phones.all %}
+                            <br class="text">
+                            <p class="section-contact__grid__text text">{{ item.description }}</p>
+                            {% if item.telephone %}
+                                <p class="section-contact__grid__text text">{{ item.telephone }}</p>
+                            {% endif %}
+                            {% if item.mail %}
+                                <p class="section-contact__grid__text text">{{ item.mail }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="section-contact__inner-divider left" x-data="contactForm()">
+                <form x-ref="formElement" @submit.prevent="submitData()">
+                    {% csrf_token %}
+                    <div>
+                        {% for field in form %}
+                            <div class="section-contact__field {{ field.name }}">
+                                {{ field.label_tag }}
+                                {{ field }}
+                            {{ field.errors }}
+                                <template x-for="error in errors['{{ field.name }}']">
+                                    <p x-text="error.message"></p>
+                                </template>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <button class="section-contact__button button--variant_a" type="submit" :disabled="loading">
+                        <span x-show="!loading">
+                            {{ page.label_send }}
+                        </span>
+                        <span x-show="loading">
+                            {{ page.label_sending }}
+                        </span>
+                    </button>
+                    {% if config_data %}
+                        <div class="section-contact__attachment">
+                            {{ page.label_attachment }} - {{ config_data.styleLine }} {{ date }}
+                        </div>
+                    {% endif %}
+                </form>
+            </div>
+        </section>
+        <section class="section-map">
+            <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d19982.3697477033!2d22.6032013!3d51.2412478!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472256df1f82b0f7%3A0x1d73a58cba8f9db!2sArgo%20Sp.%20z%20o.o.!5e0!3m2!1spl!2spl!4v1770111805533!5m2!1spl!2spl"
+                    class="section-map__map"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </section>
+    </main>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        function contactForm() {
+            return {
+                loading: false,
+                message: '',
+                errors: {},
+                submitData() {
+                    this.loading = true;
+                    const formData = new FormData(this.$refs.formElement);
+
+
+                    fetch(window.location.href, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRFToken': formData.get('csrfmiddlewaretoken').toString()
+                        }
+                    })
+                    .then(async response => {
+                        const data = await response.json();
+                        if (response.ok && data.status === 'success')
+                        {
+                            this.message = data.message;
+                            this.$refs.formElement.reset();
+                        }
+                        else
+                        {
+                            this.errors = data.errors || {}
+                        }
+                    })
+                    .catch(error => alert(error))
+                    .finally(() => { this.loading = false});
+                }
+            }
+        }
+    </script>
+{% endblock %}

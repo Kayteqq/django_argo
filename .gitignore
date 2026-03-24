@@ -1,0 +1,8 @@
+.env
+venv/
+*.png
+*.jpg
+*.gif
+*.mp4
+*.webp
+*.WebP

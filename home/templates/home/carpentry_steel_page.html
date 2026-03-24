@@ -1,0 +1,342 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailimages_tags %}
+
+{% block body_class %}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'home/css/carpentry_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<main>
+    <section class="section-hero">
+        <div class="section-hero__inner-divider left image-wrapper">
+            {% image page.image_hero original class='section-hero__img' %}
+        </div>
+        <div class="section-hero__inner-divider right">
+            <svg class="section-hero__svg-container">
+                <use xlink:href="#argoArrow"></use>
+            </svg>
+            <h1 class="section-hero__title title">{{ page.title_hero }}</h1>
+            <p class="section-hero__text text">{{ page.text_hero }}</p>
+        </div>
+    </section>
+    <section class="section-collections">
+        <h1 class="section-collections__mobile-title title">{{ page.title_collections }}</h1>
+        <p class="section-collections__mobile-text text">{{ page.text_collections }}</p>
+        <div class="section-collections__segment">
+            <div class="section-collections__segment__certificate">
+                <div class="section-collections__segment__img-wrapper">
+                    {% image page.image_1_collections original class='section-collections__segment__img' %}
+                </div>
+            </div>
+            <h1 class="section-collections__segment__subtitle subtitle">{{ page.subtitle_1_collections }}</h1>
+            <p class="section-collections__segment__text text">{{ page.text_1_collections }}</p>
+            <a class="section-collections__segment__button button--variant_b" href="{{ page.redirect_1_collections.url }}">
+                <span>{{ page.button_1_collections }}</span>
+            </a>
+        </div>
+        <div class="section-collections__segment active">
+            <div class="section-collections__segment__certificate">
+                <div class="section-collections__segment__img-wrapper">
+                    {% image page.image_2_collections original class='section-collections__segment__img' %}
+                </div>
+            </div>
+            <h1 class="section-collections__segment__subtitle subtitle">{{ page.subtitle_2_collections }}</h1>
+            <p class="section-collections__segment__text text">{{ page.text_2_collections }}</p>
+            <a class="section-collections__segment__button button--variant_b" href="{{ page.redirect_2_collections.url }}">
+                <span>{{ page.button_2_collections }}</span>
+            </a>
+        </div>
+        <div class="section-collections__segment">
+            <div class="section-collections__segment__certificate">
+                <div class="section-collections__segment__img-wrapper">
+                    {% image page.image_3_collections original class='section-collections__segment__img' %}
+                </div>
+            </div>
+            <h1 class="section-collections__segment__subtitle subtitle">{{ page.subtitle_3_collections }}</h1>
+            <p class="section-collections__segment__text text">{{ page.text_3_collections }}</p>
+            <a class="section-collections__segment__button button--variant_b" href="{{ page.redirect_3_collections.url }}">
+                <span>{{ page.button_3_collections }}</span>
+            </a>
+        </div>
+    </section>
+    <section class="section-realizations">
+        <h1 class="section-realizations__title title">
+            {{ page.title_realizations }}
+        </h1>
+        <div class="section-realizations__grid" data-slider>
+            {% for item in page.realizations_images.all %}
+                <div class="section-realizations__grid__item image-wrapper">
+                    {% image item.image original %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="section-realizations__points static">
+            {% for item in page.realizations_images.all %}
+                <svg class="section-realizations__points__svg static"><use xlink:href="#dot"></use></svg>
+            {% endfor %}
+        </div>
+        <div class="section-realizations__points dynamic">
+            {% for item in page.realizations_images.all %}
+                <svg class="section-realizations__points__svg dynamic" style="opacity: 0"><use xlink:href="#dot"></use></svg>
+            {% endfor %}
+        </div>
+        <div class="section-realizations__points dynamic-mobile">
+            {% for item in page.realizations_images.all %}
+                <svg class="section-realizations__points__svg dynamic-mobile"><use xlink:href="#dot"></use></svg>
+            {% endfor %}
+        </div>
+        <div class="section-realizations__buttons left">
+            <svg class="section-realizations__buttons__svg left"><use xlink:href="#sharpArrow"></use></svg>
+        </div>
+        <div class="section-realizations__buttons right">
+            <svg class="section-realizations__buttons__svg right"><use xlink:href="#sharpArrow"></use></svg>
+        </div>
+    </section>
+    <section class="section-projects">
+        <div class="section-projects__inner-divider left">
+            <h1 class="section-projects__title title">{{ page.title_projects }}</h1>
+            <p class="section-projects__text text">{{ page.text_projects }}<p>
+            <a class="section-projects__button button--variant_a" href="{{ page.redirect_projects }}">
+                <span>{{ page.button_projects }}</span>
+            </a>
+        </div>
+        <div class="section-projects__inner-divider right image-wrapper">
+            {% image page.image_projects original class='section-projects__img' %}
+        </div>
+    </section>
+    <section class="section-image-divider image-wrapper">
+        {% image page.image_divider original class='section-image-divider__img' %}
+    </section>
+</main>
+
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const el = document.querySelector(".section-hero__title");
+        const ro = new ResizeObserver(entries => {
+          const h = entries[0].contentRect.height;
+          document.documentElement.style.setProperty("--box-height", `${h}px`);
+        });
+
+        ro.observe(el);
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const slider = document.querySelector('.section-realizations__grid');
+        const slides = document.querySelectorAll('.section-realizations__grid > *');
+        const dots = document.querySelectorAll('.section-realizations__points.dynamic-mobile > *')
+
+        function updateActiveDescription() {
+            const sliderRect = slider.getBoundingClientRect();
+            const sliderCenter = sliderRect.left + sliderRect.width / 2;
+
+            let closestIndex = 0;
+            let closestDistance = Infinity;
+
+            slides.forEach((slide, index) => {
+                const rect = slide.getBoundingClientRect();
+                const slideCenter = rect.left + rect.width / 2;
+                const distance = Math.abs(sliderCenter - slideCenter);
+
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestIndex = index;
+                }
+            });
+
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[closestIndex].classList.add('active');
+        }
+
+        slider.addEventListener('scroll', () => {
+            requestAnimationFrame(updateActiveDescription);
+        });
+
+        updateActiveDescription();
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+        const slider = document.querySelector('[data-slider]');
+        const slides = Array.from(slider.querySelectorAll('.section-realizations__grid__item'));
+        const dots = Array.from(document.querySelectorAll('.section-realizations__points__svg.dynamic'))
+        const buttonRight = document.querySelector('.section-realizations__buttons.right')
+        const buttonLeft = document.querySelector('.section-realizations__buttons.left')
+        const sliderSection = document.querySelector('.section-realizations')
+
+        let sliderRetries = 0;
+
+
+        let prev = 0;
+        let current = 1 % slides.length;
+        let next = 2 % slides.length;
+        const interval = 2000;
+        let autoPlayTimeout;
+
+        gsap.set(slides, {
+          '--x-pct': '200%',
+          '--x-rem': '3.75rem',
+        });
+        // inicjalny slide
+        gsap.set(slides[prev],      {
+            '--x-pct': '-100%', '--x-rem': '-1.875rem', '--x-remm': '-2rem'
+        });
+        gsap.set(slides[current],   {
+            '--x-pct': '0%', '--x-rem': '0rem', '--x-remm': '0rem',
+        });
+        gsap.set(slides[next],      {
+            '--x-pct': '100%', '--x-rem': '1.875rem', '--x-remm': '2rem'
+        });
+
+
+
+        gsap.set(dots[prev], { opacity: 1})
+        gsap.set(dots[current], { opacity: 1})
+        gsap.set(dots[next], { opacity: 1})
+
+        let queue = Promise.resolve();
+        function enqueue(direction) {
+            queue = queue.then(() => runSlider(direction));
+        }
+
+        function startAutoPlay() {
+            stopAutoPlay();
+            const firstDelay = Math.max(0, interval - 2000);
+
+            const scheduleNext = (delay) => {
+                autoPlayTimeout = setTimeout(() => {
+                    enqueue('right');
+                    scheduleNext(interval);
+                }, delay);
+            }
+            scheduleNext(firstDelay);
+        }
+
+        function stopAutoPlay() {
+            clearTimeout(autoPlayTimeout);
+        }
+
+        sliderSection.addEventListener('mouseenter', stopAutoPlay);
+        sliderSection.addEventListener('mouseleave', startAutoPlay);
+
+        buttonRight.addEventListener('click', () => {
+            enqueue('right');
+        })
+        buttonLeft.addEventListener('click', () => {
+            enqueue('left');
+        })
+
+        startAutoPlay();
+
+        function runSlider(direction) {
+            return new Promise(resolve => {
+                const prev = direction === 'right'
+                    ? (current - 1 + slides.length) % slides.length
+                    : (current + 1) % slides.length;
+
+                const next = direction === 'right'
+                    ? (current + 1) % slides.length
+                    : (current - 1 + slides.length) % slides.length;
+
+                const next_next = direction === 'right'
+                    ? (next + 1) % slides.length
+                    : (next - 1 + slides.length) % slides.length;
+
+                const tl = gsap.timeline({
+                    onComplete: () => {
+                        current = next;
+                        resolve();
+                    }
+                });
+
+                tl.fromTo(
+                    slides[next_next],
+                    {
+                        '--x-pct': direction === 'right' ? '200%' : '-200%',
+                        '--x-rem': direction === 'right' ? '3.75rem' : '-3.75rem',
+
+                    },
+                    {
+                        '--x-pct': direction === 'right' ? '100%' : '-100%',
+                        '--x-rem': direction === 'right' ? '1.875rem' : '-1.875rem',
+
+
+                        duration: 1.6,
+                        ease: 'power2.inOut',
+                    },
+                    0
+                );
+
+                tl.fromTo(
+                    slides[next],
+                    {
+                        '--x-pct': direction === 'right' ? '100%' : '-100%',
+                        '--x-rem': direction === 'right' ? '1.875rem' : '-1.875rem',
+                    },
+                    {
+
+                        '--x-pct': '0%',
+                        '--x-rem': '0rem',
+
+                        duration: 1.6,
+                        ease: 'power2.inOut',
+                    },
+                    0
+                );
+
+                tl.fromTo(
+                    slides[current],
+                    {
+                        '--x-pct': '0%',
+                        '--x-rem': '0rem',
+
+                    },
+                    {
+                        '--x-pct': direction === 'right' ? '-100%' : '100%',
+                        '--x-rem': direction === 'right' ? '-1.875rem' : '1.875rem',
+
+                        duration: 1.6,
+                        ease: 'power2.inOut',
+                    },
+                    0
+                );
+
+                tl.to(
+                    slides[prev],
+                    {
+                        '--x-pct': direction === 'right' ? '-200%' : '200%',
+                        '--x-rem': direction === 'right' ? '-3.75rem' : '3.75rem',
+
+                        duration: 1.6,
+                        ease: 'power2.inOut',
+                    },
+                    0
+                );
+
+                tl.fromTo(
+                    dots[next_next],
+                    { opacity: 0 },
+                    {
+                        opacity: 1,
+                        duration: 1.6,
+                        ease: 'power2.inOut',
+                    },
+                    0
+                );
+                tl.to(
+                    dots[prev],
+                    {
+                        opacity: 0,
+                        duration: 1.6,
+                        ease: 'power2.inOut',
+                    },
+                    0
+                );
+            });
+        }
+    });
+</script>
+{% endblock extra_js %}
