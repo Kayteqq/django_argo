@@ -1544,7 +1544,6 @@ class ContactPage(Page):
         return render(request, self.template, context)
 
 class PrivacyPoliticsPage(Page):
-    max_count = 1
     template = 'home/privacy_politics_page.html'
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
@@ -1557,4 +1556,7 @@ class PrivacyPoliticsPage(Page):
         FieldPanel('policy_body'),
     ]
 
+    class Meta:
+        verbose_name = "Contract or Certification Page"
+        verbose_name_plural = "Contract or Certification Pages"
 
