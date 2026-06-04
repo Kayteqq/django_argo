@@ -351,8 +351,8 @@
             clearTimeout(autoPlayTimeout);
         }
 
-        sliderSection.addEventListener('mouseenter', stopAutoPlay);
-        sliderSection.addEventListener('mouseleave', startAutoPlay);
+        {#sliderSection.addEventListener('mouseenter', stopAutoPlay);#}
+        {#sliderSection.addEventListener('mouseleave', startAutoPlay);#}
 
         buttonRight.addEventListener('click', () => {
             enqueue('right');

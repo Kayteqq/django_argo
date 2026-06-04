@@ -42,8 +42,8 @@
         <div class="section-display-2__inner-divider left image-wrapper"
 	     x-data="{ isMobile: ('ontouchstart' in window) }"
 	     x-init="$refs.vid.play().catch(e => console.log('Autoplay blocked, but we tried!'))"
-	     @mouseenter="if(!isMobile) $refs.vid.pause();"
-	     @mouseleave="if(!isMobile) $refs.vid.play();"
+{#	     @mouseenter="if(!isMobile) $refs.vid.pause();"#}
+{#	     @mouseleave="if(!isMobile) $refs.vid.play();"#}
 	>
             <video class="section-display-2__vid"
                    x-ref="vid"
