@@ -2,6 +2,7 @@
 venv/
 *.png
 *.jpg
+*.jpeg
 *.gif
 *.mp4
 *.webp
@@ -11,4 +12,5 @@ venv/
 __pychache__/
 **/migrations/*.py
 !**/migrations/__init__.py
-
+/media/
+/static/
