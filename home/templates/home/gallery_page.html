@@ -26,7 +26,7 @@
                     <div class="section-galleries__full__slider">
                         {% for block in item.images %}
                             <div class="section-galleries__full__image image-wrapper" style="{% if not forloop.first %} transform: translate(100%) {% endif %}">
-                                {% image block.value original class="section-gallery__full__image__img"  %}
+                                {% image block.value original loading='lazy' class="section-gallery__full__image__img"  %}
                             </div>
                         {% endfor %}
                         <button
@@ -59,16 +59,26 @@
                         </div>
             		<div class="section-gallery__full__points static">
                 	    {% for item in item.images %}
-                    		<svg class="section-gallery__full__points__svg static"><use xlink:href="#dot"></use></svg>
-                            {% endfor %}
+                    		<svg class="section-gallery__full__points__svg static desktop"><use xlink:href="#dot"></use></svg>
+                        {% endfor %}
             		</div>
             		<div class="section-gallery__full__points dynamic">
                 	    {% for item in item.images %}
-                    		<svg class="section-gallery__full__points__svg dynamic" style="opacity: 0"><use xlink:href="#dot"></use></svg>
+                    		<svg class="section-gallery__full__points__svg dynamic desktop" style="opacity: 0"><use xlink:href="#dot"></use></svg>
                 	    {% endfor %}
                     	</div>
 		    </div>
                     <div class="section-galleries__full__content">
+			<div class="section-gallery__full__points static">
+                	    {% for item in item.images %}
+                    		<svg class="section-gallery__full__points__svg static mobile"><use xlink:href="#dot"></use></svg>
+	                    {% endfor %}
+            		</div>
+            		<div class="section-gallery__full__points dynamic">
+                	    {% for item in item.images %}
+                    		<svg class="section-gallery__full__points__svg dynamic mobile" style="opacity: 0"><use xlink:href="#dot"></use></svg>
+                	    {% endfor %}
+			</div>
                         <div class="section-galleries__full__content__block">
                             <p class="text">{{ page.external_keyword }}</p>
                             <p class="text">{{ item.external }}</p>
@@ -90,7 +100,11 @@
                          style="{% if not forloop.first %} transform: translate(100%) {% endif %}"
                          @click="galleryEnter({{ forloop.parentloop.counter0 }})"
                          aria-label="Open Gallery Button">
-                        {% image block.value original class="section-gallery__item__image__img" %}
+                        {% if forloop.first %}
+                            {% image block.value original loading="lazy" class="section-gallery__item__image__img" %}
+                        {% else %}
+                            {% image block.value original loading="lazy" class="section-gallery__item__image__img" %}
+                        {% endif %}
                     </div>
                 {% endfor %}
                 <button
@@ -149,11 +163,13 @@
 
                 sliders.forEach(slider => {
                     const slides = Array.from(slider.querySelectorAll('.section-galleries__full__image'))
-		    const dots = Array.from(slider.querySelectorAll('.section-gallery__full__points__svg.dynamic'))
+		    const dotsM = Array.from(slider.querySelectorAll('.section-gallery__full__points__svg.dynamic.mobile'))
+		    const dotsD = Array.from(slider.querySelectorAll('.section-gallery__full__points__svg.dynamic.desktop'))
                     const buttonRight = slider.querySelector('.section-gallery__full__button.right')
                     const buttonLeft = slider.querySelector('.section-gallery__full__button.left')
 		    
-		    gsap.set(dots[0], {opacity:1});
+		    gsap.set(dotsM[0], {opacity:1});
+		    gsap.set(dotsD[0], {opacity:1});
                     
  		    let current = 0;
                     const timeout = 0;
@@ -196,7 +212,7 @@
                                 0
                             );
 			    tl.fromTo(
-                    		dots[next],
+                    		dotsM[next],
                     		{opacity: 0},
                     		{
                         	    opacity: 1,
@@ -207,7 +223,27 @@
                 	    );
 
                 	    tl.to(
-                    		dots[current],
+                    		dotsM[current],
+                    		{
+                        	    opacity: 0,
+                         	    duration: 1.6,
+                        	    ease: 'power2.inOut',
+                    		},
+                    		0
+                	    );
+			    tl.fromTo(
+                    		dotsD[next],
+                    		{opacity: 0},
+                    		{
+                        	    opacity: 1,
+                        	    duration: 1.6,
+                        	    ease: 'power2.inOut',
+                    		},
+                    		0
+                	    );
+
+                	    tl.to(
+                    		dotsD[current],
                     		{
                         	    opacity: 0,
                          	    duration: 1.6,
@@ -232,9 +268,7 @@
                 )
             },
             galleryEnter(id) {
-                if (window.matchMedia('(min-width: 768px)').matches) {
-                    this.active[id] = true;
-                }
+                this.active[id] = true;
             }
         }
     }

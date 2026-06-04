@@ -34,9 +34,9 @@
     }
 
     .section-hero__img {
-        max-height: 76%;
+        max-height: 56%;
         width: auto;
-        max-width: 76%;
+        max-width: 56%;
         height: auto;
 
     }
@@ -51,6 +51,7 @@
 
     .section-hero__svg-container {
         max-height: 28.8vw;
+        max-width: 28.8vw;
         position: absolute;
         aspect-ratio: 1;
         left: 0;
@@ -124,11 +125,10 @@
     }
 
     .section-details__text {
-        margin-bottom: 8.75rem;
+        margin-bottom: 3.75rem;
     }
 
     .section-details__detail {
-	cursor: pointer;
         display: grid;
         grid-template-columns: 57.6vw 1fr;
         grid-template-rows: repeat(2, 1fr);
@@ -200,6 +200,7 @@
     }
 
     .section-details__desc-hot {
+	cursor: pointer;
         grid-row: 2;
         grid-column: 1;
 
@@ -223,6 +224,7 @@
     }
 
     .section-details__desc-cold {
+	cursor: pointer;
         grid-row: 2;
         grid-column: 1;
 
@@ -258,24 +260,24 @@
         display: flex;
         flex-direction: column;
         gap: 6.25rem;
+	align-items: flex-start;
     }
 
     .section-configurator__inner-divider.left {
-        position: relative;
         height: 28.8vw;
+        display: flex;
+        flex-direction: row;
+        max-width: 28.8vw;
+        align-content: flex-start;
+        justify-content: flex-start;
     }
 
     .section-configurator__svg {
-        max-height: 28.8vw;
-        position: absolute;
-        aspect-ratio: 1;
-        left: 0;
-        top: 0;
-        bottom: 0;
+	max-height: 28.8vw;
+        max-width: 28.8vw;
         --color-fill: transparent;
         --color-stroke: var(--argo-granat);
         --stroke-width: 6px;
-        transform: translateX(-0.48rem)
     }
 
     .section-configurator__inner-divider.right {
@@ -324,9 +326,9 @@
         align-items: center;
     }
     .section-hero__img {
-        max-height: 80%;
+        max-height: 60%;
         width: auto;
-        max-width: 80%;
+        max-width: 60%;
         height: auto;
     }
 
@@ -412,9 +414,14 @@
         margin-left: 4rem;
     }
 
+    .section-details__grid {
+    
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+        column-gap: 11.11%;
+    }
 
     .section-details__detail {
-	cursor: pointer;
         display: grid;
         grid-template-columns: 1fr calc(12.5rem + 14.15vw) 13.75vw;
         height: 5rem;
@@ -478,6 +485,7 @@
     }
 
     .section-details__desc-hot {
+	cursor: pointer;
         height: 3.375rem;
         display: flex;
         flex-direction: column;
@@ -496,6 +504,7 @@
     }
 
     .section-details__desc-cold {
+	cursor: pointer;
         height: 3.375rem;
         display: flex;
         flex-direction: column;

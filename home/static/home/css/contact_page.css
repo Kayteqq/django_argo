@@ -145,7 +145,7 @@
     .section-contact__grid {
         display: grid;
         gap: 1.5625rem;
-        grid-template-columns: 13.125rem 19.375rem;
+        grid-template-columns: 13.125rem 22rem;
     }
 
 

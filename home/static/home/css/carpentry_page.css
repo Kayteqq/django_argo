@@ -1,4 +1,5 @@
 html {
+
     --x-pct: 0%;
     --x-rem: 0rem;
     --x-remm: 0rem;
@@ -56,6 +57,7 @@ html {
 
     .section-hero__svg-container {
         max-height: 28.8vw;
+	max-width: 28.8vw;
         position: absolute;
         aspect-ratio: 1;
         left: 0;
@@ -119,7 +121,6 @@ html {
         flex-direction: row;
         overflow-x: scroll;
         scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
         scrollbar-width: none;
         height: 45rem;
         gap: 2rem;
@@ -169,6 +170,8 @@ html {
     }
 
     .section-realizations__points {
+    }
+    .section-realizations__buttons {
     	display: none;
     }
     .section-projects {

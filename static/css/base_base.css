@@ -101,6 +101,7 @@ button {
     box-sizing: border-box;
     text-align: center;
     user-select: none;
+    transition: 0.5s ease;
 }
 
 

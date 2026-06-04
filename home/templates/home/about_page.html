@@ -153,6 +153,24 @@
                         <svg class="section-references__points__svg dynamic"><use xlink:href="#dot"></use></svg>
                     {% endfor %}
                 </div>
+                <button
+                    type="button"
+                    class="section-references__button right"
+                    data-action="slide">
+                    Slide Right / Przesuń w Prawo
+                </button>
+                <button
+                    type="button"
+                    class="section-references__button left"
+                    data-action="slide">
+                    Slide Left / Przesuń w Lewo
+                </button>
+                <div class="section-references__arrow left" inert>
+                    <svg><use xlink:href="#arrow"></use></svg>
+                </div>
+                <div class="section-references__arrow right" inert>
+                    <svg><use xlink:href="#arrow"></use></svg>
+                </div>
             </div>
         </section>
     </main>
@@ -165,44 +183,91 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const slider = document.querySelector('.section-certificates__certificates-mobile');
-        const slides = document.querySelectorAll('.section-certificates__certificates-mobile > *');
-        const titles = document.querySelectorAll('.section-certificates__descriptions-mobile > .section-certificates__segment__text');
-        const dots = document.querySelectorAll('.section-certificates__points__svg.mobile-dynamic')
-        const descriptions = document.querySelectorAll('.section-certificates__descriptions-mobile > .section-certificates__segment__subtitle');
+        const originalSlides = Array.from(slider.children);
+        const dots = document.querySelectorAll('.section-certificates__points__svg.mobile-dynamic');
+        const titles = document.querySelectorAll('.section-certificates__descriptions-mobile > .section-certificates__segment__subtitle');
+        const texts = document.querySelectorAll('.section-certificates__descriptions-mobile > .section-certificates__segment__text');
 
-        function updateActiveDescription() {
+        const totalItems = originalSlides.length;
+        if (totalItems === 0) return;
+
+        // 1. POTROJENIE ZAWARTOŚCI (A, B, C)
+        // Czyścimy slider i dodajemy 3 kopie
+        slider.innerHTML = '';
+        [1, 2, 3].forEach(() => {
+            originalSlides.forEach(slide => {
+                slider.appendChild(slide.cloneNode(true));
+            });
+        });
+
+        const allSlides = slider.querySelectorAll('.section-certificates__segment__certificate');
+
+        // Obliczamy szerokość jednego pełnego zestawu (np. szerokość 5 elementów)
+        // Zakładamy, że elementy są tej samej szerokości
+        const getSetWidth = () => {
+            const first = allSlides[0];
+            const lastInSet = allSlides[totalItems - 1];
+            // Odległość od początku 1. elementu do początku elementu za pierwszym zestawem
+            return allSlides[totalItems].offsetLeft - allSlides[0].offsetLeft;
+        };
+
+        function handleInfiniteScroll() {
+            const setWidth = getSetWidth();
+            const currentScroll = slider.scrollLeft;
+
+            // Jeśli wejdziemy za głęboko w zestaw C (koniec) -> skocz do zestawu B
+            if (currentScroll >= setWidth * 2) {
+                slider.scrollLeft = currentScroll - setWidth;
+            }
+            // Jeśli wejdziemy za głęboko w zestaw A (początek) -> skocz do zestawu B
+            else if (currentScroll <= setWidth * 0.5) {
+                slider.scrollLeft = currentScroll + setWidth;
+            }
+
+            updateUI();
+        }
+
+        function updateUI() {
             const sliderRect = slider.getBoundingClientRect();
             const sliderCenter = sliderRect.left + sliderRect.width / 2;
 
             let closestIndex = 0;
-            let closestDistance = Infinity;
+            let minDistance = Infinity;
 
-            slides.forEach((slide, index) => {
+            allSlides.forEach((slide, index) => {
                 const rect = slide.getBoundingClientRect();
-                const slideCenter = rect.left + rect.width / 2;
-                const distance = Math.abs(sliderCenter - slideCenter);
-
-                if (distance < closestDistance) {
-                    closestDistance = distance;
+                const center = rect.left + rect.width / 2;
+                const dist = Math.abs(sliderCenter - center);
+                if (dist < minDistance) {
+                    minDistance = dist;
                     closestIndex = index;
                 }
             });
 
-            descriptions.forEach(desc => desc.classList.remove('active'));
-            titles.forEach(title => title.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            descriptions[closestIndex].classList.add('active');
-            titles[closestIndex].classList.add('active');
-            dots[closestIndex].classList.add('active');
+            // Mapowanie dowolnego indeksu (0-14) na oryginalny (0-4)
+            const realIndex = closestIndex % totalItems;
+
+            // Aktualizacja klas active
+            [titles, texts, dots].forEach(group => {
+                group.forEach((el, idx) => el.classList.toggle('active', idx === realIndex));
+            });
         }
 
+        // Ustawiamy start na początku Zestawu B
+        const setInitial = () => {
+            slider.scrollLeft = getSetWidth();
+            updateUI();
+        };
+
         slider.addEventListener('scroll', () => {
-            requestAnimationFrame(updateActiveDescription);
+            // Używamy requestAnimationFrame dla wydajności
+            window.requestAnimationFrame(handleInfiniteScroll);
         });
 
-        updateActiveDescription();
-    })
-
+        // Inicjalizacja i obsługa zmiany okna
+        setInitial();
+        window.addEventListener('resize', setInitial);
+    });
     document.addEventListener('DOMContentLoaded', () => {
         let slider = document.querySelector('[data-slider="certificates"]');
         let slides = Array.from(slider.querySelectorAll('.section-certificates__segment'));
@@ -410,7 +475,7 @@
         {#setTimeout(runSlider, interval);#}
 
     });
-    document.addEventListener('DOMContentLoaded', () => {
+   document.addEventListener('DOMContentLoaded', () => {
         const slider = document.querySelector('[data-slider="references"]');
 
         if (!slider) return;
@@ -419,11 +484,11 @@
         if (!slides[0]) return;
 
         const dots = Array.from(slider.querySelectorAll('.section-references__points__svg.dynamic'));
-
-        {#const dots = Array.from(document.querySelectorAll('.section-certificates__points__svg.dynamic'))#}
+        const buttonRight = slider.querySelector('.section-references__button.right');
+        const buttonLeft = slider.querySelector('.section-references__button.left');
         let current = 0;
         const interval = 6000;
-
+        let autoPlayTimeout;
 
         gsap.set(slides, {
             opacity: '0',
@@ -438,47 +503,84 @@
             opacity: 1,
         })
 
-        function runSlider() {
-            const next = (current + 1) % slides.length;
-
-            const tl = gsap.timeline({
-                onComplete: () => {
-                    current = next;
-                    setTimeout(runSlider, interval);
-                }
-            });
-            gsap.to(dots[current],
-                {
-                    opacity: 0,
-                    duration: 1.6,
-                    ease: 'power4.inOut',
-                }
-            )
-
-            gsap.to(slides[current],
-                {
-                    opacity: 0,
-                    duration: 1.6,
-                    ease: 'power3.out',
-                }
-            )
-            gsap.to(slides[next],
-                {
-                    opacity: 1,
-                    duration: 1.6,
-                    ease: 'power3.in',
-                }
-            )
-            gsap.to(dots[next],
-                {
-                    opacity: 1,
-                    duration: 1.6,
-                    ease: 'power4.inOut',
-                }
-            )
-
+        let queue = Promise.resolve();
+        function enqueue(direction) {
+            queue = queue.then(() => runSlider(direction));
         }
-        runSlider();
+
+                function startAutoPlay() {
+            stopAutoPlay();
+            const firstDelay = Math.max(0, interval - 2000);
+
+            const scheduleNext = (delay) => {
+                autoPlayTimeout = setTimeout(() => {
+                    enqueue('right');
+                    scheduleNext(interval);
+                }, delay);
+            }
+            scheduleNext(firstDelay);
+        }
+
+        function stopAutoPlay() {
+            clearTimeout(autoPlayTimeout);
+        }
+
+        slider.addEventListener('mouseenter', stopAutoPlay);
+        slider.addEventListener('mouseleave', startAutoPlay);
+
+        buttonRight.addEventListener('click', () => {
+            enqueue('right');
+        })
+        buttonLeft.addEventListener('click', () => {
+            enqueue('left');
+        })
+
+        startAutoPlay();
+
+function runSlider(direction) {
+            return new Promise(resolve => {
+                const next = direction === 'right'
+                    ? (current + 1) % slides.length
+                    : (current - 1 + slides.length) % slides.length;
+
+                const tl = gsap.timeline({
+                    onComplete: () => {
+                        current = next;
+                        resolve();
+                    }
+                });
+                gsap.to(dots[current],
+                    {
+                        opacity: 0,
+                        duration: 1.6,
+                        ease: 'power4.inOut',
+                    }
+                )
+
+                gsap.to(slides[current],
+                    {
+                        opacity: 0,
+                        duration: 1.6,
+                        ease: 'power3.out',
+                    }
+                )
+                gsap.to(slides[next],
+                    {
+                        opacity: 1,
+                        duration: 1.6,
+                        ease: 'power3.in',
+                    }
+                )
+                gsap.to(dots[next],
+                    {
+                        opacity: 1,
+                        duration: 1.6,
+                        ease: 'power4.inOut',
+                    }
+                )
+            })
+        }
+        runSlider()
     });
 </script>
 {% endblock extra_js %}

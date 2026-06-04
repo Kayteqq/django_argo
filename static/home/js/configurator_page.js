@@ -143,6 +143,7 @@ function getCSRFToken() {
 function globalData() {
     const defaults = {
         initialActiveSteps: [false, false, false, false, false, false, false],
+        initialCompleteSteps: [false, false, false, false, false, false, false],
         styleLine: 'industrial', //industrial, vintage, glamour
         productUsecase: '',
         productType: '', //hinged, sliding, pivot, folding, fixed
@@ -207,10 +208,10 @@ function globalData() {
         isColor2Confirmed: defaults.isColor2Confirmed,
         isShapeConfirmed: defaults.isShapeConfirmed,
         isSmartHomeConfirmed: defaults.isSmartHomeConfirmed,
-        get isStyleLineSelected() {return this.selectedStyleLine !== ''},
+        get isStyleLineSelected() {return (this.selectedStyleLine !== '' && (this.selectedColor1 !== '' || (this.customColor1 !== '' && this.customColor1Enabled)))},
         get isProductUsecaseSelected() {return this.selectedProductUsecase !== ''},
         get isProductTypeSelected() {return this.selectedProductType !== ''},
-        get isAccessorySelected() {return (this.selectedHandleType !== '' && this.selectedColor2 !== '')},
+        get isAccessorySelected() {return (this.selectedHandleType !== '' && (this.selectedColor2 !== '' || (this.customColor2 !== '' && this.customColor2Enabled)))},
 
         smartHome: {
             multiPointLock: defaults.multiPointLock,
@@ -312,7 +313,8 @@ function globalData() {
         },
 
         activeSteps: defaults.initialActiveSteps,
-        get smartHomeDesc() {
+        completeSteps: defaults.initialCompleteSteps,
+		get smartHomeDesc() {
             let text = ''
             if (this.smartHome.multiPointLock) text += this.names.multi_point_lock;
             if (this.smartHome.contactron) text+= this.names.contactron;
@@ -482,70 +484,58 @@ function globalData() {
         },
 
         confirmStep(step) {
+
             switch(step) {
                 case 0:
                     // if (this.selectedStyleLine !== '' && this.selectedColor1 !== '') {
-                    if (this.selectedStyleLine !== '') {
+					this.activeSteps[0] = false;
 
-                        this.activeSteps[0] = false;
+					if (this.completeSteps[0] === false)
+					{
+						this.completeSteps[0] = true;
+                    	this.activeSteps[1] = true
                     }
-                    else break;
-                    if (this.selectedProductUsecase === '')
-                    {
-                        this.activeSteps[1] = true
-                        break;
-                    }
+					break;
                 case 1:
-                    if (this.selectedProductUsecase !== '')
-                    {
-                        this.activeSteps[1] = false;
-                    }
-                    else break;
-                    if (this.selectedProductType === '')
-                    {
-                        this.activeSteps[2] = true;
-                        break;
-                    }
+                    this.activeSteps[1] = false;
+					if (this.completeSteps[1] === false)
+					{
+						this.completeSteps[1] = true;
+                    	this.activeSteps[2] = true;
+					}
+                    break;
                 case 2:
-                    if (this.selectedProductType !== '')
-                    {
-                        this.activeSteps[2] = false;
-                    }
-                    else break;
-                    if (!this.isShapeConfirmed)
-                    {
+                    this.activeSteps[2] = false;
+					if (this.completeSteps[2] === false)
+					{
+						this.completeSteps[2] = true;
                         this.activeSteps[3] = true;
-                        break;
                     }
+					break;
                 case 3:
-                    if (this.isShapeConfirmed)
-                    {
-                        this.activeSteps[3] = false;
-                    }
-                    else break;
-                    if (this.selectedHandleType === '' || this.selectedColor2 === '' )
-                    {
+                    this.activeSteps[3] = false;
+					if (this.completeSteps[3] === false)
+					{
+						this.completeSteps[3] = true;
                         this.activeSteps[4] = true;
-                        break;
                     }
+					break;
                 case 4:
-                    if (this.selectedHandleType !== '' || this.selectedColor2 !== '' )
-                    {
-                        this.activeSteps[4] = false;
-                    }
-                    else break;
-                    if (!this.isSmartHomeConfirmed)
-                    {
+                    this.activeSteps[4] = false;
+					if (this.completeSteps[4] === false)
+					{
+						this.completeSteps[4] = true;
                         this.activeSteps[5] = true;
-                        break;
                     }
+					break;
                 case 5:
-                    if (this.isSmartHomeConfirmed) {
-                        this.activeSteps[5] = false;
+                    this.activeSteps[5] = false;
+					if (this.completeSteps[5] === false)
+					{
+						this.completeSteps[5] = true;
+	                	this.activeSteps[6] = true;
                     }
-                    else break;
-                    this.activeSteps[6] = true;
-                    window.scrollTo(0, 0)
+					window.scrollTo(0, 0)
                     break;
             }
 

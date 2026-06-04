@@ -25,13 +25,13 @@ from .reports import generate_pdf
 @register_setting
 class SocialMediaSettings(BaseSiteSetting):
     url_x           = models.URLField("URL X",          blank=True, null=True)
-    url_youtube     = models.URLField("URL YouTube",    blank=True, null=True)
+    url_youtube     = models.URLField("URL Facebook",   blank=True, null=True)
     url_instagram   = models.URLField("URL Instagram",  blank=True, null=True)
     url_linkedin    = models.URLField("URL Linkedin",   blank=True, null=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('url_x'),
-        FieldPanel('url_facebook'),
+        FieldPanel('url_youtube'),
         FieldPanel('url_instagram'),
         FieldPanel('url_linkedin'),
     ]
@@ -887,6 +887,8 @@ class ConfiguratorPage(RoutablePageMixin, Page):
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
 
+    is_featured = models.BooleanField(default=True, verbose_name="Is page featured?")
+
     motto_hero = models.CharField("Hero - Lead", max_length=255, blank=True)
     title_hero = models.CharField("Hero - Title", max_length=255, blank=True)
     text_hero = models.TextField("Hero - Text", blank=True)
@@ -1038,7 +1040,8 @@ class ConfiguratorPage(RoutablePageMixin, Page):
 
 
     content_panels = Page.content_panels + [
-        MultiFieldPanel(
+        FieldPanel("is_featured"),
+	MultiFieldPanel(
             [
                 FieldPanel("motto_hero"),
                 FieldPanel("title_hero"),
@@ -1194,10 +1197,11 @@ class ConfiguratorPage(RoutablePageMixin, Page):
                 FieldPanel("title_summary"),
                 FieldPanel("text_summary"),
                 FieldPanel("styleline_summary"),
+                FieldPanel("color_summary"),
                 FieldPanel("usecase_summary"),
                 FieldPanel("type_summary"),
                 FieldPanel("additions_summary"),
-                FieldPanel("color_summary"),
+                FieldPanel("color_second_summary"),
                 FieldPanel("smarthome_summary"),
                 FieldPanel("button_download_summary"),
                 FieldPanel("button_mail_summary"),
@@ -1210,7 +1214,7 @@ class ConfiguratorPage(RoutablePageMixin, Page):
 
     @route(r'download-pdf/$')
     def serve_pdf(self, request, *args, **kwargs):
-        pdf_file = generate_pdf(request.session.get('config_data'), '')
+        pdf_file = generate_pdf(request.session.get('config_data'), '', request.LANGUAGE_CODE)
         return HttpResponse(pdf_file, content_type='application/pdf')
 
     def serve(self, request, *args, **kwargs):
@@ -1231,7 +1235,7 @@ class ConfiguratorPage(RoutablePageMixin, Page):
                 },
                 status=200,
             )
-        if request.LANGUAGE_CODE != 'pl':
+        if not self.is_featured:
             locale = Locale.objects.get(language_code=request.LANGUAGE_CODE)
             root = Page.objects.filter(
                 locale=locale,
@@ -1476,7 +1480,7 @@ class ContactPage(Page):
                 )
 
                 if request.session.get('config_data'):
-                    pdf_buffer = generate_pdf(request.session.get('config_data'), data['email'])
+                    pdf_buffer = generate_pdf(request.session.get('config_data'), data['email'], request.LANGUAGE_CODE)
                     email.attach(
                         filename='produkt.pdf',
                         content=pdf_buffer.getvalue(),

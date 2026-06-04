@@ -108,9 +108,7 @@
                                 </a>
                             </template>
                             <template x-if="!langMenuOpen">
-                                <p class="navbar__language-box__name">
-                                    {{ translation.locale.language_code }}
-                                </p>
+                                <p class="navbar__language-box__name">{{ translation.locale.language_code }}</p>
                             </template>
                         {% endif %}
                     {% endfor %}
@@ -196,10 +194,18 @@
                     {% endfor %}
                 </div>
                 <div class="footer__column column-3">
-                    <a href="{{ settings.home.SocialMediaSettings.url_facebook }}" class="footer__text with-svg regular"><svg class="svg-inline"><use xlink:href="#iconFacebook"></use></svg>Facebook</a>
-                    <a href="{{ settings.home.SocialMediaSettings.url_instagram }}" class="footer__text with-svg regular"><svg class="svg-inline"><use xlink:href="#iconInstagram"></use></svg>Instagram</a>
-                    <a href="{{ settings.home.SocialMediaSettings.url_x }}" class="footer__text with-svg regular"><svg class="svg-inline"><use xlink:href="#iconTwitter"></use></svg>Twitter</a>
-                    <a href="{{ settings.home.SocialMediaSettings.url_linkedin }}" class="footer__text with-svg regular"><svg class="svg-inline"><use xlink:href="#iconLinkedin"></use></svg>LinkedIn</a>
+                    {% if settings.home.SocialMediaSettings.url_youtube %}                    
+                        <a href="{{ settings.home.SocialMediaSettings.url_youtube }}" class="footer__text with-svg regular"><svg class="svg-inline"><use xlink:href="#iconFacebook"></use></svg>Facebook</a>
+                    {% endif %}
+                    {% if settings.home.SocialMediaSettings.url_instagram %}
+                        <a href="{{ settings.home.SocialMediaSettings.url_instagram }}" class="footer__text with-svg regular"><svg class="svg-inline"><use xlink:href="#iconInstagram"></use></svg>Instagram</a>
+                    {% endif %}
+                    {% if settings.home.SocialMediaSettings.url_x %}
+                        <a href="{{ settings.home.SocialMediaSettings.url_x }}" class="footer__text with-svg regular"><svg class="svg-inline"><use xlink:href="#iconTwitter"></use></svg>Twitter</a>
+                    {% endif %}
+                    {% if settings.home.SocialMediaSettings.url_linkedin %}
+                        <a href="{{ settings.home.SocialMediaSettings.url_linkedin }}" class="footer__text with-svg regular"><svg class="svg-inline"><use xlink:href="#iconLinkedin"></use></svg>LinkedIn</a>
+                    {% endif %}
                 </div>
             </div>
         </footer>

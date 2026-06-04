@@ -99,7 +99,7 @@
         <div class="section-projects__inner-divider left">
             <h1 class="section-projects__title title">{{ page.title_projects }}</h1>
             <p class="section-projects__text text">{{ page.text_projects }}<p>
-            <a class="section-projects__button button--variant_a" href="{{ page.redirect_projects }}">
+            <a class="section-projects__button button--variant_a" href="{{ page.redirect_projects.url }}">
                 <span>{{ page.button_projects }}</span>
             </a>
         </div>
@@ -126,40 +126,97 @@
         ro.observe(el);
     });
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const slider = document.querySelector('.section-realizations__grid');
-        const slides = document.querySelectorAll('.section-realizations__grid > *');
-        const dots = document.querySelectorAll('.section-realizations__points.dynamic-mobile > *')
+document.addEventListener('DOMContentLoaded', () => { if (window.matchMedia('(max-width: 767px)').matches) {
+    // Sekcja 1: Hero Height (z zabezpieczeniem)
+    const el = document.querySelector(".section-hero__title");
+    if (el) {
+        const ro = new ResizeObserver(entries => {
+            const h = entries[0].contentRect.height;
+            document.documentElement.style.setProperty("--box-height", `${h}px`);
+        });
+        ro.observe(el);
+    }
 
-        function updateActiveDescription() {
-            const sliderRect = slider.getBoundingClientRect();
-            const sliderCenter = sliderRect.left + sliderRect.width / 2;
+    // Sekcja 2: Infinite Slider
+    const slider = document.querySelector('.section-realizations__grid');
+    if (!slider) return;
 
-            let closestIndex = 0;
-            let closestDistance = Infinity;
+    const originalSlides = document.querySelectorAll('.section-realizations__grid > *');
+    const dots = document.querySelectorAll('.section-realizations__points.dynamic-mobile > *');
+    const totalItems = originalSlides.length;
 
-            slides.forEach((slide, index) => {
-                const rect = slide.getBoundingClientRect();
-                const slideCenter = rect.left + rect.width / 2;
-                const distance = Math.abs(sliderCenter - slideCenter);
+    if (totalItems === 0) return;
 
-                if (distance < closestDistance) {
-                    closestDistance = distance;
-                    closestIndex = index;
-                }
-            });
+    // Klonowanie elementów (tripling)
+    slider.innerHTML = '';
+    [1, 2, 3].forEach(() => {
+        originalSlides.forEach(slide => {
+            slider.appendChild(slide.cloneNode(true));
+        });
+    });
 
-            dots.forEach(dot => dot.classList.remove('active'));
-            dots[closestIndex].classList.add('active');
+    const allSlides = document.querySelectorAll('.section-realizations__grid > *');
+
+    // FIX: Poprawiona literówka offsetLeft
+    const getSetWidth = () => {
+        return allSlides[totalItems].offsetLeft - allSlides[0].offsetLeft;
+    }
+
+    function handleInfiniteScroll() {
+        const setWidth = getSetWidth();
+        const currentScroll = slider.scrollLeft;
+
+        // Logika zapętlania
+        if (currentScroll >= setWidth * 2) {
+            slider.scrollLeft = currentScroll - setWidth;
+        } else if (currentScroll <= setWidth * 0.5) {
+            slider.scrollLeft = currentScroll + setWidth;
         }
+    }
 
-        slider.addEventListener('scroll', () => {
-            requestAnimationFrame(updateActiveDescription);
+    function updateActiveDescription() {
+        const sliderRect = slider.getBoundingClientRect();
+        const sliderCenter = sliderRect.left + sliderRect.width / 2;
+
+        let closestIndex = 0;
+        let closestDistance = Infinity;
+
+        allSlides.forEach((slide, index) => {
+            const rect = slide.getBoundingClientRect();
+            const slideCenter = rect.left + rect.width / 2;
+            const distance = Math.abs(sliderCenter - slideCenter);
+
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestIndex = index;
+            }
         });
 
+        // FIX: Używamy realIndex (modulo), aby dopasować do liczby kropek
+        const realIndex = closestIndex % totalItems;
+
+        dots.forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === realIndex);
+        });
+    }
+
+    const setInitial = () => {
+        slider.scrollLeft = getSetWidth();
         updateActiveDescription();
+    };
+
+    // FIX: Dodano handleInfiniteScroll do eventu scroll
+    slider.addEventListener('scroll', () => {
+        handleInfiniteScroll();
+        requestAnimationFrame(updateActiveDescription);
     });
-    document.addEventListener('DOMContentLoaded', () => {
+
+    // Inicjalizacja
+    setInitial();
+    window.addEventListener('resize', setInitial);
+}});
+
+    document.addEventListener('DOMContentLoaded', () => {   if (window.matchMedia('(min-width: 768px)').matches) {
         const slider = document.querySelector('[data-slider]');
         const slides = Array.from(slider.querySelectorAll('.section-realizations__grid__item'));
         const dots = Array.from(document.querySelectorAll('.section-realizations__points__svg.dynamic'))
@@ -173,7 +230,7 @@
         let prev = 0;
         let current = 1 % slides.length;
         let next = 2 % slides.length;
-        const interval = 2000;
+        const interval = 3000;
         let autoPlayTimeout;
 
         gsap.set(slides, {
@@ -188,7 +245,7 @@
             '--x-pct': '0%', '--x-rem': '0rem', '--x-remm': '0rem',
         });
         gsap.set(slides[next],      {
-            '--x-pct': '100%', '--x-rem': '1.875rem', '--x-remm': '2rem'
+           '--x-pct': '100%', '--x-rem': '1.875rem', '--x-remm': '2rem'
         });
 
 
@@ -337,6 +394,6 @@
                 );
             });
         }
-    });
+    }});
 </script>
 {% endblock extra_js %}

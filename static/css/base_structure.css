@@ -167,7 +167,7 @@
         text-transform: uppercase;
         letter-spacing: 0.09375rem;
 	white-space: normal;
-	margin-bottom: 0;
+	margin-bottom: 0 !important;
         line-height: 2rem;
         font-size: 1.875rem;
     }

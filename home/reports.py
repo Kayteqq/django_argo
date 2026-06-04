@@ -8,11 +8,12 @@ from reportlab.lib.pagesizes import A4
 from django.contrib.staticfiles import finders
 from reportlab.lib import colors
 
+from datetime import datetime
 import time
 
 
 
-def generate_pdf(data, mail):
+def generate_pdf(data, mail, lang):
     pdfmetrics.registerFont(TTFont('Archivo-Regular', finders.find("fonts/Archivo-Regular.ttf")))
     pdfmetrics.registerFont(TTFont('Archivo-SemiBold', finders.find("fonts/Archivo-SemiBold.ttf")))
     pdfmetrics.registerFont(TTFont('Archivo-SemiExpanded-SemiBold', finders.find("fonts/Archivo_SemiExpanded-SemiBold.ttf")))
@@ -106,32 +107,55 @@ def generate_pdf(data, mail):
     # Szczegóły
 
     tab = [line.strip() for line in data['smart'].splitlines() if line.strip()]
+    details_data = []
 
-    details_data = [
-        ["Wybrana linia stylu:", f'{data["styleLine"]}'],
-        ['Wybrany kolor ram:', f'{data["color1"]}'],
-        ["Wybrane użycie produktu:", f'{data["usecase"]}'],
-        ["Wybrany rodzaj produktu:", f'{data["type"]}'],
-        ["Wybrane dodatki:", f'{data["additivies"]}'],
-        ["Wybrany kolor klamek:", f'{data["color2"]}'],
-        ["Naświetla:", f"{'Lewe, ' if data.get('leftWindowEnabled') else '' } "
-                       f"{'Prawe, ' if data.get('rightWindowEnabled') else '' } "
-                       f"{'Górne' if data.get('topWindowEnabled') else '' } "
-                       f"{'Brak' if not data.get('leftWindowEnabled') and not data.get('rightWindowEnabled') and not data.get('topWindowEnabled') else '' } "],
-        ["Wysokość:", f'{data['productHeight']*45}cm'],
-        ['Szerokość:', f'{data['productWidth']*45}cm'],
-        ["Szerokość Drzwi:", f'{data['doorWidth']*45}cm'],
-        ["Szerokość Prawego Naświetla:", f'{data['rightWidth']*45}cm'],
-        ["Szerokość Lewego Naświetla:", f'{data['leftWidth']*45}cm'],
-        ["Wysokość Górnego Naświetla:", f'{'45' if data.get('topWindowEnabled') else '0'}cm'],
+    if lang == 'pl':
+        details_data = [
+            ["Wybrana linia stylu:", f'{data["styleLine"]}'],
+            ["Wybrany kolor ram:", f'{data["color1"]}'],
+            ["Wybrane użycie produktu:", f'{data["usecase"]}'],
+            ["Wybrany rodzaj produktu:", f'{data["type"]}'],
+            ["Wybrane dodatki:", f'{data["additivies"]}'],
+            ["Wybrany kolor klamek:", f'{data["color2"]}'],
+            ["Naświetla:", f"{'Lewe, ' if data.get('leftWindowEnabled') else '' } "
+                           f"{'Prawe, ' if data.get('rightWindowEnabled') else '' } "
+                           f"{'Górne' if data.get('topWindowEnabled') else '' } "
+                           f"{'Brak' if not data.get('leftWindowEnabled') and not data.get('rightWindowEnabled') and not data.get('topWindowEnabled') else '' } "],
+            ["Wysokość:", f'{data['productHeight']*45}cm'],
+            ['Szerokość:', f'{data['productWidth']*45}cm'],
+            ["Szerokość Drzwi:", f'{data['doorWidth']*45}cm'],
+            ["Szerokość Prawego Naświetla:", f'{data['rightWidth']*45}cm'],
+            ["Szerokość Lewego Naświetla:", f'{data['leftWidth']*45}cm'],
+            ["Wysokość Górnego Naświetla:", f'{'45' if data.get('topWindowEnabled') else '0'}cm'],
+        ]
 
+    if lang == 'en':
+        details_data = [
+            ["Chosen style line:", f'{data["styleLine"]}'],
+            ["Chosen frame color:", f'{data["color1"]}'],
+            ["Chosen usecase:", f'{data["usecase"]}'],
+            ["Chosen product type:", f'{data["type"]}'],
+            ["Chosen additions:", f'{data["additivies"]}'],
+            ["Chosen handles color:", f'{data["color2"]}'],
+            ["Transoms:", f"{'Left, ' if data.get('leftWindowEnabled') else '' } "
+                           f"{'Right, ' if data.get('rightWindowEnabled') else '' } "
+                           f"{'Top' if data.get('topWindowEnabled') else '' } "
+                           f"{'None' if not data.get('leftWindowEnabled') and not data.get('rightWindowEnabled') and not data.get('topWindowEnabled') else '' } "],
+            ["Height:", f'{data['productHeight']*45}cm'],
+            ['Width:', f'{data['productWidth']*45}cm'],
+            ["Door Width:", f'{data['doorWidth']*45}cm'],
+            ["Right Transom Width:", f'{data['rightWidth']*45}cm'],
+            ["Left Transom Width:", f'{data['leftWidth']*45}cm'],
+            ["Top Transom Height:", f'{'45' if data.get('topWindowEnabled') else '0'}cm'],
+        ]
 
-    ]
 
     for i in range(3):
         if i < len(tab):
-            if i == 0:
+            if i == 0 and lang == 'pl':
                 details_data.append(["Wybrane elementy smart home:", tab[i]])
+            elif i == 0 and lang == 'en':
+                details_data.append(["Chosen smart home elements:", tab[i]])
             else:
                 details_data.append(["", tab[i]])
         else:
@@ -154,38 +178,63 @@ def generate_pdf(data, mail):
         ('BOTTOMPADDING', (0, 0), (-1, -1), -2),
     ]))
 
+
+    spacer = 240 - 11 * len(tab)
     elements.append(details_table),
-    elements.append(Spacer(1,240))
+    elements.append(Spacer(1,spacer))
 
     keyword = Paragraph('Comments', keyword)
     elements.append(keyword)
     elements.append(Spacer(1,10))
 
 
-
-    left_temp = """Czas wygaśnięcia zgłoszenia: 30 dni
-        Cena: do ustalenia
-        Sposób płatności: do ustalenia
-        Data skompletowania: do ustalenia
-        Transport: do ustalenia
-        
-       
-       
-       
-       
-        
-    """
+    left_temp = ""
+    if lang == 'pl':
+        left_temp = """Czas wygaśnięcia zgłoszenia: 30 dni
+            Cena: do ustalenia
+            Sposób płatności: do ustalenia
+            Data skompletowania: do ustalenia
+            Transport: do ustalenia
+            
+            
+            
+            
+            
+            
+            """
+    if lang == 'en':
+        left_temp = """Order expiration time: 30 dni
+            Price: to be agreed
+            Payment details: to be agreed
+            Date of completion: to be agreed
+            Transportation: to be agreed
+            
+            
+            
+            
+            
+            
+            """
     left_comment = "<br/>".join(left_temp.splitlines())
 
 
-    if mail== '':
-        right_comment = """
-            Data zgłoszenia: 05.02.2026 
+    if mail == '' and lang == 'pl':
+        right_comment = f"""
+            Data zgłoszenia: {datetime.now().strftime("%d.%m.%Y. %H:%M:%S")}
         """
-    else:
+    elif mail == '' and lang == 'en':
+        right_comment = f"""
+            Date of submission: {datetime.now().strftime("%d.%m.%Y. %H:%M:%S")}
+        """
+    elif lang == 'pl':
         right_comment = f"""
             Zapytanie przygotowne przez: {mail}<br/>
-            05.02.2026 
+            Data zgłoszenia: {datetime.now().strftime("%d.%m.%Y. %H:%M:%S")}
+        """
+    elif lang == 'en':
+        right_comment = f"""
+            Prepared by: {mail}<br/>
+            Date of submission: {datetime.now().strftime("%d.%m.%Y. %H:%M:%S")}
         """
 
     comment_table = Table(

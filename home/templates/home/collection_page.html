@@ -39,12 +39,20 @@
         </div>
     </section>
     <section class="section-display-2">
-        <div class="section-display-2__inner-divider left image-wrapper">
+        <div class="section-display-2__inner-divider left image-wrapper"
+	     x-data="{ isMobile: ('ontouchstart' in window) }"
+	     x-init="$refs.vid.play().catch(e => console.log('Autoplay blocked, but we tried!'))"
+	     @mouseenter="if(!isMobile) $refs.vid.pause();"
+	     @mouseleave="if(!isMobile) $refs.vid.play();"
+	>
             <video class="section-display-2__vid"
-                   preload="none"
+                   x-ref="vid"
+		   preload="metadata"
                    autoplay
                    loop
-                   muted>
+		   playsinline
+                   muted
+		   webkit-playsinline>
                 <source src="{{ page.video_display_2.url }}" type="video/mp4">
             </video>
         </div>
@@ -62,21 +70,20 @@
         </div>
 
         <div class="section-details__details">
-            <p class="section-details__keyword text">
-                {{ page.cold_details }}
-            </p>
+            <p class="section-details__keyword text">{{ page.cold_details }}</p>
             {% for detail in page.cold_systems.all %}
                 <div class="section-details__detail"
 		     x-data="{ url: '{{ detail.url|escapejs }}' }"
-		     @click="window.open(url, '_blank', 'noopener,noreferrer')"
-		     @keyup.enter="window.open(url, '_blank', 'noopener,noreferrer')"
-		     role="link"
-		     tabindex="0"
 		>
                     <div class="section-details__desc-img">
                         {% image detail.logo original class='section-details__img' %}
                     </div>
-                    <div class="section-details__desc-cold text">{{ detail.name }}</div>
+                    <div class="section-details__desc-cold text"
+		     	 @click="window.open(url, '_blank', 'noopener,noreferrer')"
+		     	 @keyup.enter="window.open(url, '_blank', 'noopener,noreferrer')"
+			 role="link"
+			 tabindex="0"
+			>{{ detail.name }}</div>
                     {% if detail.metal == 's' %}
                         <div class="section-details__desc-steel text">{{ page.steel_details }}</div>
                     {% elif detail.metal == 'b' %}
@@ -84,21 +91,21 @@
                     {% endif %}
                 </div>
             {% endfor %}
-            <p class="section-details__keyword text">
-                {{ page.hot_details }}
-            </p>
+            <p class="section-details__keyword text">{{ page.hot_details }}</p>
             {% for detail in page.hot_systems.all %}
                 <div class="section-details__detail"
 		     x-data="{ url: '{{ detail.url|escapejs }}' }"
-		     @click="window.open(url, '_blank', 'noopener,noreferrer')"
-		     @keyup.enter="window.open(url, '_blank', 'noopener,noreferrer')"
-		     role="link"
-		     tabindex="0"
 		>
                     <div class="section-details__desc-img">
                         {% image detail.logo original class='section-details__img' %}
                     </div>
-                    <div class="section-details__desc-hot text">{{ detail.name }}</div>
+                    <div class="section-details__desc-hot text"
+		     	 @click="window.open(url, '_blank', 'noopener,noreferrer')"
+		     	 @keyup.enter="window.open(url, '_blank', 'noopener,noreferrer')"
+			 role="link"
+			 tabindex="0"
+			>{{ detail.name }}</div>
+
                     {% if detail.metal == 's' %}
                         <div class="section-details__desc-steel text">{{ page.steel_details }}</div>
                     {% elif detail.metal == 'b' %}

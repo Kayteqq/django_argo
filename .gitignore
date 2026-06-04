@@ -6,3 +6,9 @@ venv/
 *.mp4
 *.webp
 *.WebP
+*.pyc
+*.save*
+__pychache__/
+**/migrations/*.py
+!**/migrations/__init__.py
+
