@@ -495,6 +495,62 @@
     .footer__text.bolded {
         font-family: 'Archivo-SemiBold', sans-serif;
     }
+
+    .eu-banner {
+        display: flex;
+        flex-direction: column;
+        padding: 9.375rem 0 2.25rem 0;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .eu-banner__certificate {
+        height: 46.875rem;
+        aspect-ratio: 1060 / 750;
+        position: relative;
+        margin-bottom: 6.25rem;
+    }
+
+    .eu-banner__certificate__img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .eu-banner__title {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+        text-align: center;
+        margin-bottom: 1.25rem !important;
+    }
+
+    .eu-banner__text {
+        text-align: center;
+        font-size: 1.1875rem;
+        line-height: 1.875rem;
+        margin-bottom: 11.75rem;
+    }
+
+    .eu-banner__footer {
+        position: relative;
+        aspect-ratio: 1250 / 205;
+        height: 12.8125rem;
+    }
+
+    .eu-banner__footer__img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%; !important;
+        height: 100%; !important;
+    }
+
 }
 
 @media(max-width: 767px) {
@@ -596,5 +652,61 @@
 
     .footer__text.bolded {
         font-family: 'Archivo-SemiBold', sans-serif;
+    }
+
+    .eu-banner {
+        display: flex;
+        flex-direction: column;
+        padding: 5rem 2rem 2.5rem 2rem;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .eu-banner__certificate {
+        width: calc(100% - 4rem);
+        aspect-ratio: 1060 / 750;
+        position: relative;
+        margin-bottom: 5rem;
+    }
+
+    .eu-banner__certificate__img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .eu-banner__title {
+        font-size: 2.25rem;
+        line-height: 3.125rem;
+        text-align: center;
+        margin-bottom: 1.25rem !important;
+    }
+
+    .eu-banner__text {
+        text-align: center;
+        font-size: 1.5rem;
+        line-height: 1.75rem;
+        margin-bottom: 7.75rem;
+        letter-spacing: 0.03rem;
+    }
+
+    .eu-banner__footer {
+        width: 100%;
+        position: relative;
+        aspect-ratio: 1250 / 205;
+    }
+
+    .eu-banner__footer__img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100% !important;
+        height: 100% !important;
     }
 }

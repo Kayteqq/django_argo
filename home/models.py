@@ -45,6 +45,7 @@ class CompanyParametersSetting(BaseSiteSetting):
     company_name = models.CharField("company name", max_length=255, blank=True)
     address_line_1 = models.CharField("address line 1", max_length=255, blank=True)
     address_line_2 = models.CharField("address line 2", max_length=255, blank=True)
+    country = models.CharField("country", max_length=255, blank=True)
     nip = models.CharField('nip', max_length=255, blank=True)
     regon = models.CharField("regon", max_length=255, blank=True)
     stamp = models.CharField("stamp", max_length=255, blank=True)
@@ -55,6 +56,7 @@ class CompanyParametersSetting(BaseSiteSetting):
         FieldPanel('address_line_2'),
         FieldPanel('nip'),
         FieldPanel('regon'),
+        FieldPanel('country'),
         FieldPanel('stamp'),
     ]
 
@@ -114,9 +116,34 @@ class FooterLinksPage(Page):
         null=True,
         verbose_name='Links in Second Column',
     )
+
+    eu_title = models.CharField("ZUS Title", max_length=255, blank=True)
+    eu_text = models.TextField("ZUS Text", blank=True)
+
+    eu_certificate = models.ForeignKey(
+        Image,
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='Zus Certificate Image',
+    )
+    eu_footer = models.ForeignKey(
+        Image,
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='EU Footer Image',
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('first_column'),
         FieldPanel('second_column'),
+        FieldPanel('eu_certificate'),
+        FieldPanel('eu_title'),
+        FieldPanel('eu_text'),
+        FieldPanel('eu_footer'),
     ]
 
     show_in_menus = False

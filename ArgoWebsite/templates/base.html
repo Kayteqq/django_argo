@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailuserbar %}
+{% load static wagtailcore_tags wagtailuserbar wagtailimages_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -208,7 +208,19 @@
                     {% endif %}
                 </div>
             </div>
+
         </footer>
+        <section class="eu-banner">
+            <div class="eu-banner__certificate">
+                {% image eu_certificate original class="eu-banner__certificate__img" %}
+            </div>
+            <h1 class="eu-banner__title title">{{ eu_title }}</h1>
+            <p class="eu-banner__text text">{{ eu_text }}</p>
+            <div class="eu-banner__footer">
+                {% image eu_footer original class="eu-banner__footer__img" %}
+            </div>
+        </section>
+
         {# Global javascript #}
         <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 
