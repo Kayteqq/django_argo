@@ -76,13 +76,41 @@ class NavbarLinksPage(Page):
         null=True,
         verbose_name='Navbar Links',
     )
+    eu_certificate_desktop = models.ForeignKey(
+        Image,
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='EU image desktop',
+    )
+    eu_certificate_mobile = models.ForeignKey(
+        Image,
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='EU image mobile',
+    )
+    eu_redirect = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('navbar_links'),
+        FieldPanel('eu_certificate_desktop'),
+        FieldPanel('eu_certificate_mobile'),
+        FieldPanel('eu_redirect'),
     ]
 
     show_in_menus = False
     search_fields = []
+
+
 
     def get_url_parts(self, request=None):
         return None
@@ -140,9 +168,6 @@ class FooterLinksPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('first_column'),
         FieldPanel('second_column'),
-        FieldPanel('eu_certificate'),
-        FieldPanel('eu_title'),
-        FieldPanel('eu_text'),
         FieldPanel('eu_footer'),
     ]
 
@@ -1549,7 +1574,7 @@ class PrivacyPoliticsPage(Page):
     subpage_types = []
 
     policy_title = models.CharField("Title", max_length=255, blank=True)
-    policy_body = RichTextField(blank=True, features=['h2'])
+    policy_body = RichTextField(blank=True, features=['h2', 'image'])
 
     content_panels = Page.content_panels + [
         FieldPanel('policy_title'),

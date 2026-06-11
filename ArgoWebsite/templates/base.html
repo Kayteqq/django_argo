@@ -56,9 +56,10 @@
                     {% elif block.block_type == 'multiple_link' %}
                        <li
                                 class="navbar__links__item"
-                                x-data="{active: false}"
+                                x-data="{active: false, active_mobile: false}"
                                 @mouseenter="active=true"
                                 @mouseleave="active=false"
+                                @click="active_mobile = !active_mobile; console.log(active_mobile);"
                                 @focus="active=true"
                                 @blur="active=false"
                         >
@@ -69,7 +70,7 @@
                                     </a>
                                 {% endif %}
                             {% endfor %}
-                            <ul :class="`navbar__links__expandable ${active ? 'visible' : ''}`"
+                            <ul :class="`navbar__links__expandable ${active ? 'visible' : ''} ${active_mobile ? 'mobile-visible' : ''}`"
                                 class="navbar__links__expandable"
                             >
                                 {% for subblock in block.value %}
@@ -86,6 +87,10 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+
+            <a href="{{ eu_redirect.url }}" class="navbar__eu-img">
+                {% image eu_certificate_desktop original class="navbar__eu-img__img" %}
+            </a>
 
             <span class="navbar__language-name">
                 {{ request.LANGUAGE_CODE }}
@@ -129,6 +134,9 @@
                         {% endif %}
                     {% endfor %}
                 {% endwith %}
+                <a href="{{ eu_redirect.url }}" class="navbar__languages__eu-img">
+                    {% image eu_certificate_mobile original class="navbar__languages__eu-img__img" %}
+                </a>
             </div>
 
             <div
@@ -212,11 +220,6 @@
 
         </footer>
         <section class="eu-banner">
-            <div class="eu-banner__certificate">
-                {% image eu_certificate original class="eu-banner__certificate__img" %}
-            </div>
-            <h1 class="eu-banner__title title">{{ eu_title }}</h1>
-            <p class="eu-banner__text text">{{ eu_text }}</p>
             <div class="eu-banner__footer">
                 {% image eu_footer original class="eu-banner__footer__img" %}
             </div>

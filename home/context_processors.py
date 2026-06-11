@@ -13,11 +13,29 @@ def navbar_links_processor(request):
             navbar_page = NavbarLinksPage.objects.first()
         else:
             navbar_page = translated_navbar_page
+        if not translated_navbar_page or not translated_navbar_page.eu_certificate_desktop:
+            navbar_page_eu_d = NavbarLinksPage.objects.first()
+        else:
+            navbar_page_eu_d = translated_navbar_page
+        if not translated_navbar_page or not translated_navbar_page.eu_certificate_mobile:
+            navbar_page_eu_m = NavbarLinksPage.objects.first()
+        else:
+            navbar_page_eu_m = translated_navbar_page
+        if not translated_navbar_page or not translated_navbar_page.eu_redirect:
+            navbar_page_eu_r = NavbarLinksPage.objects.first()
+        else:
+            navbar_page_eu_r = translated_navbar_page
     else:
         navbar_page = NavbarLinksPage.objects.first()
+        navbar_page_eu_d = NavbarLinksPage.objects.first()
+        navbar_page_eu_m = NavbarLinksPage.objects.first()
+        navbar_page_eu_r = NavbarLinksPage.objects.first()
 
     return {
         'navbar_links': navbar_page.navbar_links if navbar_page else [],
+        'eu_certificate_desktop': navbar_page_eu_d.eu_certificate_desktop if navbar_page_eu_d else [],
+        'eu_certificate_mobile': navbar_page_eu_m.eu_certificate_mobile if navbar_page_eu_m else [],
+        'eu_redirect': navbar_page_eu_r.eu_redirect if navbar_page_eu_r else [],
     }
 
 def footer_links_processor(request):
@@ -34,18 +52,6 @@ def footer_links_processor(request):
             second_column = FooterLinksPage.objects.first()
         else:
             second_column = translated_footer_page
-        if not translated_footer_page or not translated_footer_page.eu_title:
-            eu_title = FooterLinksPage.objects.first()
-        else:
-            eu_title = translated_footer_page
-        if not translated_footer_page or not translated_footer_page.eu_text:
-            eu_text = FooterLinksPage.objects.first()
-        else:
-            eu_text = translated_footer_page
-        if not translated_footer_page or not translated_footer_page.eu_certificate:
-            eu_certificate = FooterLinksPage.objects.first()
-        else:
-            eu_certificate = translated_footer_page
         if not translated_footer_page or not translated_footer_page.eu_footer:
             eu_footer = FooterLinksPage.objects.first()
         else:
@@ -54,18 +60,13 @@ def footer_links_processor(request):
     else:
         first_column = FooterLinksPage.objects.first()
         second_column = FooterLinksPage.objects.first()
-        eu_title = FooterLinksPage.objects.first()
-        eu_text = FooterLinksPage.objects.first()
-        eu_certificate = FooterLinksPage.objects.first()
+
         eu_footer = FooterLinksPage.objects.first()
 
 
     return {
         'footer_first_column_links': first_column.first_column if first_column else [],
         'footer_second_column_links': second_column.second_column if second_column else [],
-        'eu_title': eu_title.eu_title if eu_title else [],
-        'eu_text': eu_text.eu_text if eu_text else [],
-        'eu_certificate': eu_certificate.eu_certificate if eu_certificate else [],
         'eu_footer': eu_footer.eu_footer if eu_footer else [],
 
     }
