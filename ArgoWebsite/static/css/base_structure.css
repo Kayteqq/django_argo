@@ -342,6 +342,12 @@
         right: 0;
         top: 10rem;
         height: 2rem;
+        transition: ease 0.25s;
+        transform:  translateX(2rem)
+    }
+
+    .navbar__eu-img:hover {
+        transform: translateX(0);
     }
 
     .navbar__eu-img__img {
