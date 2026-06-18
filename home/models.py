@@ -1573,10 +1573,12 @@ class PrivacyPoliticsPage(Page):
     parent_page_types = ['RootRedirectPage']
     subpage_types = []
 
+    is_margin_halved = models.BooleanField(default=False, verbose_name="Is margin halved??")
     policy_title = models.CharField("Title", max_length=255, blank=True)
     policy_body = RichTextField(blank=True, features=['h2', 'image'])
 
     content_panels = Page.content_panels + [
+        FieldPanel('is_margin_halved'),
         FieldPanel('policy_title'),
         FieldPanel('policy_body'),
     ]
