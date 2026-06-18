@@ -25,17 +25,36 @@ def navbar_links_processor(request):
             navbar_page_eu_r = NavbarLinksPage.objects.first()
         else:
             navbar_page_eu_r = translated_navbar_page
+        if not translated_navbar_page or not translated_navbar_page.zus_certificate_desktop:
+            navbar_page_zus_d = NavbarLinksPage.objects.first()
+        else:
+            navbar_page_zus_d = translated_navbar_page
+        if not translated_navbar_page or not translated_navbar_page.zus_certificate_mobile:
+            navbar_page_zus_m = NavbarLinksPage.objects.first()
+        else:
+            navbar_page_zus_m = translated_navbar_page
+        if not translated_navbar_page or not translated_navbar_page.zus_redirect:
+            navbar_page_zus_r = NavbarLinksPage.objects.first()
+        else:
+            navbar_page_zus_r = translated_navbar_page
     else:
         navbar_page = NavbarLinksPage.objects.first()
         navbar_page_eu_d = NavbarLinksPage.objects.first()
         navbar_page_eu_m = NavbarLinksPage.objects.first()
         navbar_page_eu_r = NavbarLinksPage.objects.first()
+        navbar_page_zus_d = NavbarLinksPage.objects.first()
+        navbar_page_zus_m = NavbarLinksPage.objects.first()
+        navbar_page_zus_r = NavbarLinksPage.objects.first()
 
     return {
         'navbar_links': navbar_page.navbar_links if navbar_page else [],
         'eu_certificate_desktop': navbar_page_eu_d.eu_certificate_desktop if navbar_page_eu_d else [],
         'eu_certificate_mobile': navbar_page_eu_m.eu_certificate_mobile if navbar_page_eu_m else [],
         'eu_redirect': navbar_page_eu_r.eu_redirect if navbar_page_eu_r else [],
+        'zus_certificate_desktop': navbar_page_zus_d.zus_certificate_desktop if navbar_page_zus_d else [],
+        'zus_certificate_mobile': navbar_page_zus_m.zus_certificate_mobile if navbar_page_zus_m else [],
+        'zus_redirect': navbar_page_zus_r.zus_redirect if navbar_page_zus_r else [],
+
     }
 
 def footer_links_processor(request):

@@ -99,12 +99,38 @@ class NavbarLinksPage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    zus_certificate_desktop = models.ForeignKey(
+        Image,
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='ZUS image desktop',
+    )
+    zus_certificate_mobile = models.ForeignKey(
+        Image,
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='ZUS image mobile',
+    )
+    zus_redirect = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('navbar_links'),
         FieldPanel('eu_certificate_desktop'),
         FieldPanel('eu_certificate_mobile'),
         FieldPanel('eu_redirect'),
+        FieldPanel('zus_certificate_desktop'),
+        FieldPanel('zus_certificate_mobile'),
+        FieldPanel('zus_redirect'),
     ]
 
     show_in_menus = False
