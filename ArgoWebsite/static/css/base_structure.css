@@ -170,8 +170,8 @@
         width: 3rem;
         text-transform: uppercase;
         letter-spacing: 0.09375rem;
-	white-space: normal;
-	margin-bottom: 0 !important;
+        white-space: normal;
+        margin-bottom: 0 !important;
         line-height: 2rem;
         font-size: 1.875rem;
     }
@@ -358,6 +358,8 @@
     .navbar__eu-img {
         background: white;
         border: 0.25rem solid var(--argo-biel);
+        border-right: 4rem solid var(--argo-biel);
+
         display: flex;
         position: fixed;
         right: 0;
@@ -365,11 +367,11 @@
         height: 2rem;
         max-width: 2.625rem;
         transition: ease 0.25s;
-        transform:  translateX(2rem)
+        transform:  translateX(6rem)
     }
 
     .navbar__eu-img:hover {
-        transform: translateX(-0.5rem);
+        transform: translateX(3.25rem);
     }
 
     .navbar__eu-img__img {
@@ -379,6 +381,7 @@
     .navbar__zus-img {
         background: white;
         border: 0.25rem solid var(--argo-biel);
+        border-right: 4rem solid var(--argo-biel);
         display: flex;
         position: fixed;
         right: 0;
@@ -386,11 +389,11 @@
         height: 1.75rem;
         max-width: 2.625rem;
         transition: ease 0.25s;
-        transform:  translateX(2rem)
+        transform:  translateX(6rem)
     }
 
     .navbar__zus-img:hover {
-        transform: translateX(-0.75rem);
+        transform: translateX(3.25rem);
     }
 
     .navbar__zus-img__img {
