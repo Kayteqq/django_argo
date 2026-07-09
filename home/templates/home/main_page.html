@@ -123,11 +123,9 @@
                      data-video
                      x-data="{ isPlaying: false, isMuted: true }"
                      x-init="$watch('isMuted', value => $refs.videoPlayer.muted = value);"
-                     @click="isPlaying ? $refs.videoPlayer.pause() : $refs.videoPlayer.play()"
-                     style="cursor: pointer; position: relative;"
                      >
 
-                    <!-- @click zdjęty z wideo, obsługuje go teraz główny div wyżej -->
+                    <!-- Wideo obsługuje kliknięcie bezpośrednio na sobie (tak jak chciałeś) -->
                     <video
                         x-ref="videoPlayer"
                         class="section-image-divider__video-block__player"
@@ -136,19 +134,33 @@
                         muted
                         loop
                         poster="{{ page.video_poster.url }}"
+                        @click="isPlaying ? $refs.videoPlayer.pause() : $refs.videoPlayer.play()"
                         @play="isPlaying = true"
                         @pause="isPlaying = false"
                     >
                         <source src="{{ page.video.url }}" type="video/mp4">
                     </video>
 
-                    <!-- Poster ukrywa się, gdy wideo gra -->
+                    <!-- Przywrócony oryginalny poster (żeby CSS się nie rozjeżdżał) -->
                     {% image page.video_poster original class='section-image-divider__video-block__poster' %}
 
-                    <!-- DODANO @click.stop - kliknięcie w dźwięk NIE odpala/nie pauzuje wideo -->
+                    <!-- Główny przycisk Play/Pause (klika w wideo, więc działa wszędzie) -->
+                    <button class="section-image-divider__video-block__play"
+                            @click="$refs.videoPlayer.play()"
+                            x-show="!isPlaying"
+                            aria-label="Play video">
+                        <svg width="80" height="80">
+                            <use xlink:href="#player"></use>
+                        </svg>
+                    </button>
+
+                    <!-- PRZYCISK DŹWIĘKU: Dodane .stop.prevent oraz wymuszenie braku akcji na wideo -->
                     <button class="section-image-divider__video-block__audio-toggle"
-                            @click.stop="isMuted = !isMuted"
+                            @click.stop.prevent="isMuted = !isMuted"
+                            @mousedown.stop.prevent
+                            @touchstart.stop.prevent
                             :aria-label="isMuted ? 'Włącz dźwięk' : 'Wycisz dźwięk'">
+
                         <template x-if="isMuted">
                             <svg width="80" height="80">
                                 <use xlink:href="#voiceOff"></use>
@@ -159,16 +171,6 @@
                                 <use xlink:href="#voiceOn"></use>
                             </svg>
                         </template>
-                    </button>
-
-                    <!-- Główny przycisk Play/Pause - teraz jest tylko wizualnym wskaźnikiem -->
-                    <button class="section-image-divider__video-block__play"
-                            x-show="!isPlaying"
-                            aria-label="Play video"
-                            style="pointer-events: none;"> <!-- pointer-events zapobiega blokowaniu kliknięć przez sam przycisk -->
-                        <svg width="80" height="80">
-                            <use xlink:href="#player"></use>
-                        </svg>
                     </button>
 
                 </div>

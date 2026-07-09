@@ -1146,6 +1146,7 @@ class ConfiguratorPage(RoutablePageMixin, Page):
                 FieldPanel("step_word"),
                 FieldPanel("button_word"),
                 FieldPanel("confirm_word"),
+                FieldPanel("other_word"),
             ],
             heading='Base Configurator Parameters'
         ),
