@@ -77,3 +77,16 @@
         margin-left: 2rem;
     }
 }
+
+.section-policy ul, .section-policy ol {
+        margin-left: 1rem;
+        padding-left: 0.5rem;
+    }
+
+.section-policy ul { list-style-type: disc; }
+.section-policy ul ul { list-style-type: circle; }
+.section-policy ul ul ul { list-style-type: square; }
+
+.section-policy ol { list-style-type: upper-roman; }
+.section-policy ol ol { list-style-type: upper-latin; }
+.section-policy ol ol ol { list-style-type: lower-roman; }

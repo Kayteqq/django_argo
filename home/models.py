@@ -1691,7 +1691,7 @@ class PrivacyPoliticsPage(Page):
 
     is_margin_halved = models.BooleanField(default=False, verbose_name="Is margin halved??")
     policy_title = models.CharField("Title", max_length=255, blank=True)
-    policy_body = RichTextField(blank=True, features=['h2', 'image'])
+    policy_body = RichTextField(blank=True, features=['h2', 'image', 'ul', 'ol'])
 
     content_panels = Page.content_panels + [
         FieldPanel('is_margin_halved'),
