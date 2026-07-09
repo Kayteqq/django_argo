@@ -406,7 +406,9 @@
     }
     .section-image-divider__video-block__audio-toggle {
         position: absolute;
-        inset: 0;
+        right: 3.5rem;
+        top: 5.5rem;
+
         z-index: 10;
         margin: auto;
         width: 5rem;
