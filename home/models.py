@@ -19,7 +19,7 @@ from wagtail.fields import StreamField, RichTextField
 from modelcluster.fields import ParentalKey
 
 from .blocks import NavbarBlockContainer, FooterBlockContainer
-from .forms import ContactForm, ConfigForm
+from .forms import ContactForm, ConfigForm, ContactFormConfig
 from .reports import generate_pdf
 
 @register_setting
@@ -975,6 +975,7 @@ class ConfiguratorPage(RoutablePageMixin, Page):
     step_word = models.CharField("Step Word", max_length=32, blank=True)
     button_word = models.CharField("Button Word", max_length=32, blank=True)
     confirm_word = models.CharField("Confirm Word", max_length=32, blank=True)
+    other_word = models.CharField("Other Word", max_length=32, blank=True)
 
 
     title_step_1 = models.CharField("Step 1 - Title", max_length=255, blank=True)
@@ -1105,6 +1106,7 @@ class ConfiguratorPage(RoutablePageMixin, Page):
 
     button_download_summary = models.CharField("Summary - Button Download", max_length=255, blank=True)
     button_mail_summary = models.CharField("Summary - Button Mail", max_length=255, blank=True)
+    button_home_summary = models.CharField("Summary - Button Home", max_length=255, blank=True)
     button_back_summary = models.CharField("Summary - Back", max_length=255, blank=True)
     button_redirection_summary = models.ForeignKey(
         Page,
@@ -1113,6 +1115,17 @@ class ConfiguratorPage(RoutablePageMixin, Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+
+    recipient_mail = models.EmailField()
+    success_message = models.CharField(max_length=255)
+
+    label_name = models.CharField(max_length=100, default="Imie i Nazwisko")
+    label_email = models.CharField(max_length=100, default="E-mail")
+    label_phone = models.CharField(max_length=100, default="Telefon")
+    label_message = models.CharField(max_length=100, default="Twoja wiadomosc")
+    label_send = models.CharField(max_length=100, default="Prześlij wiadomość")
+    label_sending = models.CharField(max_length=100, default="Wysyłanie...")
+    label_attachment = models.CharField(max_length=100, default="Załącznik")
 
 
 
@@ -1284,9 +1297,22 @@ class ConfiguratorPage(RoutablePageMixin, Page):
                 FieldPanel("button_download_summary"),
                 FieldPanel("button_mail_summary"),
                 FieldPanel("button_back_summary"),
-                FieldPanel("button_redirection_summary"),
+                FieldPanel("button_home_summary"),
             ],
             heading='Configurator Summary',
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('recipient_mail'),
+                FieldPanel('success_message'),
+                FieldPanel('label_name'),
+                FieldPanel('label_email'),
+                FieldPanel('label_phone'),
+                FieldPanel('label_message'),
+                FieldPanel('label_send'),
+                FieldPanel('label_sending'),
+            ],
+            heading="Form Settings",
         )
     ]
 
@@ -1295,6 +1321,29 @@ class ConfiguratorPage(RoutablePageMixin, Page):
         pdf_file = generate_pdf(request.session.get('config_data'), '', request.LANGUAGE_CODE)
         return HttpResponse(pdf_file, content_type='application/pdf')
 
+    @route(r'^$')
+    def main_route(self, request, *args, **kwargs):
+        custom_labels = {
+            'name': self.label_name,
+            'email': self.label_email,
+            'phone': self.label_phone,
+            'message': self.label_message,
+        }
+        form = ContactForm(custom_labels=custom_labels)
+
+        if not self.is_featured:
+            locale = Locale.objects.get(language_code=request.LANGUAGE_CODE)
+            root = Page.objects.filter(locale=locale, depth=2).first()
+            if root:
+                return redirect(root.url)
+
+        context = self.get_context(request, *args, **kwargs)
+        context.update({
+            'form': form,
+            'submitted': False,
+        })
+        return render(request, self.template, context)
+
     def serve(self, request, *args, **kwargs):
         if request.method == "POST":
             try:
@@ -1302,27 +1351,67 @@ class ConfiguratorPage(RoutablePageMixin, Page):
             except json.JSONDecodeError:
                 return JsonResponse({"errors": "Invalid JSON"}, status=400)
 
-            form = ConfigForm(data)
-            if not form.is_valid():
-                return JsonResponse({"errors": form.errors}, status=400)
-            request.session['config_data'] = form.cleaned_data
+            custom_header = request.META.get('HTTP_X_CUSTOM_SOURCE')
 
-            return JsonResponse(
-                {
-                    "status": "success",
-                },
-                status=200,
-            )
-        if not self.is_featured:
-            locale = Locale.objects.get(language_code=request.LANGUAGE_CODE)
-            root = Page.objects.filter(
-                locale=locale,
-                depth=2
-            ).first()
-            if root:
-                return redirect(root.url)
+
+            if custom_header == 'ConfiguratorData':
+                data_form = ConfigForm(data)
+                if not data_form.is_valid():
+                    return JsonResponse({"errors": data_form.errors}, status=400)
+
+                request.session['config_data'] = data_form.cleaned_data
+                return JsonResponse({"status": "success"}, status=200)
+
+            if custom_header == 'SendMail':
+                # 1. Importujemy QueryDict
+                from django.http import QueryDict
+
+                # 2. Tworzymy QueryDict i przepisujemy do niego dane z JSON-a
+                q_data = QueryDict(mutable=True)
+                for key, val in data.items():
+                    q_data[key] = val
+
+                # 3. Przekazujemy dane JAWNIE pod argument 'data'
+                form = ContactFormConfig(data=q_data)
+
+                if form.is_valid():
+                    form_data = form.cleaned_data
+                    full_message = f"""
+                            Nowa wiadomość od: {form_data['name']}
+                            Email: {form_data['email']}
+                            Tel: {form_data['phone']}
+
+                            Treść:
+                            {form_data['message']}
+                            """
+                    # ... reszta kodu wysyłki bez zmian ...
+
+                    email = EmailMessage(
+                        subject=f'Kontakt ze strony: {data["name"]}',
+                        body=full_message,
+                        from_email=None,
+                        to=[self.recipient_mail],
+                    )
+
+                    pdf_buffer = generate_pdf(request.session.get('config_data'), form_data['email'], request.LANGUAGE_CODE)
+                    email.attach(
+                        filename='produkt.pdf',
+                        content=pdf_buffer.getvalue(),
+                        mimetype='application/pdf',
+                    )
+
+                    email.send(fail_silently=False)
+
+                    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                        return JsonResponse({
+                            'status': 'success',
+                            'message': self.success_message,
+                        })
+                else:
+                    return JsonResponse({"errors": form.errors}, status=400)
 
         return super().serve(request, *args, **kwargs)
+
 
 class ServicesPage(Page):
     max_count = 1
@@ -1522,9 +1611,9 @@ class ContactPage(Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        config_data = request.session.get('config_data')
+        # config_data = request.session.get('config_data')
         context.update({
-            'config_data': config_data,
+            # 'config_data': config_data,
             'date': datetime.now().strftime("%Y-%m-%d"),
         })
         return context
@@ -1557,13 +1646,13 @@ class ContactPage(Page):
                     to=[self.recipient_mail],
                 )
 
-                if request.session.get('config_data'):
-                    pdf_buffer = generate_pdf(request.session.get('config_data'), data['email'], request.LANGUAGE_CODE)
-                    email.attach(
-                        filename='produkt.pdf',
-                        content=pdf_buffer.getvalue(),
-                        mimetype='application/pdf',
-                    )
+                # if request.session.get('config_data'):
+                #     pdf_buffer = generate_pdf(request.session.get('config_data'), data['email'], request.LANGUAGE_CODE)
+                #     email.attach(
+                #         filename='produkt.pdf',
+                #         content=pdf_buffer.getvalue(),
+                #         mimetype='application/pdf',
+                #     )
 
                 email.send(fail_silently=False)
 

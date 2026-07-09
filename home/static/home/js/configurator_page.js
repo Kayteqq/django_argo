@@ -188,6 +188,10 @@ function globalData() {
     return {
         finalized: false,
         loading: false,
+        emailOpened: false,
+        message: '',
+        errors: {},
+
 
         selectedStyleLine: defaults.styleLine,
         selectedProductUsecase: defaults.productUsecase,
@@ -1490,6 +1494,7 @@ function globalData() {
                         'X-Requested-With': 'XMLHttpRequest',
                         'X-CSRFToken': getCSRFToken(),
                         'Content-Type': 'application/json',
+                        'X-Custom-Source': 'ConfiguratorData'
                     },
                     body: JSON.stringify({
                         'styleLine': this.styleLineDesc,
@@ -1517,6 +1522,62 @@ function globalData() {
                 this.loading=false;
                 if (redirect) window.location.href = el.dataset.url;
             }
+        },
+        async sendMail() {
+            this.loading = true;
+            const payload = {};
+            const inputs = this.$refs.formElement.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                if (input.name) {
+                    if (input.type === 'checkbox') {
+                        payload[input.name] = input.checked;
+                    } else if (input.type === 'radio') {
+                        if (input.checked) {
+                            payload[input.name] = input.value;
+                        }
+                    } else {
+                        payload[input.name] = input.value;
+                    }
+                }
+            });
+
+            // 2. Wysyłamy jako czysty JSON
+            fetch(window.location.href, {
+                method: 'POST',
+                body: JSON.stringify(payload), // Konwersja obiektu na string JSON
+                headers: {
+                    'Content-Type': 'application/json', // Informujemy Django, że leci JSON
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': getCSRFToken(),
+                    'X-Custom-Source': 'SendMail'
+                }
+            })
+// Zastąp fragment z .then(async response => { ... }) tym kodem:
+            .then(async response => {
+                const textData = await response.text(); // Pobieramy najpierw jako surowy tekst
+
+                try {
+                    const data = JSON.parse(textData); // Próbujemy ręcznie sparsować na JSON
+
+                    if (response.ok && data.status === 'success') {
+                        this.message = data.message;
+                        this.$refs.formElement.reset();
+                    } else {
+                        this.errors = data.errors || {};
+                    }
+                } catch (jsonError) {
+                    // Jeśli to nie był JSON, wypisujemy to w konsoli i przeglądarce
+                    console.error("Serwer nie zwrócił JSON-a! Oto co dostaliśmy:");
+                    console.log(textData);
+
+                    // Opcjonalnie: otwórz to w nowym oknie, żeby zobaczyć ładny błąd Django
+                    const errorWindow = window.open();
+                    errorWindow.document.write(textData);
+                    errorWindow.document.close();
+                }
+            })
+            .catch(error => alert(error))
+            .finally(() => { this.loading = false});
         },
 
         initStep3() {

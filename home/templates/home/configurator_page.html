@@ -183,7 +183,7 @@
                     </div>
                     <div class="color-selection__text-input">
                         <button class="color-selection__text-input__button" :class="`color-selection__text-input__button ${customColor1Enabled ? 'filled' : ''}`" @click="customColor1Enabled = !customColor1Enabled"></button>
-                        <p class="text color-selection__text-input__text">Inne</p>
+                        <p class="text color-selection__text-input__text">{{ page.other_word }}</p>
                         <input id="step-1-color" type="text" class="color-selection__text-input__textbox" x-model="customColor1" placeholder="{{ page.step_5_color_placeholder }}" :disabled="!customColor1Enabled">
                         <label for="step-1-color" class="sr-only">{{ page.step_5_color_placeholder }}</label>
                     </div>
@@ -854,7 +854,7 @@
                     </div>
                     <div class="color-selection__text-input">
                         <button class="color-selection__text-input__button" :class="`color-selection__text-input__button ${customColor2Enabled ? 'filled' : ''}`" @click="customColor2Enabled = !customColor2Enabled"></button>
-                        <p class="text color-selection__text-input__text">Inne</p>
+                        <p class="text color-selection__text-input__text">{{ page.other_word }}</p>
                         <input id="step-5-color" type="text" class="color-selection__text-input__textbox" x-model="customColor2" placeholder="{{ page.step_5_color_placeholder }}" :disabled="!customColor2Enabled">
                         <label for="step-5-color" class="sr-only">{{ page.step_5_color_placeholder }}</label>
                     </div>
@@ -982,24 +982,55 @@
                 </div>
             </div>
             <div class="section-summary__container__column right">
-                <div class="section-summary__container__row top">
-                    <p class="section-summary__parameter parameter">{{ page.styleline_summary }}: <span class="text" x-text="styleLineDesc"></span></p>
-                    <p class="section-summary__parameter parameter">{{ page.color_summary }}: <span class="text" x-text="color1Desc"></span></p>
-                    <p class="section-summary__parameter parameter">{{ page.usecase_summary }}: <span class="text"  x-text="productUsecaseDesc"></span></p>
-                    <p class="section-summary__parameter parameter">{{ page.type_summary }}: <span class="text" x-text="productTypeDesc"></span></p>
-                    <p class="section-summary__parameter parameter">{{ page.additions_summary }}: <span class="text" x-text="additivesDesc"></span></p>
-                    <p class="section-summary__parameter parameter">{{ page.color_second_summary }}: <span class="text" x-text="color2Desc"></span></p>
-                    <p class="section-summary__parameter parameter">{{ page.smarthome_summary }}: <span class="text" x-text="smartHomeDesc"></span></p>
-                </div>
+                <template x-if="!emailOpened">
+                    <div class="section-summary__container__row top">
+                        <p class="section-summary__parameter parameter">{{ page.styleline_summary }}: <span class="text" x-text="styleLineDesc"></span></p>
+                        <p class="section-summary__parameter parameter">{{ page.color_summary }}: <span class="text" x-text="color1Desc"></span></p>
+                        <p class="section-summary__parameter parameter">{{ page.usecase_summary }}: <span class="text"  x-text="productUsecaseDesc"></span></p>
+                        <p class="section-summary__parameter parameter">{{ page.type_summary }}: <span class="text" x-text="productTypeDesc"></span></p>
+                        <p class="section-summary__parameter parameter">{{ page.additions_summary }}: <span class="text" x-text="additivesDesc"></span></p>
+                        <p class="section-summary__parameter parameter">{{ page.color_second_summary }}: <span class="text" x-text="color2Desc"></span></p>
+                        <p class="section-summary__parameter parameter">{{ page.smarthome_summary }}: <span class="text" x-text="smartHomeDesc"></span></p>
+                    </div>
+                </template>
+                <template x-if="emailOpened">
+                    <div class="section-summary__container__row top">
+                        <form x-ref="formElement" style="display: contents">
+                            {% for field in form %}
+                                <div class="section-summary__container__row__field parameter {{ field.name }}">
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                {{ field.errors }}
+                                    <template x-for="error in errors['{{ field.name }}']">
+                                        <p x-text="error.message"></p>
+                                    </template>
+                                </div>
+                            {% endfor %}
+                        </form>
+                        <div class="section-summary__container__row__attachment">
+                            <p>Załącznik - <span x-text="selectedStyleLine.charAt(0).toUpperCase() + selectedStyleLine.slice(1).toLowerCase();"></span> (<span x-text="new Date().toLocaleDateString('pl-PL', {day: '2-digit', month: '2-digit', year: 'numeric'}).replace(/\./g, '/')"></span>)</p>
+                        </div>
+                        <button class="section-summary__container__row__button" @click="sendMail().then().catch(e => console.log(e))">
+                            <span>{{ page.label_send }}</span>
+                        </button>
+                    </div>
+                </template>
+
                 <div class="section-summary__buttons" x-ref="buttons">
                     <a href='{% pageurl page %}download-pdf/' target="_blank" class="confirm-button variant_a">
                         <span>{{ page.button_download_summary }}</span>
                     </a>
-                    <button class="confirm-button variant_b"
-                            data-url="{{ page.button_redirection_summary.url }}"
-                            @click.prevent="sendData($el, true).then().catch(e => console.log(e))">
-                        <span>{{ page.button_mail_summary }}</span>
-                    </button>
+                    <template x-if="emailOpened">
+                        <a class="confirm-button variant_b" href="{{ home_page.url }}">
+                            <span>{{ page.button_home_summary }}</span>
+                        </a>
+                    </template>
+                    <template x-if="!emailOpened">
+                        <button class="confirm-button variant_b"
+                                @click.prevent="emailOpened = true">
+                            <span>{{ page.button_mail_summary }}</span>
+                        </button>
+                    </template>
                 </div>
             </div>
         </div>
