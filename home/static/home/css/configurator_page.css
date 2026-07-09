@@ -405,7 +405,6 @@ input[type="range"][disabled]
     }
 
     .shape-configurator__input {
-        height: 35rem;
 
         display: flex;
         flex-direction: column;
@@ -455,6 +454,8 @@ input[type="range"][disabled]
         cursor: pointer;
         margin: 0 0 0 0;
         padding: 0;
+        touch-action: none;
+
     }
 
     input[type="range"]::-webkit-slider-runnable-track {
@@ -475,6 +476,8 @@ input[type="range"][disabled]
         border-radius: 1rem;
         margin: 0;
         transform: translateY(-0.625rem);
+
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
     }
 
     input[type="range"]::-moz-range-thumb {
@@ -483,6 +486,8 @@ input[type="range"][disabled]
         background: var(--argo-czarny);
         border: none;
         border-radius: 1rem;
+
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
     }
 
 
