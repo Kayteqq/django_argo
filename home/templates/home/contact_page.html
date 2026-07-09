@@ -50,7 +50,7 @@
                             <div class="section-contact__field {{ field.name }}">
                                 {{ field.label_tag }}
                                 {{ field }}
-                            {{ field.errors }}
+                                {{ field.errors }}
                                 <template x-for="error in errors['{{ field.name }}']">
                                     <p x-text="error.message"></p>
                                 </template>
@@ -65,11 +65,9 @@
                             {{ page.label_sending }}
                         </span>
                     </button>
-{#                    {% if config_data %}#}
-{#                        <div class="section-contact__attachment">#}
-{#                            {{ page.label_attachment }} - {{ config_data.styleLine }} {{ date }}#}
-{#                        </div>#}
-{#                    {% endif %}#}
+                    <div x-show="message && !loading" class="section-contact__success-message" >
+                        {{ page.success_message }}
+                    </div>
                 </form>
             </div>
         </section>
@@ -93,6 +91,9 @@
                 message: '',
                 errors: {},
                 submitData() {
+                    this.loading = true;
+                    this.message = '';
+                    this.errors = {};
                     this.loading = true;
                     const formData = new FormData(this.$refs.formElement);
 
@@ -118,7 +119,7 @@
                         }
                     })
                     .catch(error => alert(error))
-                    .finally(() => { this.loading = false});
+                    .finally(() => { this.loading = false });
                 }
             }
         }

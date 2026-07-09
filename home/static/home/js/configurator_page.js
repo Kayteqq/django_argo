@@ -1524,6 +1524,8 @@ function globalData() {
             }
         },
         async sendMail() {
+            this.message = '';
+            this.errors = {};
             this.loading = true;
             const payload = {};
             const inputs = this.$refs.formElement.querySelectorAll('input, select, textarea');

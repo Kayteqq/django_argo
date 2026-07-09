@@ -978,6 +978,11 @@ input[type="range"][disabled]
         letter-spacing: 0.09375rem;
         height: 5.625rem;
     }
+    .section-summary__container__row__success-message {
+        margin-top: 1rem;
+        font-family: 'Archivo-Regular', sans-serif;
+        font-size: 1.5rem;
+    }
 }
 @media(min-width: 768px) {
     .motto {
@@ -1755,6 +1760,11 @@ input[type="range"][disabled]
         font-size: 0.9375rem;
         letter-spacing: 0.09375rem;
         height: 3.125rem;
+    }
+    .section-summary__container__row__success-message {
+        margin-top: 1.25rem;
+        font-family: 'Archivo-Regular', sans-serif;
+        font-size: 1.1875rem;
     }
 }
 

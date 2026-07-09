@@ -99,6 +99,12 @@
     }
 
 
+    .section-contact__success-message {
+        margin-top: 1.875rem;
+        font-family: 'Archivo-Regular', sans-serif;
+        font-size: 1.5rem;
+    }
+
     .section-map {
         height: 31.25rem;
     }
@@ -214,6 +220,12 @@
         font-size: 1.1875rem;
     }
 
+    .section-contact__success-message {
+        margin-top: 1.875rem;
+        font-family: 'Archivo-Regular', sans-serif;
+        font-size: 1.1875rem;
+    }
+
     .section-map {
         height: 40.625rem;
     }
@@ -223,4 +235,6 @@
         height: 100%;
         border: none;
     }
+
+
 }

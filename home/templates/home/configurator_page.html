@@ -1013,6 +1013,9 @@
                         <button class="section-summary__container__row__button" @click="sendMail().then().catch(e => console.log(e))">
                             <span>{{ page.label_send }}</span>
                         </button>
+                        <div x-show="message && !loading" class="section-summary__container__row__success-message" >
+                            {{ page.success_message }}
+                        </div>
                     </div>
                 </template>
 
