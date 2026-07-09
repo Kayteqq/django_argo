@@ -83,9 +83,9 @@
         padding-left: 0.5rem;
     }
 
-.section-policy ul { list-style-type: disc; }
-.section-policy ul ul { list-style-type: circle; }
-.section-policy ul ul ul { list-style-type: square; }
+.section-policy ul { list-style-type: decimal; }
+.section-policy ul ul { list-style-type: lower-alpha; }
+.section-policy ul ul ul { list-style-type: lower-latin; }
 
 .section-policy ol { list-style-type: upper-roman; }
 .section-policy ol ol { list-style-type: upper-latin; }
