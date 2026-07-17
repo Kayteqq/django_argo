@@ -149,7 +149,7 @@
                             @click="$refs.videoPlayer.play()"
                             x-show="!isPlaying"
                             aria-label="Play video">
-                        <svg width="80" height="80">
+                        <svg style="width: 85%; height: 85%">
                             <use xlink:href="#player"></use>
                         </svg>
                     </button>
@@ -157,17 +157,15 @@
                     <!-- PRZYCISK DŹWIĘKU: Dodane .stop.prevent oraz wymuszenie braku akcji na wideo -->
                     <button class="section-image-divider__video-block__audio-toggle"
                             @click.stop.prevent="isMuted = !isMuted"
-                            @mousedown.stop.prevent
-                            @touchstart.stop.prevent
                             :aria-label="isMuted ? 'Włącz dźwięk' : 'Wycisz dźwięk'">
 
                         <template x-if="isMuted">
-                            <svg width="80" height="80">
+                            <svg style="width: 85%; height: 85%">
                                 <use xlink:href="#voiceOff"></use>
                             </svg>
                         </template>
                         <template x-if="!isMuted">
-                            <svg width="80" height="80">
+                            <svg style="width: 85%; height: 85%">
                                 <use xlink:href="#voiceOn"></use>
                             </svg>
                         </template>

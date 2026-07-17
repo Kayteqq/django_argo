@@ -395,8 +395,8 @@
         inset: 0;
         z-index: 10;
         margin: auto;
-        width: 5rem;
-        height: 5rem;
+        width: 7rem;
+        height: 7rem;
         border: 0;
         background: none;
         cursor: pointer;
@@ -407,18 +407,18 @@
     .section-image-divider__video-block__audio-toggle {
         position: absolute;
         right: 3.5rem;
-        top: 5.5rem;
+        top: 3.5rem;
 
         z-index: 10;
         margin: auto;
-        width: 5rem;
-        height: 5rem;
+        width: 6rem;
+        height: 6rem;
         border: 0;
         background: none;
         cursor: pointer;
         display: flex;
-        align-items: flex-end;
-        justify-content: flex-end;
+        align-items: center;
+        justify-content: center;
 
     }
 
@@ -814,8 +814,8 @@
         inset: 0;
         z-index: 10;
         margin: auto;
-        width: 80px;
-        height: 80px;
+        width: 6.25rem;
+        height: 6.25rem;
         border: 0;
         background: none;
         cursor: pointer;
@@ -830,14 +830,14 @@
         right: 10rem;
         z-index: 10;
         margin: auto;
-        width: 80px;
-        height: 80px;
+        width: 6.25rem;
+        height: 6.25rem;
         border: 0;
         background: none;
         cursor: pointer;
         display: flex;
-        align-items: flex-end;
-        justify-content: flex-start;
+        align-items: center;
+        justify-content: center;
     }
 
     .section-image-divider__video-block__player {
