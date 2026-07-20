@@ -12,7 +12,7 @@
 <main>
     <section class="section-hero">
         <div class="section-hero__inner-divider left">
-            {% image page.image_hero original class='section-hero__img' %}
+            {% image page.image_hero max-1200x800 format-webp class='section-hero__img' %}
         </div>
         <div class="section-hero__inner-divider right">
             <svg class="section-hero__svg-container">
@@ -30,7 +30,7 @@
     </section>
     <section class="section-display-1">
         <div class="section-display-1__inner-divider right image-wrapper">
-            {% image page.image_display_1 original class='section-display-1__img' %}
+            {% image page.image_display_1 max-1200x800 format-webp class='section-display-1__img' %}
         </div>
         <div class="section-display-1__inner-divider left">
             <p class="section-display-1__motto motto">{{ page.motto_display_1 }}</p>
@@ -76,7 +76,7 @@
 		     x-data="{ url: '{{ detail.url|escapejs }}' }"
 		>
                     <div class="section-details__desc-img">
-                        {% image detail.logo original class='section-details__img' %}
+                        {% image detail.logo max-1200x800 format-webp class='section-details__img' %}
                     </div>
                     <div class="section-details__desc-cold text"
 		     	 @click="window.open(url, '_blank', 'noopener,noreferrer')"
@@ -97,7 +97,7 @@
 		     x-data="{ url: '{{ detail.url|escapejs }}' }"
 		>
                     <div class="section-details__desc-img">
-                        {% image detail.logo original class='section-details__img' %}
+                        {% image detail.logo max-1200x800 format-webp class='section-details__img' %}
                     </div>
                     <div class="section-details__desc-hot text"
 		     	 @click="window.open(url, '_blank', 'noopener,noreferrer')"

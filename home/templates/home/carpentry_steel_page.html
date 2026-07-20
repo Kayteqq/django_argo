@@ -12,7 +12,7 @@
 <main>
     <section class="section-hero">
         <div class="section-hero__inner-divider left image-wrapper">
-            {% image page.image_hero original class='section-hero__img' %}
+            {% image page.image_hero max-1200x800 format-webp class='section-hero__img' %}
         </div>
         <div class="section-hero__inner-divider right">
             <svg class="section-hero__svg-container">
@@ -28,7 +28,7 @@
         <div class="section-collections__segment">
             <div class="section-collections__segment__certificate">
                 <div class="section-collections__segment__img-wrapper">
-                    {% image page.image_1_collections original class='section-collections__segment__img' %}
+                    {% image page.image_1_collections max-1200x800 format-webp class='section-collections__segment__img' %}
                 </div>
             </div>
             <h1 class="section-collections__segment__subtitle subtitle">{{ page.subtitle_1_collections }}</h1>
@@ -40,7 +40,7 @@
         <div class="section-collections__segment active">
             <div class="section-collections__segment__certificate">
                 <div class="section-collections__segment__img-wrapper">
-                    {% image page.image_2_collections original class='section-collections__segment__img' %}
+                    {% image page.image_2_collections max-1200x800 format-webp class='section-collections__segment__img' %}
                 </div>
             </div>
             <h1 class="section-collections__segment__subtitle subtitle">{{ page.subtitle_2_collections }}</h1>
@@ -52,7 +52,7 @@
         <div class="section-collections__segment">
             <div class="section-collections__segment__certificate">
                 <div class="section-collections__segment__img-wrapper">
-                    {% image page.image_3_collections original class='section-collections__segment__img' %}
+                    {% image page.image_3_collections max-1200x800 format-webp class='section-collections__segment__img' %}
                 </div>
             </div>
             <h1 class="section-collections__segment__subtitle subtitle">{{ page.subtitle_3_collections }}</h1>
@@ -69,7 +69,7 @@
         <div class="section-realizations__grid" data-slider>
             {% for item in page.realizations_images.all %}
                 <div class="section-realizations__grid__item image-wrapper">
-                    {% image item.image original %}
+                    {% image item.image max-1200x800 format-webp %}
                 </div>
             {% endfor %}
         </div>
@@ -104,11 +104,11 @@
             </a>
         </div>
         <div class="section-projects__inner-divider right image-wrapper">
-            {% image page.image_projects original class='section-projects__img' %}
+            {% image page.image_projects max-1200x800 format-webp class='section-projects__img' %}
         </div>
     </section>
     <section class="section-image-divider image-wrapper">
-        {% image page.image_divider original class='section-image-divider__img' %}
+        {% image page.image_divider max-1920x1080 format-webp class='section-image-divider__img' %}
     </section>
 </main>
 

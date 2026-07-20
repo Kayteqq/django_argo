@@ -26,7 +26,7 @@
                     <div class="section-galleries__full__slider">
                         {% for block in item.images %}
                             <div class="section-galleries__full__image image-wrapper" style="{% if not forloop.first %} transform: translate(100%) {% endif %}">
-                                {% image block.value original loading='lazy' class="section-gallery__full__image__img"  %}
+                                {% image block.value max-1920x1080 format-webp loading='lazy' class="section-gallery__full__image__img"  %}
                             </div>
                         {% endfor %}
                         <button
@@ -101,9 +101,9 @@
                          @click="galleryEnter({{ forloop.parentloop.counter0 }})"
                          aria-label="Open Gallery Button">
                         {% if forloop.first %}
-                            {% image block.value original loading="lazy" class="section-gallery__item__image__img" %}
+                            {% image block.value max-1200x800 format-webp loading="lazy" class="section-gallery__item__image__img" %}
                         {% else %}
-                            {% image block.value original loading="lazy" class="section-gallery__item__image__img" %}
+                            {% image block.value max-1200x800 format-webp loading="lazy" class="section-gallery__item__image__img" %}
                         {% endif %}
                     </div>
                 {% endfor %}

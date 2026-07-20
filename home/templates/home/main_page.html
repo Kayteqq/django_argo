@@ -15,7 +15,7 @@
             <div class="section-hero__slider" data-slider>
                 {% for item in page.hero_images.all %}
                     <div class="section-hero__slider__slide image-wrapper">
-                        {% image item.image original %}
+                        {% image item.image max-1920x1080 format-webp %}
                     </div>
                 {% endfor %}
                 <button
@@ -64,7 +64,7 @@
         <section class="section-carpentry">
             <div class="section-carpentry__inner-divider left">
                 <div class="section-carpentry__img-container image-wrapper">
-                    {% image page.image_steel_carpentry original class='section-carpentry__img' %}
+                    {% image page.image_steel_carpentry max-1200x800 format-webp class='section-carpentry__img' %}
                 </div>
                 <p class="section-carpentry__subtitle subtitle">{{ page.title_steel_carpentry }}</p>
                 <p class="section-carpentry__text text">{{ page.text_steel_carpentry }}</p>
@@ -74,7 +74,7 @@
             </div>
             <div class="section-carpentry__inner-divider right">
                 <div class="section-carpentry__img-container image-wrapper">
-                    {% image page.image_aluminium_carpentry original class='section-carpentry__img' %}
+                    {% image page.image_aluminium_carpentry max-1200x800 format-webp original class='section-carpentry__img' %}
                 </div>
                 <p class="section-carpentry__subtitle subtitle">{{ page.title_aluminium_carpentry }}</p>
                 <p class="section-carpentry__text text">{{ page.text_aluminium_carpentry }}</p>
@@ -88,7 +88,7 @@
                 <svg class="section-steel__img__svg"><use xlink:href="#rightTriangle"></use></svg>
 
                 <div class="section-steel__img-container image-wrapper">
-                    {% image page.image_steel original class="section-steel__img" %}
+                    {% image page.image_steel max-1200x800 format-webp class="section-steel__img" %}
                 </div>
             </div>
             <div class="section-steel__inner-divider">
@@ -105,7 +105,7 @@
         </section>
         <section class="section-aluminium">
             <div class="section-aluminium__inner-divider right image-wrapper">
-                {% image page.image_aluminium original class='section-aluminium__img' %}
+                {% image page.image_aluminium max-1200x800 format-webp class='section-aluminium__img' %}
                 <svg class="section-aluminium__img__svg"><use xlink:href="#rightTriangle"></use></svg>
             </div>
             <div class="section-aluminium__inner-divider left">
@@ -142,7 +142,7 @@
                     </video>
 
                     <!-- Przywrócony oryginalny poster (żeby CSS się nie rozjeżdżał) -->
-                    {% image page.video_poster original class='section-image-divider__video-block__poster' %}
+                    {% image page.video_poster max-1920x1080 format-webp class='section-image-divider__video-block__poster' %}
 
                     <!-- Główny przycisk Play/Pause (klika w wideo, więc działa wszędzie) -->
                     <button class="section-image-divider__video-block__play"

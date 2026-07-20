@@ -50,7 +50,7 @@
                     <div class="selection step-1">
                         <div :class="`selection__element step-1 ${selectedStyleLine === 'industrial' ? 'selection__element--selected' : ''}`" @mousedown="chooseStyleLine('industrial')">
                             <div class="selection__frame">
-                                {% image page.step_1_choice_1_img original class='selection__frame__vis' %}
+                                {% image page.step_1_choice_1_img max-1200x800 format-webp class='selection__frame__vis' %}
                             </div>
                             <div class="selection__description">
                                 <h2 class="selection__description__subtitle subtitle">
@@ -66,7 +66,7 @@
                         </div>
                         <div :class="`selection__element step-1 ${selectedStyleLine === 'vintage' ? 'selection__element--selected' : ''}`" @mousedown="chooseStyleLine('vintage')">
                             <div class="selection__frame">
-                                {% image page.step_1_choice_2_img original class='selection__frame__vis' %}
+                                {% image page.step_1_choice_2_img max-1200x800 format-webp class='selection__frame__vis' %}
                             </div>
                             <div class="selection__description">
                                 <h2 class="selection__description__subtitle subtitle">
@@ -82,7 +82,7 @@
                         </div>
                         <div :class="`selection__element step-1 ${selectedStyleLine === 'glamour' ? 'selection__element--selected' : ''}`" @mousedown="chooseStyleLine('glamour')">
                             <div class="selection__frame">
-                                {% image page.step_1_choice_3_img original class='selection__frame__vis' %}
+                                {% image page.step_1_choice_3_img max-1200x800 format-webp class='selection__frame__vis' %}
                             </div>
                             <div class="selection__description">
                                 <h2 class="selection__description__subtitle subtitle">
@@ -219,7 +219,7 @@
                     <div class="selection step-2">
                         <div :class="`selection__element step-2 ${selectedProductUsecase === 'profile-hot' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductUsecase('profile-hot')">
                             <div class="selection__frame">
-                                {% image page.step_2_choice_2_img original class='selection__frame__vis' %}
+                                {% image page.step_2_choice_2_img max-1200x800 format-webp class='selection__frame__vis' %}
                             </div>
                             <div class="selection__description">
                                 <h3 class="selection__description__subtitle subtitle">
@@ -233,7 +233,7 @@
                         </div>
                         <div :class="`selection__element step-2 ${selectedProductUsecase === 'profile-cold' ? 'selection__element--selected' : ''}`" @mousedown="chooseProductUsecase('profile-cold')">
                             <div class="selection__frame">
-                                {% image page.step_2_choice_1_img original class='selection__frame__vis' %}
+                                {% image page.step_2_choice_1_img max-1200x800 format-webp class='selection__frame__vis' %}
                             </div>
                             <div class="selection__description">
                                 <h3 class="selection__description__subtitle subtitle">
@@ -288,7 +288,7 @@
                              class="selection__element step-3"
                         >
                             <div class="selection__frame">
-                                {% image page.step_3_choice_1_img original class='selection__frame__vis' %}
+                                {% image page.step_3_choice_1_img max-1200x800 format-webp class='selection__frame__vis' %}
                             </div>
                             <div class="selection__description">
                                 <h3 class="selection__description__small-subtitle subtitle">
@@ -303,7 +303,7 @@
                              class="selection__element step-3"
                         >
                             <div class="selection__frame">
-                                {% image page.step_3_choice_2_img original class='selection__frame__vis' %}
+                                {% image page.step_3_choice_2_img max-1200x800 format-webp class='selection__frame__vis' %}
                             </div>
                             <div class="selection__description">
                                 <h3 class="selection__description__small-subtitle subtitle">
@@ -318,7 +318,7 @@
                              class="selection__element step-3"
                         >
                             <div class="selection__frame">
-                                {% image page.step_3_choice_3_img original class='selection__frame__vis' %}
+                                {% image page.step_3_choice_3_img max-1200x800 format-webp class='selection__frame__vis' %}
                             </div>
                             <div class="selection__description">
                                 <h3 class="selection__description__small-subtitle subtitle">
@@ -333,7 +333,7 @@
                              class="selection__element step-3"
                         >
                             <div class="selection__frame">
-                                {% image page.step_3_choice_4_img original class='selection__frame__vis' %}
+                                {% image page.step_3_choice_4_img max-1200x800 format-webp class='selection__frame__vis' %}
                             </div>
                             <div class="selection__description">
                                 <h3 class="selection__description__small-subtitle subtitle">
@@ -348,7 +348,7 @@
                              class="selection__element step-3"
                         >
                             <div class="selection__frame">
-                                {% image page.step_3_choice_5_img original class='selection__frame__vis' %}
+                                {% image page.step_3_choice_5_img max-1200x800 format-webp class='selection__frame__vis' %}
                             </div>
                             <div class="selection__description">
                                 <h3 class="selection__description__small-subtitle subtitle">
@@ -616,13 +616,13 @@
                         >
                             <div class="selection__frame">
                                 <template x-if="selectedStyleLine === 'industrial'">
-                                    {% image page.step_5_industrial_choice_1_img original class='selection__frame__vis' %}
+                                    {% image page.step_5_industrial_choice_1_img max-1200x800 format-webp class='selection__frame__vis' %}
                                 </template>
                                 <template x-if="selectedStyleLine === 'glamour'">
-                                    {% image page.step_5_glamour_choice_1_img original class='selection__frame__vis' %}
+                                    {% image page.step_5_glamour_choice_1_img max-1200x800 format-webp class='selection__frame__vis' %}
                                 </template>
                                 <template x-if="selectedStyleLine === 'vintage'">
-                                    {% image page.step_5_vintage_choice_1_img original class='selection__frame__vis' %}
+                                    {% image page.step_5_vintage_choice_1_img max-1200x800 format-webp class='selection__frame__vis' %}
                                 </template>
                             </div>
                             <template x-if="selectedStyleLine === 'industrial'">
@@ -666,13 +666,13 @@
                         >
                             <div class="selection__frame">
                                 <template x-if="selectedStyleLine === 'industrial'">
-                                    {% image page.step_5_industrial_choice_2_img original class='selection__frame__vis' %}
+                                    {% image page.step_5_industrial_choice_2_img max-1200x800 format-webp class='selection__frame__vis' %}
                                 </template>
                                 <template x-if="selectedStyleLine === 'glamour'">
-                                    {% image page.step_5_glamour_choice_2_img original class='selection__frame__vis' %}
+                                    {% image page.step_5_glamour_choice_2_img max-1200x800 format-webp class='selection__frame__vis' %}
                                 </template>
                                 <template x-if="selectedStyleLine === 'vintage'">
-                                    {% image page.step_5_vintage_choice_2_img original class='selection__frame__vis' %}
+                                    {% image page.step_5_vintage_choice_2_img max-1200x800 format-webp class='selection__frame__vis' %}
                                 </template>
                             </div>
                             <template x-if="selectedStyleLine === 'industrial'">
@@ -716,13 +716,13 @@
                         >
                             <div class="selection__frame">
                                 <template x-if="selectedStyleLine === 'industrial'">
-                                    {% image page.step_5_industrial_choice_3_img original class='selection__frame__vis' %}
+                                    {% image page.step_5_industrial_choice_3_img max-1200x800 format-webp class='selection__frame__vis' %}
                                 </template>
                                 <template x-if="selectedStyleLine === 'glamour'">
-                                    {% image page.step_5_glamour_choice_3_img original class='selection__frame__vis' %}
+                                    {% image page.step_5_glamour_choice_3_img max-1200x800 format-webp class='selection__frame__vis' %}
                                 </template>
                                 <template x-if="selectedStyleLine === 'vintage'">
-                                    {% image page.step_5_vintage_choice_3_img original class='selection__frame__vis' %}
+                                    {% image page.step_5_vintage_choice_3_img max-1200x800 format-webp class='selection__frame__vis' %}
                                 </template>
                             </div>
                             <template x-if="selectedStyleLine === 'industrial'">
@@ -890,7 +890,7 @@
                     <div class="selection step-6">
                         <div class="selection__element step-6">
                             <div class="selection__frame">
-                                {% image page.step_6_choice_1_img original class='selection__frame__vis' %}
+                                {% image page.step_6_choice_1_img max-1200x800 format-webp class='selection__frame__vis' %}
                             </div>
                             <div class="selection__description">
                                 <h2 class="selection__description__subtitle subtitle">
@@ -907,7 +907,7 @@
                         </div>
                         <div class="selection__element step-6">
                             <div class="selection__frame">
-                                {% image page.step_6_choice_2_img original class='selection__frame__vis' %}
+                                {% image page.step_6_choice_2_img max-1200x800 format-webp class='selection__frame__vis' %}
                             </div>
                             <div class="selection__description">
                                 <h2 class="selection__description__subtitle subtitle">
@@ -924,7 +924,7 @@
                         </div>
                         <div class="selection__element step-6">
                             <div class="selection__frame">
-                                {% image page.step_6_choice_3_img original class='selection__frame__vis' %}
+                                {% image page.step_6_choice_3_img max-1200x800 format-webp class='selection__frame__vis' %}
                             </div>
                             <div class="selection__description">
                                 <h2 class="selection__description__subtitle subtitle">

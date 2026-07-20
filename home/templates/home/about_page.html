@@ -12,7 +12,7 @@
     <main>
         <section class="section-hero">
             <div class="section-hero__inner-divider right image-wrapper">
-                {% image page.image_hero original class='section-hero__img' %}
+                {% image page.image_hero max-1200x800 format-webp class='section-hero__img' %}
                 <svg class="section-hero__img__svg"><use xlink:href="#rightTriangle"></use></svg>
             </div>
             <div class="section-hero__inner-divider left">
@@ -23,7 +23,7 @@
         </section>
         <section class="section-quality">
             <div class="section-quality__inner-divider left image-wrapper">
-                {% image page.image_quality original class='section-quality__img' %}
+                {% image page.image_quality max-1200x800 format-webp class='section-quality__img' %}
             </div>
             <div class="section-quality__inner-divider right">
                 <p class="section-quality__motto motto">{{ page.motto_quality }}</p>
@@ -34,7 +34,7 @@
         </section>
         <section class="section-project">
             <div class="section-project__inner-divider right image-wrapper">
-                {% image page.image_project original class='section-project__img' %}
+                {% image page.image_project max-1200x800 format-webp class='section-project__img' %}
             </div>
             <div class="section-project__inner-divider left">
                 <p class="section-project__motto motto">{{ page.motto_project }}</p>
@@ -44,19 +44,19 @@
                     <div class="section-project__business__grid__flex">
                         <p class="section-project__business__grid__flex__text text">{{ page.provider_profiles_project }}</p>
                         {% for image in page.logos_profiles_project %}
-                            {% image image.value original class='section-project__business__img' %}
+                            {% image image.value max-1200x800 format-webp class='section-project__business__img' %}
                         {% endfor %}
                     </div>
                     <div class="section-project__business__grid__flex">
                         <p class="section-project__business__grid__flex__text text">{{ page.provider_glass_project }}</p>
                         {% for image in page.logos_glass_project %}
-                            {% image image.value original class='section-project__business__img' %}
+                            {% image image.value max-1200x800 format-webp class='section-project__business__img' %}
                         {% endfor %}
                     </div>
                     <div class="section-project__business__grid__flex">
                         <p class="section-project__business__grid__flex__text text">{{ page.provider_software_project }}</p>
                         {% for image in page.logos_software_project %}
-                            {% image image.value original class='section-project__business__img' %}
+                            {% image image.value max-1200x800 format-webp class='section-project__business__img' %}
                         {% endfor %}
                     </div>
                 </div>
@@ -69,7 +69,7 @@
         {% if page.image_team and page.title_team and page.text_team %}
             <section class="section-team">
                 <div class="section-team__inner-divider top image-wrapper">
-                    {% image page.image_team original class='section-team__img' %}
+                    {% image page.image_team max-1920x1080 format-webp class='section-team__img' %}
                 </div>
                 <div class="section-team__inner-divider bottom">
                     <h1 class="section-team__title title">{{ page.title_team }}</h1>
@@ -83,7 +83,7 @@
                     <div class="section-certificates__segment">
                         <div class="section-certificates__segment__certificate">
                             <div class="section-certificates__segment__img-wrapper">
-                                {% image item.image original class='section-certificates__segment__img' %}
+                                {% image item.image max-1200x800 format-webp class='section-certificates__segment__img' %}
                             </div>
                         </div>
                         <h1 class="section-certificates__segment__subtitle subtitle">{{ item.title }}</h1>
@@ -94,7 +94,7 @@
             <div class="section-certificates__certificates-mobile">
                 {% for item in page.certificates.all %}
                     <div class="section-certificates__segment__certificate" data-index="{{ forloop.counter0 }}">
-                        {% image item.image original class='section-certificates__segment__img' %}
+                        {% image item.image max-1200x800 format-webp class='section-certificates__segment__img' %}
                     </div>
                 {% endfor %}
             </div>
@@ -130,7 +130,7 @@
         <section class="section-references">
             <div class="section-references__inner-divider left">
                 <svg class="section-references__svg"><use xlink:href="#argoArrow"></use></svg>
-                {% image page.image_references original class='section-references__img' %}
+                {% image page.image_references max-1200x800 format-webp class='section-references__img' %}
             </div>
             <div class="section-references__inner-divider right" data-slider="references">
                 <p class="section-references__motto motto">
